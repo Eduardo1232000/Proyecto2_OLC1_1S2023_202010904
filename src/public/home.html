@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Dragon - Home</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    
+    <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark mb-5">
+      <a class="navbar-brand" href="#">
+        <img
+          src="./assets/logo.png"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+        />
+        Black Dragon
+
+        <button id="boton_ver_perfil" type="submit" class="btn btn-primary w-20" >
+          Ver Perfil
+        </button>
+
+        <button id="boton_inicio" type="submit" class="btn btn-primary w-20" >
+          Inicio
+        </button>
+
+        <button id="boton_publicacion" type="submit" class="btn btn-info w-50" >
+          Crear Publicacion
+        </button>
+        <input id="buscador_input" type="search" placeholder="Ingrese Registro" aria-label="Search">
+        <button id="boton_buscador"class="btn btn-success" type="submit">
+          Buscar
+        </button>
+      </a>
+
+      <button id="boton_exit" type="submit" class="btn btn-danger w-20">
+        Cerrar Sesion
+      </button>
+
+    </nav>
+    <h1 class="text-center mb-5">Bienvenido
+    <script>
+      let registroacademico_local = localStorage.getItem("registroacademico")
+      let nombre1_local= localStorage.getItem("nombre1")
+      let nombre2_local= localStorage.getItem("nombre2")
+      let apellido1_local= localStorage.getItem("apellido1")
+      let apellido2_local= localStorage.getItem("apellido2")
+      let correo_local= localStorage.getItem("correo")
+      let password_local= localStorage.getItem("password")
+      document.write(nombre1_local)
+      console.log(registroacademico_local.value)
+      console.log(nombre1_local)
+      console.log(nombre2_local)
+      console.log(apellido1_local)
+      console.log(apellido2_local)
+      console.log(correo_local)
+      console.log(password_local)
+    </script>
+    </h1>
+
+    <div class="container">
+        <div class="row">
+            
+            <div class="col">
+              <h1></h1>
+
+              <div class="d-flex flex-column" id="citas"></div>
+                </div>
+
+              
+            
+
+              </div>
+            </div>
+          </div>
+      </div> 
+
+      <br>
+      <br>
+      
+      <div class="row">
+      
+      
+
+    
+      </div>
+
+
+    </div>
+
+
+    
+    <script>
+      boton_ver_perfil.addEventListener("click",(e) =>{
+        window.location.href = "http://localhost:3000/ver_perfil";
+      })
+
+      boton_inicio.addEventListener("click",(e) =>{
+        window.location.href = "http://localhost:3000/home";
+      })
+
+      boton_publicacion.addEventListener("click",(e) =>{
+        window.location.href = "http://localhost:3000/publicacion";
+      })
+
+      let buscador_input = document.getElementById("buscador_input")
+      boton_buscador.addEventListener("click", (e) =>{
+        console.log(buscador_input.value)
+
+        fetch("http://localhost:3000/buscar", {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            registroacademico: buscador_input.value
+          }),
+        })
+        //Respuesta del servidor
+        .then(res => res.json())
+        .then(data => {
+          console.log(data.registroacademico,data.nombre1,data.nombre2,data.apellido1,data.apellido2,data.correo,data.password)
+          localStorage.setItem("registroacademico_busqueda",data.registroacademico)
+          localStorage.setItem("nombre1_busqueda",data.nombre1)
+          localStorage.setItem("nombre2_busqueda",data.nombre2)
+          localStorage.setItem("apellido1_busqueda",data.apellido1)
+          localStorage.setItem("apellido2_busqueda",data.apellido2)
+
+        window.location.href = "http://localhost:3000/perfil_busqueda";
+        });
+      })
+
+      
+    
+
+
+      boton_exit.addEventListener("click", (e) => {
+        alert('Hasta Pronto')
+        localStorage.setItem("registroacademico","")
+        localStorage.setItem("nombre1","")
+        localStorage.setItem("nombre2","")
+        localStorage.setItem("apellido1","")
+        localStorage.setItem("apellido2","")
+        localStorage.setItem("correo","")
+        localStorage.setItem("password","")
+        window.location.href = "http://localhost:3000/";
+      });
+    </script>
+
+<script>
+  getCita();
+  function getCita() {
+    fetch("http://localhost:3000/publicacion/consulta")
+      .then((response) => response.json())
+      .then((data) => {
+        citas.innerHTML = "";
+        data.forEach((data) => {  
+          
+          
+          
+            let card = document.createElement("div");
+            card.className = "card m-3";          
+
+            let cardBody = document.createElement("div");
+            cardBody.className = "card-body";
+
+            let data_motivo = document.createElement("h4");
+            data_motivo.className = "card-title";
+            data_motivo.innerText = data.asunto;
+
+            let data_espacio = document.createElement("br");
+
+            let data_nombre = document.createElement("h2");
+            data_nombre.className = "card-subtitle";
+            data_nombre.innerText =  data.nombre1 +" "+ data.apellido1;
+
+            let data_mensaje = document.createElement("h5");
+            data_mensaje.className = "card-subtitle";
+            data_mensaje.innerText = "Mensaje: " + data.mensaje;
+
+            let data_fecha = document.createElement("p");
+            data_fecha.className = "card-subtitle";
+            data_fecha.innerText =  data.fecha;
+
+            let comentar = document.createElement("input");
+
+            let publicar_comentario = document.createElement("BUTTON");
+            publicar_comentario.className = "btn btn-info w-20";
+            publicar_comentario.innerText = "Comentar";
+            publicar_comentario.addEventListener("click", () => {
+              fetch("http://localhost:3000/comentario", {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  asunto: data.asunto,
+                  mensaje: data.mensaje,
+                  fecha: data.fecha,
+                  registroacademico: registroacademico_local,
+                  nombre1: nombre1_local,
+                  apellido1: apellido1_local,
+                  comentario: comentar.value
+                }),
+              })
+              //Respuesta del servidor
+              .then(res => res.json())
+              .then(data => {
+                alert(data.message)
+              })
+
+            });
+
+            let vercomentarios = document.createElement("BUTTON");
+            vercomentarios.className = "btn btn-success w-100";
+            vercomentarios.innerText = "Ver los Comentarios";
+            vercomentarios.addEventListener("click", () => {
+              localStorage.setItem("asunto_comentario",data.asunto)
+              localStorage.setItem("mensaje_comentario",data.mensaje)
+              localStorage.setItem("fecha_comentario",data.fecha)
+              window.location.href = "http://localhost:3000/ver_comentarios";
+            });
+
+            
+            cardBody.appendChild(data_nombre);
+            cardBody.appendChild(data_motivo);
+            cardBody.appendChild(data_mensaje);
+            cardBody.appendChild(data_espacio);
+            
+            
+            
+            cardBody.appendChild(data_fecha);
+            cardBody.appendChild(comentar);
+            cardBody.appendChild(publicar_comentario);
+            cardBody.appendChild(data_espacio);
+            cardBody.appendChild(vercomentarios);
+            card.appendChild(cardBody);
+            citas.appendChild(card);     
+                   
+            
+      
+        });
+      })
+      .catch((error) => console.error(error));
+  }             
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
