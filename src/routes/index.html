@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Dragon</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    
+    <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark mb-5">
+      <a class="navbar-brand" href="#">
+        <img
+          src="./assets/logo.png"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+        />
+        Black Dragon
+        
+      </a>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            
+            <div class="col">
+                <center><img
+                src="./assets/logousac.png"
+                width="500"
+                height="200"
+                class="d-inline-block align-top"
+                alt=""
+                />
+                </center>
+              <h1 class="text-center mb-5">Iniciar Sesion</h1>
+              <form id="loginForm">
+                <div class="form-group">
+                  <label for="registro">Registro Academico</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="registro"
+                    aria-describedby="registroHelp"
+                    placeholder="Ingresa tu registro academico"
+                  />
+    
+                  <small id="registroHelp" class="form-text text-muted"
+                    >No compartas tu Usuario con nadie.</small
+                  >
+                </div>
+    
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Password"
+                  />
+                </div>
+    
+                <button id="login" type="submit" class="btn btn-primary w-100">
+                  Iniciar Sesion
+                </button>
+              </form>
+            </div>
+          </div>
+      </div> 
+      <br>
+      <br>
+      <div class="row">
+
+    
+      </div>
+      <br><br><br><br><br><br><br><br><br>
+      <div class="row">
+        <div class="col">
+          <h2 class="text-center mb-5">Desarrollador de la pagina</h2>
+          <h6 class="text-center ">Nombre: Eduardo Alexander Reyes Gonzalez</h6>
+          <h6 class="text-center ">Carnet: 202010904</h6>
+          <h6 class="text-center ">CUI: 3013805890101</h6>
+          <h6 class="text-center ">Correo institucional: 3013805890101@ingenieria.usac.edu.gt</h6>
+
+          </div>
+        </div>
+
+    </div>
+
+
+    
+
+
+
+    
+    <script>
+      let loginForm = document.getElementById("loginForm");
+      let nicknameInput = document.getElementById("nickname");
+      let passwordInput = document.getElementById("password");
+      let loginButton = document.getElementById("login");
+
+      const nombre = document.getElementById('nickname');
+      const password = document.getElementById("password");
+      const url = 'http://localhost:5000/';
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+      });
+      loginButton.addEventListener("click", (e) => {
+        console.log(nicknameInput.value, passwordInput.value);
+        fetch(url+"login?nickname="+nombre.value+"&password="+password.value, {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+
+          console.log(data)
+          localStorage.setItem("user",data.nickname)
+          localStorage.setItem("password_user",data.password)
+          localStorage.setItem("first_name_user",data.first_name)
+          localStorage.setItem("last_name_user",data.last_name)
+          localStorage.setItem("date_user",data.date)
+          localStorage.setItem("gender_user",data.gender)
+
+          localStorage.setItem("phone_user",data.phone)
+          localStorage.setItem("specialty_user",data.specialty)
+          alert(data.message)
+
+          if (data.estado == 1){
+            window.location.href = "admin.html"
+          }else if(data.estado == 2){
+            window.location.href = "paciente.html"
+          }else if(data.estado == 3){
+            window.location.href = "doctor.html"
+          } else if(data.estado == 4){
+            window.location.href = "nurse.html"
+          } 
+          })
+          .catch((error) => console.error(error));
+      });
+    </script>
+
+
+
+
+    <script>
+      let signupForm = document.getElementById("signupForm");
+      let first_nameInput = document.getElementById("first_name");
+      let last_nameInput = document.getElementById("last_name");
+      let dateInput = document.getElementById("date");
+      let genderInput = document.getElementById("gender");
+      let nickInput = document.getElementById("nick");
+      let passInput = document.getElementById("pass");
+      let phoneInput = document.getElementById("phone");
+      let signupButton = document.getElementById("signup");
+      signupForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+      });
+      signupButton.addEventListener("click", (e) => {
+        console.log(first_nameInput.value, last_nameInput.value,dateInput.value, genderInput.value, nickInput.value, passInput.value, phoneInput.value);
+        if(passInput.value.length >=8){
+          fetch("http://localhost:5000/signup", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            first_name: first_nameInput.value,
+            last_name: last_nameInput.value,
+            date: dateInput.value,
+            gender: genderInput.value,
+            nickname: nickInput.value,
+            password: passInput.value,
+            phone: phoneInput.value
+          }),
+        })
+        
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message) {
+              console.error(data);
+              alert("nickname repeated")
+            } else {
+              alert("Usuario Creado")
+              window.location = "index.html";
+            }
+          })
+          .catch((error) => console.error(error));
+        } else {
+          alert("the password must be at least 8 characters long")
+        }
+       
+      });
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

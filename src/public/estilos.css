@@ -1,0 +1,20 @@
+#centrar_div{
+    text-align: center;
+}
+
+#nombre_archivo{
+    resize:none;
+    color:blue
+    
+}
+#nombre_guardar_como{
+    resize:none;
+    visibility:hidden
+}
+#boton_guardar_exito{
+    visibility:hidden
+}
+
+#titulo{
+    text-align: center;
+}
