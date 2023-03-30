@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+    <script src="/codemirror/lib/codemirror.js"></script>
+
+     <script src="/codemirror/lib/codemirror.js"></script>
+     <script src="/codemirror/mode/clike/clike.js"></script>
+     <link rel="stylesheet" href="/codemirror/lib/codemirror.css"/>
+     <script src="/codemirror/mode/javascript/javascript.js"></script>       
+     <link href="/codemirror/theme/midnight.css" rel="stylesheet" />      
+
+     <script src="/codemirror/addon/edit/closebrackets.js"></script>      
+     <script src="/codemirror/addon/selection/active-line.js"></script>
+</head>
+<body style="background-color:#2A302F;">
+    <nav class="navbar navbar-dark bg-dark mb-3">
+        <a class="navbar-brand" href="#">
+          TypeWise
+          &nbsp &nbsp &nbsp &nbsp
+          
+        </a>
+      </nav>
+        <font color="white">
+        <h1 class="text-center ">TypeWise</h1><br><br><br>
+        <h5 class="text-center">TypeWise es un interprete Elaborado utilizando el lenguaje Typescript y utilizando un analizador elaborado con Jison.</h5>
+        <br><br><br><br>
+        <h5 class="text-center">Para ingresar a una opcion del interprete presiona el boton correspondiente.</h5>
+        <br>
+        <center>
+        <button id="boton_home" type="submit" class="btn btn-primary w-20" method="GET" action="/">Home</button>          
+        <button id="boton_editor" type="submit" class="btn btn-primary w-20"method="GET" action="/editor">Editor</button>  
+        <button id="boton_compilador" type="submit" class="btn btn-primary w-20"method="GET" action="/compilador">Compilador</button>
+        <button id="boton_reportes"type="submit"class="btn btn-primary w-20 "method="GET" action="/reportes">Reportes</button>
+        </center>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+                <h2 class="text-center mb-5">Desarrollador de la pagina</h2>
+                <h6 class="text-center ">Nombre: Eduardo Alexander Reyes Gonzalez</h6>
+                <h6 class="text-center ">Carnet: 202010904</h6>
+                <h6 class="text-center ">CUI: 3013805890101</h6>
+                <h6 class="text-center ">Correo institucional: 3013805890101@ingenieria.usac.edu.gt</h6>
+
+        </font>
+
+        
+
+
+    <script>
+        boton_home.addEventListener("click",(e) =>{
+            window.location.href = "http://localhost:3000/";
+        })
+
+        boton_editor.addEventListener("click",(e) =>{
+
+            window.location.href = "http://localhost:3000/editor";
+        })
+
+        boton_compilador.addEventListener("click",(e) =>{
+            window.location.href = "http://localhost:3000/compilador";
+        })
+
+        boton_reportes.addEventListener("click", (e) =>{
+            window.location.href = "http://localhost:3000/reportes";
+            
+        })
+        
+    </script>
+</body>
+</html>

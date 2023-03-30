@@ -1,82 +1,185 @@
- /* Definicion Lexica */
- %lex
-
- %options case-insensitive
-
- %%
-"Evaluar"    return 'REVALUAR';
-";"          return 'PTCOMA';
-"("          return 'PARIZQ';
-")"          return 'PARDER';
-"["          return 'CORIZQ';
-"]"          return 'CORDER';
-
-"+"          return 'MAS';
-"-"          return 'MENOS';
-"*"          return 'POR';
-"/"          return 'DIVIDIDO';
-
-/* Espacios en blanco */ 
-[ \r\t]+               {}
-\n                     {}
-[0-9]+("."[0-9]+)?\b        return 'DECIMAL';
-[0-9]+\b                    return 'ENTERO';
-
-/* End-of-file*/
-<<EOF>>                     return 'EOF';
-
-
-.                      { 
-    console.error('Este es un error lexico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column); 
-    }
-
-/lex 
-/*CODIGO EN JAVASCRIPT*/
+/* CODIGO EN JAVASCRIPT PARA ANALIZADOR LEXICO */
+/* ------------------------------------------------- */
 %{
-    var respuestas=[];
-    module.exports.respuestas = respuestas;
+    var lexico=[];
+    module.exports.lexico = lexico;
+
+    let LISTA_EJECUCIONES           =   require("./src/arbol/LISTA_EJECUCIONES").LISTA_EJECUCIONES;
+    let Tipo                        =   require("./src/arbol/Tipo").Tipo;
+    let TIPO_DATO                   =   require("./src/arbol/Tipo").TIPO_DATO;
+    let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE; 
+    let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
+    let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
+    let Valor                       =   require("./src/expresiones/Valor").Valor;
 %}
+/* ------------------------------------------------- */
+ /* Definicion Lexica */
+%lex
+%options case-insensitive
+
+digit                       [0-9]
+corchete_abre               "["
+corchete_cierra             "]"
+doblediagonal               "\\"
+int                         (?:[0-9]|[1-9][0-9]+)
+EXPRESION                         (?:[eE][-+]?[0-9]+)
+frac                        (?:\.[0-9]+)
+
+%%
+
+\s+                             {/* skip whitespace */}
+<<EOF>>                         {return 'EOF';}
+
+/* COMENTARIO SIMPLE Y MULTILINEA */
+"//".*                                 {lexico.push("COMENTARIO SIMPLE: "+yytext)}
+[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]    {lexico.push("COMENTARIO MULTILINEA: "+yytext)}
+
+/* --------------------- PALABRAS RESERVADAS -------------------*/
+"int"               {lexico.push("INT");         return 'RINT'; }
+"double"            {lexico.push("DOUBLE");      return 'RDOUBLE';}
+"boolean"           {lexico.push("BOOLEAN");     return 'RBOOLEAN';}
+"char"              {lexico.push("CHAR");        return 'RCHAR';}
+"string"            {lexico.push("STRING");      return 'RSTRING';}
+
+"true"              {lexico.push("TRUE");        return 'RTRUE';}
+"false"             {lexico.push("FALSE");       return 'RFALSE';}
+
+"if"                {lexico.push("IF");          return 'RIF';}
+"else"              {lexico.push("ELSE");        return 'RELSE';}
+"void"              {lexico.push("VOID");        return 'RVOID';}
+"return"            {lexico.push("RETURN");      return 'RRETURN';}
+"switch"            {lexico.push("SWITCH");      return 'RSWITCH';}
+"case"              {lexico.push("DCASE");       return 'RCASE';}
+"default"           {lexico.push("DEFAULT");     return 'RDEFAULT';}
+"while"             {lexico.push("WHILE");       return 'RWHILE';}
+"for"               {lexico.push("FOR");         return 'RFOR';}
+"do"                {lexico.push("DO");          return 'RDO';}
+"break"             {lexico.push("BREAK");       return 'RBREAK';}
+"continue"          {lexico.push("CONTINUE");    return 'RCONTINUE';}
+"return"            {lexico.push("RETURN");      return 'RRETURN';}
+
+"toLower"           {lexico.push("TOLOWER");     return 'RTOLOWER';}
+"toUpper"           {lexico.push("TOUPPER");     return 'RTOUPPER';}
+"length"            {lexico.push("LENGHT");      return 'RLENGTH';}
+"truncate"          {lexico.push("TRUNCATE");    return 'RTRUNCATE';}
+"round"             {lexico.push("ROUND");       return 'RROUND';}
+"typeof"            {lexico.push("TYPEOF");      return 'RTYPEOF';}
+"toString"          {lexico.push("TOSTRING");    return 'RTOSTRING';}
+"toCharArray"       {lexico.push("TOCHARARRAY"); return 'RTOCHARARRAY';}
+"main"              {lexico.push("MAIN");        return 'RMAIN';}
+/*---------------------------------------------------------------*/
+
+/*------------------------- EXPRESIONES REGULARES ---------------*/
+([a-zA-ZÑñ]|("_"[a-zA-ZÑñ]))([a-zA-ZÑñ]|[0-9]|"_")*             yytext = yytext.toLowerCase();          return 'id';
+\"(?:[{corchete_abre}|{corchete_cierra}]|["\\"]["bnrt/["\\"]]|[^"["\\"])*\"         yytext = yytext.substr(1,yyleng-2);     return 'CADENA';
+\'(?:{doblediagonal}["bfnrt/{doblediagonal}]|{doblediagonal}"u"[a-fA-F0-9]{4}|[^"{doblediagonal}])\'    yytext = yytext.substr(1,yyleng-2);     return 'CARACTER'
+{int}{frac}\b                                                                                           return 'DECIMAL'
+{int}\b                                                                                                 return 'ENTERO'
+/*---------------------------------------------------------------*/
+
+/*--------------------------SIGNOS-------------------------------*/
+"$"                             {return '$'};
+"++"                            {return '++';}
+"--"                            {return '--';}
+"+"                             {return '+';}
+"-"                             {return '-';}
+"*"                             {return '*';}
+"/"                             {return '/';}
+"%"                             {return '%';}
+"("                             {return '(';}
+")"                             {return ')';}
+"=="                            {return '==';}
+"="                             {return '=';}
+","                             {return ',';}
+":"                             {return ':';}
+";"                             {return ';';}
+"||"                            {return '||';}
+"&&"                            {return '&&';}
+"!="                            {return '!=';}
+"!"                             {return '!';}
+"<="                            {return '<=';}
+">="                            {return '>=';}
+">"                             {return '>';}
+"<"                             {return '<';}
+"{"                             {return '{';}
+"}"                             {return '}';}
+
+"\n"                            {return 'SALTO_LINEA';}
+"\'"                            {return 'COMILLA_SIMPLE';}
+"\\\\"                          {return 'BARRA_INVERTIDA';}
+"\""                            {return 'COMILLA_DOBLE';}
+"\t"                            {return 'TABULACION';}
+/*---------------------------------------------------------------*/
+.                               {}
+
+/lex
 
 /* Asociacion de operadores y precedencia */
+/*Operaciones logicas*/
+%left '++' '--'
+%left '||'
+%left '&&'
+%left '!'
+%left '==' '!=' '<' '<=' '>' '>=' 
+%left '+' '-'
+%left '*' '/' '%'
+%left '^'
+%right negativo '!' '(' 
 
-/* presedencia de mayor a menor */
-%left 'MAS' 'MENOS'
-%left 'POR' 'DIVIDIDO'
-%left UMENOS
-
-%start ini 
-
+%start ini
 
 %% /* Definicion de la gramatica */
-ini 
-    : instrucciones EOF
+ini
+    : instrucciones EOF {
+                            console.log("Parse de Jison entrada: OK ");
+                            let raiz = $1
+                            $$ = raiz;
+                            return raiz;
+                        }
 ;
 
-instrucciones : instrucciones instruccion
-                | instruccion
-;
-instruccion 
-    : REVALUAR CORIZQ expresion CORDER PTCOMA {
-        console.log('El valor de la expresion es: ' + $3)
-        respuestas.push('El valor de la expresion es: ' + $3);
-
-    }
-    | error PTCOMA {
-        console.error('Este es un error lexico: ' + yytext + ', en la linea: ');
-        respuestas.push('Este es un error lexico: ' + yytext);
-        
-        }
+instrucciones :    instrucciones instruccion        {$1.push($2);  $$ = $1;}
+            |      instruccion {   let lstsent = [];        lstsent.push($1);       $$ = lstsent;}
 ;
 
+instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
+            |   ASIGNACION_VARIABLE         { $$ = $1; }
+            |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
+            |   error                       {console.error('Este es un error SINTACTICO');}
+;       
 
-expresion
-    : MENOS expresion %prec UMENOS  {$$ = $2 * -1; }
-    | expresion MAS expresion       {$$ = $1 + $3; }
-    | expresion MENOS expresion     {$$ = $1 - $3; }
-    | expresion POR expresion       {$$ = $1 * $3; }
-    | expresion DIVIDIDO expresion  {$$ = $1 / $3; }
-    | ENTERO                        {$$ = Number($1);}
-    | DECIMAL                       {$$ = Number($1);}
-    | PARIZQ expresion PARDER       {$$ = $2;}
+DECLARACION_VARIABLE : TIPO  id  '=' EXPRESION  {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
+            | TIPO  id           {$$ = new DECLARACION_VARIABLE($1, $2, undefined, @2.first_line, @2.first_column); }
 ;
 
+ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+;
+
+TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
+        |       RBOOLEAN      { $$ = new Tipo(TIPO_DATO.BOOLEAN); }
+        |       RSTRING       { $$ = new Tipo(TIPO_DATO.STRING);  }
+        |       RDOUBLE       { $$ = new Tipo(TIPO_DATO.DOUBLE);  }
+; 
+
+EXPRESION :   EXPRESION '+' EXPRESION                     { }
+    |   EXPRESION '-' EXPRESION                     { }
+    |   EXPRESION '*' EXPRESION                     { }
+    |   EXPRESION '/' EXPRESION                     { }
+    |   '-' EXPRESION %prec negativo          { }
+    |   '(' EXPRESION ')'                     { }
+    |   EXPRESION '=='  EXPRESION                   { }
+    |   EXPRESION '!='  EXPRESION                   { }
+    |   EXPRESION '<'   EXPRESION                   { }
+    |   EXPRESION '>'   EXPRESION                   { }
+    |   EXPRESION '<='  EXPRESION                   { }
+    |   EXPRESION '>='  EXPRESION                   { }
+    |   EXPRESION '&&'  EXPRESION                   { }
+    |   EXPRESION '||'  EXPRESION                   { }
+    |   id                              { $$ = new VALIDAR_EXISTE_VARIABLE($1, @1.first_line, @1.first_column);}
+    |   ENTERO                          { $$ = new Valor($1, "INT", @1.first_line, @1.first_column);}
+    |   DECIMAL                         { $$ = new Valor($1, "DOUBLE", @1.first_line, @1.first_column); }
+    |   CARACTER                        { $$ = new Valor($1, "CHAR", @1.first_line, @1.first_column);   }
+    |   CADENA                          { $$ = new Valor($1, "STRING", @1.first_line, @1.first_column); }
+    |   RTRUE                           { $$ = new Valor($1, "true", @1.first_line, @1.first_column);   }
+    |   RFALSE                          { $$ = new Valor($1, "false", @1.first_line, @1.first_column);  }
+;

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+  <script src="/codemirror/lib/codemirror.js"></script>
+
+  <script src="/codemirror/lib/codemirror.js"></script>
+  <script src="/codemirror/mode/clike/clike.js"></script>
+  <link rel="stylesheet" href="/codemirror/lib/codemirror.css"/>
+  <script src="/codemirror/mode/javascript/javascript.js"></script>       
+  <link href="/codemirror/theme/midnight.css" rel="stylesheet" />      
+
+  <script src="/codemirror/addon/edit/closebrackets.js"></script>      
+  <script src="/codemirror/addon/selection/active-line.js"></script>
+</head>
+<body style="background-color:#2A302F;">
+    <nav class="navbar navbar-dark bg-dark mb-3">
+        <a class="navbar-brand" href="#">
+            TypeWise
+            &nbsp &nbsp &nbsp &nbsp
+            <button id="boton_home" type="submit" class="btn btn-primary w-20" >Home</button> 
+            <button id="boton_editor" type="submit" class="btn btn-primary w-20" >Editor</button>  
+            <button id="boton_compilador" type="submit" class="btn btn-primary w-20">Compilador</button>
+            <button id="boton_reportes"type="submit"class="btn btn-primary w-20 ">Reportes</button>
+        </a>
+      </nav>
+    <font color="white">
+    <div class="row">  
+        &nbsp &nbsp &nbsp &nbsp
+        <button id="boton_nuevo" type="submit" class="btn btn-primary w-20" >Nuevo</button>&nbsp
+        <button id="boton_guardar" type="submit" class="btn btn-primary w-20" >Guardar</button>&nbsp
+        <textarea id="nombre_guardar_como" name="nombre_arch" rows="1" cols="30" style="background-color:#2A302F;color:white;"></textarea> 
+        <button id="boton_guardar_exito" type="submit" class="btn btn-success w-20">Guardar con este nombre</button><br>
+    </div><br>
+    <input id="fileInput" accept=".tw"type="file" size="10" onchange="processFiles(this.files)">
+    <center><H1>Editor de Archivos</H1></center>
+    <div class="row">
+        <div class="col-6" ><br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <textarea readonly id="nombre_archivo" name="nombre_arch" rows="1" cols="50" style="background-color:#2A302F;color:white;">Nuevo.tw</textarea> 
+        </div>
+    </div>
+    <div class="row">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="col-6">
+        <textarea id="editor" name="editor"><%= codigo %></textarea><br><br><br>
+        </div>
+    </div>
+    
+
+
+    <script>
+
+      
+      let nombre_archivo = document.getElementById("nombre_archivo");
+      
+      let archivo = document.getElementById("directory");
+      var nombre_guardar_como = document.getElementById('nombre_guardar_como');
+      var boton_guardar_exito = document.getElementById('boton_guardar_exito');
+      let nombre_archivo_seleccionado = document.getElementById('fileInput')
+
+      //------------------------------------------------------------------------CODEMIRROR
+      let editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        lineNumbers: true,
+        mode       : "text/x-java",
+        theme      : "midnight",
+        autoCloseBrackets : true,
+        styleActiveLine: true
+      });
+      editor.setSize("1020","400");
+        
+      
+      //------------------------------------------------------------------------CODEMIRROR 
+
+      boton_home.addEventListener("click",(e) =>{
+        window.location.href = "http://localhost:3000/";
+      })
+
+      boton_editor.addEventListener("click",(e) =>{
+
+        window.location.href = "http://localhost:3000/editor";
+      })
+
+      boton_compilador.addEventListener("click",(e) =>{
+        window.location.href = "http://localhost:3000/compilador";
+      })
+
+      boton_reportes.addEventListener("click", (e) =>{
+        window.location.href = "http://localhost:3000/reportes";
+        
+      })
+
+      boton_nuevo.addEventListener("click", (e) =>{
+        editor.setValue("")
+        nombre_archivo.value="Nuevo.tw";
+      })
+      boton_guardar.addEventListener("click", (e) =>{
+        download(nombre_archivo.value, editor.getValue());
+      })
+
+      boton_guardar_exito.addEventListener("click", (e) =>{
+        nombre_archivo.value = nombre_guardar_como.value
+        download(nombre_guardar_como.value, editor.getValue());
+      })
+      //--------IMPORTAR TEXTO DE ARCHIVO A TEXTAREA-------------
+      function processFiles(files) {    //IMPORTAR CONTENIDO A TEXTAREA
+      var file = files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+      // Cuando éste evento se dispara, los datos están ya disponibles.
+      // Se trata de copiarlos a una área <div> en la página.
+      editor.setValue(e.target.result)
+      };
+      reader.readAsText(file);
+      nombre_archivo.value = file.name;
+      }
+      //--------------------------------------------------------
+
+      //--------------------------------- CREAR ARCHIVO Y DESCARGARLO ---------------------------------
+      function download(filename, textInput) {    
+      var element = document.createElement('a');
+      element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
+      element.setAttribute('download', filename);
+      document.body.appendChild(element);
+      element.click();
+      //document.body.removeChild(element);
+      }
+      //-----------------------------------------------------------------------------------------------
+    </script>
+</body>
+</html>
