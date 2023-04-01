@@ -13,6 +13,7 @@
     let Valor                       =   require("./src/instrucciones/Valor").Valor;
     let OPERACIONES                 =   require("./src/instrucciones/OPERACIONES").OPERACIONES;
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
+    let IF                          =   require("./src/instrucciones/FUNCIONES").IF;
 %}
 /* ------------------------------------------------- */
  /* Definicion Lexica */
@@ -147,15 +148,29 @@ instrucciones :    instrucciones instruccion        {$1.push($2);  $$ = $1;}
 
 instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
             |   ASIGNACION_VARIABLE         { $$ = $1; }
+            |   FUNCION_IF                  { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
 
-DECLARACION_VARIABLE : TIPO  id  '=' EXPRESION  {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
-            | TIPO  id           {$$ = new DECLARACION_VARIABLE($1, $2, undefined, @2.first_line, @2.first_column); }
+
+DECLARACION_VARIABLE :    TIPO  id  '=' EXPRESION  {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
+                        | TIPO  id           {$$ = new DECLARACION_VARIABLE($1, $2, undefined, @2.first_line, @2.first_column); }
 ;
 
 ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+;
+
+INSTRUCCIONES_FUNCION:  '{'instrucciones'}'{$$ = $2;}
+                        |'{''}' {$$ = [];}
+;
+
+FUNCION_IF: RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION                             {$$ = new IF($3, $5, [], @1.first_line, @1.first_column)}
+           |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE INSTRUCCIONES_FUNCION {$$ = new IF($3, $5, $7, @1.first_line, @1.first_column)}
+           |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE IF                    {let funcion_else_if = [];
+                                                                                    funcion_else_if.push($7);
+                                                                                    $$ = funcion_else_if;
+                                                                                    }                
 ;
 
 TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
