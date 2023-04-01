@@ -232,6 +232,18 @@ export class OPERACIONES_ARITMETICAS extends Expresion {
                         return respuesta;
                     }
                 }
+            case "%":
+                {
+                    //RESPUESTA DOUBLE
+                    if(((tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE) &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE))||
+                            ((tipo_valor2 == TIPO_DATO.INT ||tipo_valor2 == TIPO_DATO.DOUBLE) &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE)))
+                    {   
+                        this.tipo = new Tipo(TIPO_DATO.DOUBLE);
+                        respuesta = this.valor1.obtener_valor(actual,global,ast) % this.valor2.obtener_valor(actual,global,ast)
+                        return respuesta;                     
+                    }
+                }
+            
         }
     }
 }

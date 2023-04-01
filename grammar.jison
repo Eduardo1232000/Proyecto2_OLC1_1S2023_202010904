@@ -12,6 +12,7 @@
     let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
     let Valor                       =   require("./src/instrucciones/Valor").Valor;
     let OPERACIONES_ARITMETICAS     =   require("./src/instrucciones/OPERACIONES_ARITMETICAS").OPERACIONES_ARITMETICAS;
+    let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
 %}
 /* ------------------------------------------------- */
  /* Definicion Lexica */
@@ -168,8 +169,9 @@ EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES_ARITME
     |   EXPRESION '*' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '/' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '^' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
-    |   '-' EXPRESION %prec negativo                { }
-    |   '(' EXPRESION ')'                           { }
+    |   EXPRESION '%' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+    |   '-' EXPRESION %prec negativo                {$$ = new OPERACION_UNARIA($1, $2, @2.first_line, @2.first_column);}
+    |   '(' EXPRESION ')'                           {$$ = $2;}
     |   EXPRESION '=='  EXPRESION                   { }
     |   EXPRESION '!='  EXPRESION                   { }
     |   EXPRESION '<'   EXPRESION                   { }
