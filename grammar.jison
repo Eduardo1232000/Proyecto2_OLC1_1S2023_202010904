@@ -10,7 +10,8 @@
     let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE; 
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
     let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
-    let Valor                       =   require("./src/expresiones/Valor").Valor;
+    let Valor                       =   require("./src/instrucciones/Valor").Valor;
+    let OPERACIONES_ARITMETICAS     =   require("./src/instrucciones/OPERACIONES_ARITMETICAS").OPERACIONES_ARITMETICAS;
 %}
 /* ------------------------------------------------- */
  /* Definicion Lexica */
@@ -85,6 +86,7 @@ frac                        (?:\.[0-9]+)
 "-"                             {return '-';}
 "*"                             {return '*';}
 "/"                             {return '/';}
+"^"                             {return '^';}
 "%"                             {return '%';}
 "("                             {return '(';}
 ")"                             {return ')';}
@@ -161,12 +163,13 @@ TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
         |       RDOUBLE       { $$ = new Tipo(TIPO_DATO.DOUBLE);  }
 ; 
 
-EXPRESION :   EXPRESION '+' EXPRESION                     { }
-    |   EXPRESION '-' EXPRESION                     { }
-    |   EXPRESION '*' EXPRESION                     { }
-    |   EXPRESION '/' EXPRESION                     { }
-    |   '-' EXPRESION %prec negativo          { }
-    |   '(' EXPRESION ')'                     { }
+EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '-' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '*' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '/' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '^' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+    |   '-' EXPRESION %prec negativo                { }
+    |   '(' EXPRESION ')'                           { }
     |   EXPRESION '=='  EXPRESION                   { }
     |   EXPRESION '!='  EXPRESION                   { }
     |   EXPRESION '<'   EXPRESION                   { }
@@ -175,11 +178,11 @@ EXPRESION :   EXPRESION '+' EXPRESION                     { }
     |   EXPRESION '>='  EXPRESION                   { }
     |   EXPRESION '&&'  EXPRESION                   { }
     |   EXPRESION '||'  EXPRESION                   { }
-    |   id                              { $$ = new VALIDAR_EXISTE_VARIABLE($1, @1.first_line, @1.first_column);}
-    |   ENTERO                          { $$ = new Valor($1, "INT", @1.first_line, @1.first_column);}
-    |   DECIMAL                         { $$ = new Valor($1, "DOUBLE", @1.first_line, @1.first_column); }
-    |   CARACTER                        { $$ = new Valor($1, "CHAR", @1.first_line, @1.first_column);   }
-    |   CADENA                          { $$ = new Valor($1, "STRING", @1.first_line, @1.first_column); }
-    |   RTRUE                           { $$ = new Valor($1, "true", @1.first_line, @1.first_column);   }
-    |   RFALSE                          { $$ = new Valor($1, "false", @1.first_line, @1.first_column);  }
+    |   id                              {$$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);}
+    |   ENTERO                          {$$ = new Valor($1,"INT",@1.first_line,@1.first_column);}
+    |   DECIMAL                         {$$ = new Valor($1,"DOUBLE",@1.first_line,@1.first_column); }
+    |   CARACTER                        {$$ = new Valor($1,"CHAR",@1.first_line,@1.first_column);   }
+    |   CADENA                          {$$ = new Valor($1,"STRING",@1.first_line,@1.first_column); }
+    |   RTRUE                           {$$ = new Valor($1,"true",@1.first_line,@1.first_column);   }
+    |   RFALSE                          {$$ = new Valor($1,"false",@1.first_line,@1.first_column);  }
 ;

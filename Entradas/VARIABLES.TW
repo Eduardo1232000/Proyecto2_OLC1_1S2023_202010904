@@ -1,0 +1,23 @@
+ int i;
+double d;
+boolean b;
+char c = '1';
+string s;
+
+int entero = 1;
+double decimal = 1.1;
+boolean bool = false;
+char ch = 'a';
+string str = "1234";
+
+int entero2 = entero;
+double decimal2 = decimal;
+boolean bool2 = b;
+char ch2 = c;
+string str2 = s;
+
+entero2 = 1;
+//ERRORES
+double i;	//VARIABLE QUE YA EXISTE
+INT in = "1";	//TIPO NO COINCIDE
+string ABC = iD;	//VARIABLE NO COINCIDE

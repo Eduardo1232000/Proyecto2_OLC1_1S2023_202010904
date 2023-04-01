@@ -19,5 +19,6 @@ export enum TIPO_DATO
     CHAR,
     STRING,
     NULL,
-    VOID
+    VOID,
+    ERROR
 }
