@@ -11,7 +11,7 @@
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
     let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
     let Valor                       =   require("./src/instrucciones/Valor").Valor;
-    let OPERACIONES_ARITMETICAS     =   require("./src/instrucciones/OPERACIONES_ARITMETICAS").OPERACIONES_ARITMETICAS;
+    let OPERACIONES                 =   require("./src/instrucciones/OPERACIONES").OPERACIONES;
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
 %}
 /* ------------------------------------------------- */
@@ -164,20 +164,20 @@ TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
         |       RDOUBLE       { $$ = new Tipo(TIPO_DATO.DOUBLE);  }
 ; 
 
-EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
-    |   EXPRESION '-' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
-    |   EXPRESION '*' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
-    |   EXPRESION '/' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
-    |   EXPRESION '^' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
-    |   EXPRESION '%' EXPRESION                     {$$ = new OPERACIONES_ARITMETICAS($1, $2, $3, @2.first_line, @2.first_column);}
+EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '-' EXPRESION                     {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '*' EXPRESION                     {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '/' EXPRESION                     {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '^' EXPRESION                     {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '%' EXPRESION                     {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
     |   '-' EXPRESION %prec negativo                {$$ = new OPERACION_UNARIA($1, $2, @2.first_line, @2.first_column);}
     |   '(' EXPRESION ')'                           {$$ = $2;}
-    |   EXPRESION '=='  EXPRESION                   { }
-    |   EXPRESION '!='  EXPRESION                   { }
-    |   EXPRESION '<'   EXPRESION                   { }
-    |   EXPRESION '>'   EXPRESION                   { }
-    |   EXPRESION '<='  EXPRESION                   { }
-    |   EXPRESION '>='  EXPRESION                   { }
+    |   EXPRESION '=='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '!='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '<'   EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '>'   EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '<='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '>='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '&&'  EXPRESION                   { }
     |   EXPRESION '||'  EXPRESION                   { }
     |   id                              {$$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);}
