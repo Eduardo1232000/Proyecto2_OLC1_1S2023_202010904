@@ -200,8 +200,9 @@ EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES($1, $2
     |   EXPRESION '>'   EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '<='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '>='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
-    |   EXPRESION '&&'  EXPRESION                   { }
-    |   EXPRESION '||'  EXPRESION                   { }
+    |   EXPRESION '||'  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |   EXPRESION '&&'  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
+    |  '!'  EXPRESION                               {$$ = new OPERACION_UNARIA($1, $2, @2.first_line, @2.first_column);}
     |   id                              {$$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);}
     |   ENTERO                          {$$ = new Valor($1,"INT",@1.first_line,@1.first_column);}
     |   DECIMAL                         {$$ = new Valor($1,"DOUBLE",@1.first_line,@1.first_column); }

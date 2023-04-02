@@ -27,6 +27,7 @@ export class OPERACIONES extends Expresion {
         let tipo_valor2:TIPO_DATO = this.valor2.tipo.obtener_tipo_de_dato();
         switch(this.operacion) 
         {
+//OPERACIONES ARITMETICAS
             case "+" :
                 {   //RESPUESTA INT
                     if((tipo_valor1 == TIPO_DATO.INT &&(tipo_valor2 ==TIPO_DATO.INT || tipo_valor2== TIPO_DATO.BOOLEAN || tipo_valor2 ==TIPO_DATO.CHAR))||
@@ -243,6 +244,7 @@ export class OPERACIONES extends Expresion {
                         return respuesta;                     
                     }
                 }
+//OPERACIONES RELACIONALES            
             case "==":
                 {
                     //RESPUESTA DOUBLE
@@ -322,6 +324,39 @@ export class OPERACIONES extends Expresion {
                     {   
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
                         if(this.valor1.obtener_valor(actual,global,ast) >= this.valor2.obtener_valor(actual,global,ast)){
+                            respuesta = true;
+                        }
+                        else
+                        {
+                            respuesta = false;
+                        }
+                        return respuesta;                     
+                    }
+                }
+//OPERACIONES LOGICAS
+            case "||":
+                {
+                    //SOLO TRABAJA CON BOOLEANOS
+                    if(tipo_valor1 == TIPO_DATO.BOOLEAN &&tipo_valor2 == TIPO_DATO.BOOLEAN)
+                    {   
+                        this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
+                        if(this.valor1.obtener_valor(actual,global,ast) == true || this.valor2.obtener_valor(actual,global,ast) == true){
+                            respuesta = true;
+                        }
+                        else
+                        {
+                            respuesta = false;
+                        }
+                        return respuesta;                     
+                    }
+                }  
+            case "&&":
+                {
+                    //SOLO TRABAJA CON BOOLEANOS
+                    if(tipo_valor1 == TIPO_DATO.BOOLEAN &&tipo_valor2 == TIPO_DATO.BOOLEAN)
+                    {   
+                        this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
+                        if(this.valor1.obtener_valor(actual,global,ast) == true && this.valor2.obtener_valor(actual,global,ast) == true){
                             respuesta = true;
                         }
                         else

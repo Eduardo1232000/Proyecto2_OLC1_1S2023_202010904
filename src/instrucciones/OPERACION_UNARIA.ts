@@ -24,6 +24,7 @@ export class OPERACION_UNARIA extends Expresion {
         let tipo_valor1:TIPO_DATO = this.valor1.tipo.obtener_tipo_de_dato();
         switch(this.operacion) 
         {
+//OPERACION ARITMETICA
             case "-" :  //NEGACION 
                 {
                     //RESPUESTA INT
@@ -42,6 +43,31 @@ export class OPERACION_UNARIA extends Expresion {
                         return respuesta;               
                     }
                     else//SI LLEGA AQUI ES ERROR PORQUE NO CUMPLE CON LOS REQUISITOS
+                    {
+                        this.tipo = new Tipo(TIPO_DATO.ERROR);
+                        respuesta = 0;
+                        return respuesta;
+                    }
+                }
+//OPERACION LOGICA
+            case "!" :  //NOT
+                {
+                    //RESPUESTA INT
+                    if(tipo_valor1 == TIPO_DATO.BOOLEAN)
+                    {
+
+                        this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
+                        if (valor_1 == true)
+                        {
+                            respuesta = false;
+                        }
+                        else
+                        {
+                            respuesta = true
+                        }
+                        return respuesta;
+                    }
+                    else
                     {
                         this.tipo = new Tipo(TIPO_DATO.ERROR);
                         respuesta = 0;

@@ -41,10 +41,10 @@ export class OPERACION_TERNARIA extends Expresion {
         //SI ES BOOLEANA LA CONDICION SE PUEDE REALIZAR
         if(tipo_valor1 == TIPO_DATO.BOOLEAN)
         {
-            console.log("LA CONDICION ES BOOLEANA");
+            //console.log("LA CONDICION ES BOOLEANA");
             let condicion_actual
             condicion_actual = this.condicion.obtener_valor(actual, global,ast);
-            this.tipo = new Tipo(TIPO_DATO.INT)
+            this.tipo = this.valor2.tipo
             if(condicion_actual == true)
             {
                 return(this.valor2.obtener_valor(actual,global,ast));
