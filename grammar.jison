@@ -14,7 +14,9 @@
     let OPERACIONES                 =   require("./src/instrucciones/OPERACIONES").OPERACIONES;
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
     let IF                          =   require("./src/instrucciones/FUNCIONES").IF;
+    let PRINT                       =   require("./src/instrucciones/FUNCIONES").PRINT;
     let OPERACION_TERNARIA          =   require("./src/instrucciones/OPERACION_TERNARIA").OPERACION_TERNARIA;
+    let CASTEOS                     =   require("./src/instrucciones/CASTEOS").CASTEOS;
 %}
 /* ------------------------------------------------- */
  /* Definicion Lexica */
@@ -49,6 +51,7 @@ frac                        (?:\.[0-9]+)
 "false"             {lexico.push("FALSE");       return 'RFALSE';}
 
 "if"                {lexico.push("IF");          return 'RIF';}
+"print"             {lexico.push("PRINT");       return 'RPRINT';}
 "else"              {lexico.push("ELSE");        return 'RELSE';}
 "void"              {lexico.push("VOID");        return 'RVOID';}
 "return"            {lexico.push("RETURN");      return 'RRETURN';}
@@ -151,6 +154,7 @@ instrucciones :    instrucciones instruccion        {$1.push($2);  $$ = $1;}
 instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
             |   ASIGNACION_VARIABLE         { $$ = $1; }
             |   FUNCION_IF                  { $$ = $1; }
+            |   FUNCION_PRINT ';'           { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
@@ -172,12 +176,14 @@ INSTRUCCIONES_FUNCION:  '{'instrucciones'}'{$$ = $2;}
                         |'{''}' {$$ = [];}
 ;
 
-FUNCION_IF: RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION                             {$$ = new IF($3, $5, [], @1.first_line, @1.first_column)}
-           |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE INSTRUCCIONES_FUNCION {$$ = new IF($3, $5, $7, @1.first_line, @1.first_column)}
+FUNCION_IF: RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION                             {$$ = new IF($3, $5, [], @1.first_line, @1.first_column);}
+           |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE INSTRUCCIONES_FUNCION {$$ = new IF($3, $5, $7, @1.first_line, @1.first_column);}
            |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE IF                    {let funcion_else_if = [];
                                                                                     funcion_else_if.push($7);
-                                                                                    $$ = funcion_else_if;}    
-                    
+                                                                                    $$ = funcion_else_if;}                       
+;
+
+FUNCION_PRINT: RPRINT '('EXPRESION')'   {$$ = new PRINT($3, @1.first_line, @1.first_column);}
 ;
 
 TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
@@ -202,7 +208,13 @@ EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES($1, $2
     |   EXPRESION '>='  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '||'  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
     |   EXPRESION '&&'  EXPRESION                   {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}
-    |  '!'  EXPRESION                               {$$ = new OPERACION_UNARIA($1, $2, @2.first_line, @2.first_column);}
+    |   '!'  EXPRESION                              {$$ = new OPERACION_UNARIA($1, $2, @2.first_line, @2.first_column);}
+    |   EXPRESION '++'                              {$$ = new OPERACION_UNARIA($2, $1, @2.first_line, @2.first_column);}
+    |   EXPRESION '--'                              {$$ = new OPERACION_UNARIA($2, $1, @2.first_line, @2.first_column);}
+    |   '(' RINT ')' EXPRESION                      {$$ = new CASTEOS("INT", $4, @2.first_line, @2.first_column);}
+    |   '(' RDOUBLE ')' EXPRESION                   {$$ = new CASTEOS("DOUBLE", $4, @2.first_line, @2.first_column);}
+    |   '(' RCHAR ')' EXPRESION                     {$$ = new CASTEOS("CHAR", $4, @2.first_line, @2.first_column);}
+    |   '(' RSTRING ')' EXPRESION                   {$$ = new CASTEOS("STRING", $4, @2.first_line, @2.first_column);}
     |   id                              {$$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);}
     |   ENTERO                          {$$ = new Valor($1,"INT",@1.first_line,@1.first_column);}
     |   DECIMAL                         {$$ = new Valor($1,"DOUBLE",@1.first_line,@1.first_column); }

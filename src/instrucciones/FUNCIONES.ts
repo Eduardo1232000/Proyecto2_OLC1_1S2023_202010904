@@ -62,3 +62,24 @@ export class IF extends Instruccion
         }   
     }
 }
+
+export class PRINT extends Instruccion
+{
+    valor : Expresion;
+    
+
+    constructor(valor :Expresion, si_cumple :LISTA_EJECUCIONES[], no_cumple :LISTA_EJECUCIONES[], linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        let respuesta = this.valor.obtener_valor(actual, global,ast);
+        let tipo_valor = this.valor.tipo.obtener_tipo_de_dato();
+        if(tipo_valor == TIPO_DATO.INT ||tipo_valor == TIPO_DATO.DOUBLE||tipo_valor == TIPO_DATO.CHAR||tipo_valor == TIPO_DATO.BOOLEAN||tipo_valor == TIPO_DATO.STRING ){
+            respuesta = this.valor.obtener_valor(actual, global,ast);
+            ast.escribir_en_consola(respuesta);
+        }        
+    }
+}

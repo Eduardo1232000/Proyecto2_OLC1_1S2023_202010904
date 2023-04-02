@@ -74,6 +74,41 @@ export class OPERACION_UNARIA extends Expresion {
                         return respuesta;
                     }
                 }
+//INCREMENTOS Y DECREMENTOS
+            case "++" :  
+            {
+                //RESPUESTA INT
+                if(tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE)
+                {
+
+                    this.tipo = this.valor1.tipo;
+                    respuesta = valor_1 + 1;
+                    return respuesta;
+                }
+                else
+                {
+                    this.tipo = new Tipo(TIPO_DATO.ERROR);
+                    respuesta = 0;
+                    return respuesta;
+                }
+            } 
+            case "--" : 
+            {
+                //RESPUESTA INT
+                if(tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE)
+                {
+
+                    this.tipo = this.valor1.tipo;
+                    respuesta = valor_1 - 1;
+                    return respuesta;
+                }
+                else
+                {
+                    this.tipo = new Tipo(TIPO_DATO.ERROR);
+                    respuesta = 0;
+                    return respuesta;
+                }
+            }   
         }
     }
 }
