@@ -14,6 +14,7 @@
     let OPERACIONES                 =   require("./src/instrucciones/OPERACIONES").OPERACIONES;
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
     let IF                          =   require("./src/instrucciones/FUNCIONES").IF;
+    let OPERACION_TERNARIA          =   require("./src/instrucciones/OPERACION_TERNARIA").OPERACION_TERNARIA;
 %}
 /* ------------------------------------------------- */
  /* Definicion Lexica */
@@ -107,6 +108,7 @@ frac                        (?:\.[0-9]+)
 "<"                             {return '<';}
 "{"                             {return '{';}
 "}"                             {return '}';}
+"?"                             {return '?';}
 
 "\n"                            {return 'SALTO_LINEA';}
 "\'"                            {return 'COMILLA_SIMPLE';}
@@ -156,9 +158,14 @@ instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
 
 DECLARACION_VARIABLE :    TIPO  id  '=' EXPRESION  {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
                         | TIPO  id           {$$ = new DECLARACION_VARIABLE($1, $2, undefined, @2.first_line, @2.first_column); }
+                        | TIPO  id  '=' EXPRESION_IF {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
+;   
+
+ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'   { $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+                         |id '=' EXPRESION_IF ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
 ;
 
-ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+EXPRESION_IF: EXPRESION '?' EXPRESION ':' EXPRESION {$$ = new OPERACION_TERNARIA($1, $3, $5, @2.first_line, @2.first_column); }
 ;
 
 INSTRUCCIONES_FUNCION:  '{'instrucciones'}'{$$ = $2;}
@@ -169,8 +176,8 @@ FUNCION_IF: RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION                         
            |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE INSTRUCCIONES_FUNCION {$$ = new IF($3, $5, $7, @1.first_line, @1.first_column)}
            |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE IF                    {let funcion_else_if = [];
                                                                                     funcion_else_if.push($7);
-                                                                                    $$ = funcion_else_if;
-                                                                                    }                
+                                                                                    $$ = funcion_else_if;}    
+                    
 ;
 
 TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
