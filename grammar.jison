@@ -167,6 +167,12 @@ DECLARACION_VARIABLE :    TIPO  id  '=' EXPRESION  {$$ = new DECLARACION_VARIABL
 
 ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'   { $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
                          |id '=' EXPRESION_IF ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+                         |id '++' ';'            { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
+                                                   $$ = new OPERACION_UNARIA($2, $$, @2.first_line, @2.first_column);
+                                                   $$ = new ASIGNACION_VARIABLE($1,$$, @1.first_line, @1.first_column);}
+                         |id '--' ';'            { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
+                                                   $$ = new OPERACION_UNARIA($2, $$, @2.first_line, @2.first_column);
+                                                   $$ = new ASIGNACION_VARIABLE($1,$$, @1.first_line, @1.first_column);}
 ;
 
 EXPRESION_IF: EXPRESION '?' EXPRESION ':' EXPRESION {$$ = new OPERACION_TERNARIA($1, $3, $5, @2.first_line, @2.first_column); }
