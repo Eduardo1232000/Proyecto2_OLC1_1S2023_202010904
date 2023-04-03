@@ -115,7 +115,39 @@ export class VARIABLE
 
     
 }
+export class VECTOR 
+{
+    tipo:   Tipo;
+    id:     string;
+    valor:  any[];
+    constructor(tipo:Tipo, id:string, valor:any[]) 
+    {
+        this.tipo   = tipo;
+        this.id     = id;
+        this.valor  = valor;
+    }
+    public obtener_valor(): any 
+    {
+        return this.valor;
+    }
 
+    public modificar_valor(valor: any[])
+    {
+        this.valor = valor;
+    }
+
+    public obtener_nombre(): string 
+    {
+        return this.id;
+    }
+
+    public obtener_tipo(): Tipo 
+    {
+        return this.tipo;
+    }
+
+    
+}
 export class PARAMETRO {
      
 }

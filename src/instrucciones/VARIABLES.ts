@@ -6,6 +6,8 @@ import { TIPO_DATO } from "../arbol/Tipo";
 
 import { Tipo } from "../arbol/Tipo";
 import { VARIABLE } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import { VECTOR } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
 
 export class ASIGNACION_VARIABLE extends Instruccion 
 {
@@ -140,8 +142,332 @@ export class VALIDAR_EXISTE_VARIABLE extends Expresion
         let valor_var = variable.obtener_valor();
         this.tipo = variable.obtener_tipo();
         return valor_var;
-        
+    }
+}
 
+export class DECLARACION_VECTOR_TIPO1 extends Instruccion 
+{
+    tipo:   Tipo;
+    id:     string;
+    expresion:    Expresion[];
+    size: Expresion;
+
+    constructor(tipo: Tipo, id: string, exp: Expresion[],size:Expresion, linea: number, columna: number) 
+    {
+        super(linea, columna);
+        this.tipo = tipo;
+        this.id = id;
+        this.expresion = exp;
+        this.size = size
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        //ast.escribir_en_consola("TENGO QUE DECLARAR VECTORES CON VALOR.");
+         //SI LA VARIABLE EXISTE NO SE CREA NADA
+         if( tabla.variable_existe(this.id) ) 
+         {
+             ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VARIABLE YA EXISTE.");
+         }
+         //SI LA VARIABLE NO EXISTE
+         else
+         {
+            
+            
+            //let res: number[] = [];
+            //SI EL VECTOR TIENE VALORES
+            if(this.expresion.length != 0)
+            {
+                let cantidad = this.expresion.length
+                let bandera_validar = false
+                if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.INT)
+                {
+                    let res: number[] = [];
+                    for(let i = 0; i<cantidad;i++){
+                        let val = this.expresion[i]
+                        let valvalor = val.obtener_valor(tabla,global,ast)
+                        let valtipo = val.tipo.obtener_tipo_de_dato()
+                        if(valtipo != this.tipo.obtener_tipo_de_dato())
+                        {
+                            bandera_validar = true;
+                        }
+                        if(bandera_validar == false){
+                            res.push(valvalor)
+                        }
+                    }
+                    if(bandera_validar == false){
+                        let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                    else{
+                        ast.escribir_en_consola("VECTOR ERROR")
+                    }
+                }
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.DOUBLE)
+                {
+                    let res: number[] = [];
+                    for(let i = 0; i<cantidad;i++){
+                        let val = this.expresion[i]
+                        let valvalor = val.obtener_valor(tabla,global,ast)
+                        let valtipo = val.tipo.obtener_tipo_de_dato()
+                        if(valtipo != this.tipo.obtener_tipo_de_dato())
+                        {
+                            bandera_validar = true;
+                        }
+                        if(bandera_validar == false){
+                            res.push(valvalor)
+                        }
+                    }
+                    if(bandera_validar == false){
+                        let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                    else{
+                        ast.escribir_en_consola("VECTOR ERROR")
+                    }
+
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.BOOLEAN)
+                {
+                    let res: boolean[] = [];
+                    for(let i = 0; i<cantidad;i++){
+                        let val = this.expresion[i]
+                        let valvalor = val.obtener_valor(tabla,global,ast)
+                        let valtipo = val.tipo.obtener_tipo_de_dato()
+                        if(valtipo != this.tipo.obtener_tipo_de_dato())
+                        {
+                            bandera_validar = true;
+                        }
+                        if(bandera_validar == false){
+                            res.push(valvalor)
+                        }
+                    }
+                    if(bandera_validar == false){
+                        let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                    else{
+                        ast.escribir_en_consola("VECTOR ERROR")
+                    }
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.CHAR) 
+                {
+                    let res: String[] = [];
+                    for(let i = 0; i<cantidad;i++){
+                        let val = this.expresion[i]
+                        let valvalor = val.obtener_valor(tabla,global,ast)
+                        let valtipo = val.tipo.obtener_tipo_de_dato()
+                        if(valtipo != this.tipo.obtener_tipo_de_dato())
+                        {
+                            bandera_validar = true;
+                        }
+                        if(bandera_validar == false){
+                            res.push(valvalor)
+                        }
+                    }
+                    if(bandera_validar == false){
+                        let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                    else{
+                        ast.escribir_en_consola("VECTOR ERROR")
+                    }
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.STRING) 
+                {
+                    let res: String[] = [];
+                    for(let i = 0; i<cantidad;i++){
+                        let val = this.expresion[i]
+                        let valvalor = val.obtener_valor(tabla,global,ast)
+                        let valtipo = val.tipo.obtener_tipo_de_dato()
+                        if(valtipo != this.tipo.obtener_tipo_de_dato())
+                        {
+                            bandera_validar = true;
+                        }
+                        if(bandera_validar == false){
+                            res.push(valvalor)
+                        }
+                    }
+                    if(bandera_validar == false){
+                        let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                    else{
+                        ast.escribir_en_consola("VECTOR ERROR")
+                    }
+                }
+                
+                
+ 
+            }
+            else//VECTOR VACIO
+            {
+                let cantidad = this.size.obtener_valor(tabla,global,ast); //SOLO PARA VECTORES VACIOS
+                if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.INT)
+                {
+                    let res: number[] = [];
+                    for(let i=0;i<(cantidad);i++){
+                        res.push(0);
+                    }
+                    let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                }
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.DOUBLE)
+                {
+                    let res: number[] = [];
+                    for(let i=0;i<(cantidad);i++){
+                        res.push(0.0);
+                    }
+                    let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.BOOLEAN)
+                {
+                    let res: boolean[] = [];
+                    for(let i=0;i<(cantidad);i++){
+                        res.push(true);
+                    }
+                    let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.CHAR) 
+                {
+                    let res: String[] = [];
+                    for(let i=0;i<(cantidad);i++){
+                        res.push("0");
+                    }
+                    let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.STRING) 
+                {
+                    let res: String[] = [];
+                    for(let i=0;i<(cantidad);i++){
+                        res.push("");
+                    }
+                    let nuevo_vec = new VECTOR(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: vector "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+            }
+        }
+    }
+}
+
+export class ASIGNACION_VECTOR extends Instruccion 
+{
+    id:     string;
+    posicion:  Expresion;
+    expresion:    Expresion;
+
+    constructor(id: string, posicion: Expresion, expresion: Expresion, linea: number, columna: number) 
+    {
+        super(linea, columna);
+        this.id = id;
+        this.posicion = posicion
+        this.expresion = expresion;
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let variable = tabla.obtener_variable(this.id);
+        if(variable === undefined) 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VECTOR "+this.id+" NO DEFINIDO.");
+            
+        }else{
+            let pos = this.posicion.obtener_valor(tabla,global,ast);
+            let pos_tipo = this.posicion.tipo.obtener_tipo_de_dato();
+            if (pos_tipo != TIPO_DATO.INT){
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION VECTOR NO VALIDA.");
+            }
+            else{
+                let valor_asig = this.expresion.obtener_valor(tabla, global, ast);
+                if(variable.obtener_tipo().obtener_tipo_de_dato() != this.expresion.tipo.obtener_tipo_de_dato()) 
+                {
+                    ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): EL VALOR NO COINCIDE CON EL TIPO DEL VECTOR.");
+                }else{
+                    let vect = variable.obtener_valor();    //obtiene el vector
+                    if((vect.length-1) < pos){
+                        ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION EXCEDE A LONGITUD DE VECTOR");
+                    }
+                    else{
+                        vect[pos] = valor_asig;                 //modifica el valor
+                        variable.modificar_valor(vect)          //modifica el vector
+                        ast.escribir_en_consola("EXITO variable modificada. Nuevo valor: "+vect);
+                    }
+                    
+                }
+
+            }
+            
+        }
+    }
+}
+
+export class VALIDAR_EXISTE_VECTOR extends Expresion
+{
+    nombrevector  : string;
+    posicion   : Expresion;
+    constructor(nombreVar : string, posicion:Expresion, linea : number, columna : number) 
+    {
+        super(linea,columna);
+        this.nombrevector = nombreVar;
+        this.posicion = posicion;
+    }
+    
+    public obtener_valor(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        //VALIDA SI EXISTE LA VARIABLE
+        let variable = tabla.obtener_variable(this.nombrevector);
+        if(variable === undefined) 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VECTOR "+this.nombrevector+" NO DEFINIDO.");
+            let valor_var = "ERROR";
+            this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+            return valor_var;
+        }   
         
+        let valor_var = variable.obtener_valor();
+        
+        
+        //this.tipo = variable.obtener_tipo();
+        let pos = this.posicion.obtener_valor(tabla,global,ast)
+        let tipo_pos = this.posicion.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("."+tipo_pos)
+
+        if (tipo_pos != TIPO_DATO.INT){
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION DE VECTOR NO VALIDA");
+            let valor_var = "ERROR";
+            this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+            return valor_var;
+        }
+        else
+        {
+            
+            if((valor_var.length -1) < pos){
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION EXCEDE A LONGITUD DE VECTOR");
+                let valor_var = "ERROR";
+                this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+                return valor_var;
+            }
+            else{
+                
+                let val_res = valor_var[pos]
+                let tipo_vector = variable.obtener_tipo();
+                this.tipo = tipo_vector
+                ;return(valor_var[pos])
+            }
+
+        }
     }
 }

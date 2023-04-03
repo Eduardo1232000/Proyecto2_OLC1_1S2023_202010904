@@ -8,8 +8,11 @@
     let Tipo                        =   require("./src/arbol/Tipo").Tipo;
     let TIPO_DATO                   =   require("./src/arbol/Tipo").TIPO_DATO;
     let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE; 
+    let DECLARACION_VECTOR_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_VECTOR_TIPO1; 
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
+    let ASIGNACION_VECTOR           =   require("./src/instrucciones/VARIABLES").ASIGNACION_VECTOR;
     let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
+    let VALIDAR_EXISTE_VECTOR       =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VECTOR;
     let Valor                       =   require("./src/instrucciones/Valor").Valor;
     let OPERACIONES                 =   require("./src/instrucciones/OPERACIONES").OPERACIONES;
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
@@ -64,6 +67,7 @@ frac                        (?:\.[0-9]+)
 "break"             {lexico.push("BREAK");       return 'RBREAK';}
 "continue"          {lexico.push("CONTINUE");    return 'RCONTINUE';}
 "return"            {lexico.push("RETURN");      return 'RRETURN';}
+"new"               {lexico.push("RNEW");        return 'RNEW';}
 
 "toLower"           {lexico.push("TOLOWER");     return 'RTOLOWER';}
 "toUpper"           {lexico.push("TOUPPER");     return 'RTOUPPER';}
@@ -111,6 +115,8 @@ frac                        (?:\.[0-9]+)
 "<"                             {return '<';}
 "{"                             {return '{';}
 "}"                             {return '}';}
+"["                             {return '[';}
+"]"                             {return ']';}
 "?"                             {return '?';}
 
 "\n"                            {return 'SALTO_LINEA';}
@@ -152,7 +158,9 @@ instrucciones :    instrucciones instruccion        {$1.push($2);  $$ = $1;}
 ;
 
 instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
+            |   DECLARACION_VECTORES ';'    { $$ = $1; }
             |   ASIGNACION_VARIABLE         { $$ = $1; }
+            |   ASIGNACION_VECTORES         { $$ = $1; }
             |   FUNCION_IF                  { $$ = $1; }
             |   FUNCION_PRINT ';'           { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
@@ -163,7 +171,16 @@ instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
 DECLARACION_VARIABLE :    TIPO  id  '=' EXPRESION  {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
                         | TIPO  id           {$$ = new DECLARACION_VARIABLE($1, $2, undefined, @2.first_line, @2.first_column); }
                         | TIPO  id  '=' EXPRESION_IF {$$ = new DECLARACION_VARIABLE($1, $2, $4, @2.first_line, @2.first_column);}
+;
+DECLARACION_VECTORES:   TIPO '[' ']' id '=' 'RNEW' TIPO '['EXPRESION']' {$$ = new DECLARACION_VECTOR_TIPO1($1, $4, [],$9,@4.first_line,@4.first_column );}
+                       |TIPO '[' ']' id '=' '{' LISTA_EXPRESIONES '}'   {$$ = new DECLARACION_VECTOR_TIPO1($1, $4, $7,0,@4.first_line,@4.first_column );}
 ;   
+LISTA_EXPRESIONES:  LISTA_EXPRESIONES ',' EXPRESION {$1.push($3);  $$ = $1;}
+                    | EXPRESION                     {   let lstexp = [];        lstexp.push($1);       $$ = lstexp;}
+                    
+                                     
+;
+
 
 ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'   { $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
                          |id '=' EXPRESION_IF ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
@@ -173,6 +190,8 @@ ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'   { $$ = new ASIGNACION_VARIABLE(
                          |id '--' ';'            { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
                                                    $$ = new OPERACION_UNARIA($2, $$, @2.first_line, @2.first_column);
                                                    $$ = new ASIGNACION_VARIABLE($1,$$, @1.first_line, @1.first_column);}
+;
+ASIGNACION_VECTORES :   id '[' EXPRESION ']' '=' EXPRESION ';'  { $$ = new ASIGNACION_VECTOR($1, $3, $6, @1.first_line, @1.first_column);}
 ;
 
 EXPRESION_IF: EXPRESION '?' EXPRESION ':' EXPRESION {$$ = new OPERACION_TERNARIA($1, $3, $5, @2.first_line, @2.first_column); }
@@ -222,6 +241,7 @@ EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES($1, $2
     |   '(' RCHAR ')' EXPRESION                     {$$ = new CASTEOS("CHAR", $4, @2.first_line, @2.first_column);}
     |   '(' RSTRING ')' EXPRESION                   {$$ = new CASTEOS("STRING", $4, @2.first_line, @2.first_column);}
     |   id                              {$$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);}
+    |   id '['EXPRESION']'              {$$ = new VALIDAR_EXISTE_VECTOR($1,$3,@1.first_line,@1.first_column);}
     |   ENTERO                          {$$ = new Valor($1,"INT",@1.first_line,@1.first_column);}
     |   DECIMAL                         {$$ = new Valor($1,"DOUBLE",@1.first_line,@1.first_column); }
     |   CARACTER                        {$$ = new Valor($1,"CHAR",@1.first_line,@1.first_column);   }

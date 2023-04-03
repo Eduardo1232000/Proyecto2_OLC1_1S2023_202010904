@@ -1,0 +1,11 @@
+ String[] vector_1 = {"a","b","c"};
+int[] vector_2 = new int[6];
+vector_1[1] = "b_modificado";
+vector_2[4] = 155;
+vector_1[0] = "6";
+int[] vector_3 = new int[15];
+vector_3[5] = vector_2[4];
+vector_7[3] = "1"; //NO EXISTE VECTOR
+print(vector_1[1]);
+print(vector_2[7]);//NO EXISTE ESA POSICION
+print(vector_5[9]);//NO EXISTE VECTOR
