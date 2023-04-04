@@ -18,6 +18,7 @@
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
     let IF                          =   require("./src/instrucciones/FUNCIONES").IF;
     let PRINT                       =   require("./src/instrucciones/FUNCIONES").PRINT;
+    let WHILE                       =   require("./src/instrucciones/FUNCIONES").WHILE;
     let OPERACION_TERNARIA          =   require("./src/instrucciones/OPERACION_TERNARIA").OPERACION_TERNARIA;
     let CASTEOS                     =   require("./src/instrucciones/CASTEOS").CASTEOS;
 %}
@@ -163,6 +164,7 @@ instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
             |   ASIGNACION_VECTORES         { $$ = $1; }
             |   FUNCION_IF                  { $$ = $1; }
             |   FUNCION_PRINT ';'           { $$ = $1; }
+            |   FUNCION_WHILE               { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
@@ -209,6 +211,9 @@ FUNCION_IF: RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION                         
 ;
 
 FUNCION_PRINT: RPRINT '('EXPRESION')'   {$$ = new PRINT($3, @1.first_line, @1.first_column);}
+;
+
+FUNCION_WHILE: RWHILE '(' EXPRESION ')'  INSTRUCCIONES_FUNCION  {$$ = new WHILE($3,$5, @1.first_line, @1.first_column);}
 ;
 
 TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }

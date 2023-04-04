@@ -40,6 +40,7 @@ export class IF extends Instruccion
                         ejecucion.obtener_valor(TABLA_FUNC_Y_VAR_IF,global,ast);
                     }
                 }
+                
             }
             else//SI NO CUMPLE LA CONDICION
             {
@@ -68,7 +69,7 @@ export class PRINT extends Instruccion
     valor : Expresion;
     
 
-    constructor(valor :Expresion, si_cumple :LISTA_EJECUCIONES[], no_cumple :LISTA_EJECUCIONES[], linea :number, columna :number) 
+    constructor(valor :Expresion, linea :number, columna :number) 
     {
         super(linea, columna);
         this.valor = valor;
@@ -81,5 +82,47 @@ export class PRINT extends Instruccion
             respuesta = this.valor.obtener_valor(actual, global,ast);
             ast.escribir_en_consola(respuesta);
         }        
+    }
+}
+
+export class WHILE extends Instruccion
+{
+    condicion : Expresion;
+    instrucciones : LISTA_EJECUCIONES[]
+    
+
+    constructor(condicion :Expresion, instrucciones :LISTA_EJECUCIONES[], linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.condicion = condicion;
+        this.instrucciones = instrucciones
+
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        let condicion_actual = this.condicion.obtener_valor(actual,global,ast)
+        let valor_condicion = this.condicion.obtener_valor(actual,global,ast)
+        //ast.escribir_en_consola("."+valor_condicion)
+        if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
+        {
+            let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+            
+            while(this.condicion.obtener_valor(actual,global,ast) == true){
+                for(let i=0; i<this.instrucciones.length;i++ )
+                {
+                    let instruccion = this.instrucciones[i]
+                    if(instruccion instanceof Instruccion)
+                    {
+                        instruccion.ejecutar(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                    }
+                    else if (instruccion instanceof Expresion)
+                    {
+                        instruccion.obtener_valor(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                    }
+                }
+            }  
+        }
+        else{
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") CONDICION NO VALIDA");
+        }
     }
 }
