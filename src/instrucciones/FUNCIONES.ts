@@ -6,6 +6,7 @@ import {Instruccion} from "../arbol/EJECUCION";
 import { Tipo } from "../arbol/Tipo";
 import { TIPO_DATO } from "../arbol/Tipo";
 import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
+import { ASIGNACION_VARIABLE } from "./VARIABLES";
 
 export class IF extends Instruccion
 {
@@ -99,30 +100,97 @@ export class WHILE extends Instruccion
 
     }
     public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
-        let condicion_actual = this.condicion.obtener_valor(actual,global,ast)
-        let valor_condicion = this.condicion.obtener_valor(actual,global,ast)
-        //ast.escribir_en_consola("."+valor_condicion)
-        if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
-        {
-            let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual);
-            
-            while(this.condicion.obtener_valor(actual,global,ast) == true){
-                for(let i=0; i<this.instrucciones.length;i++ )
-                {
-                    let instruccion = this.instrucciones[i]
-                    if(instruccion instanceof Instruccion)
+        try{
+            let condicion_actual = this.condicion.obtener_valor(actual,global,ast)
+            let valor_condicion = this.condicion.obtener_valor(actual,global,ast)
+            //ast.escribir_en_consola("."+valor_condicion)
+            if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
+            {
+                let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+                
+                while(this.condicion.obtener_valor(actual,global,ast) == true){
+                    for(let i=0; i<this.instrucciones.length;i++ )
                     {
-                        instruccion.ejecutar(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                        let instruccion = this.instrucciones[i]
+                        if(instruccion instanceof Instruccion)
+                        {
+                            instruccion.ejecutar(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                        }
+                        else if (instruccion instanceof Expresion)
+                        {
+                            instruccion.obtener_valor(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                        }
                     }
-                    else if (instruccion instanceof Expresion)
-                    {
-                        instruccion.obtener_valor(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                }  
+            }
+            else{
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") CONDICION NO VALIDA");
+            }
+
+        }
+        catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
+        
+    }
+}
+
+export class FOR extends Instruccion
+{
+    asignacion: ASIGNACION_VARIABLE
+    condicion : Expresion;
+    actualizacion: ASIGNACION_VARIABLE
+    instrucciones : LISTA_EJECUCIONES[]
+    
+
+    constructor(asignacion: ASIGNACION_VARIABLE,condicion :Expresion,actualizacion:ASIGNACION_VARIABLE, instrucciones :LISTA_EJECUCIONES[], linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.asignacion = asignacion;
+        this.condicion = condicion;
+        this.actualizacion = actualizacion;
+        this.instrucciones = instrucciones;
+
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        try{
+            this.asignacion.ejecutar(actual,global,ast)     //PRIMERO EJECUTAR LA ASIGNACION
+            let id_asig = this.asignacion.id;               //OBTENER EL ID DE LA ASIGNACION
+            let id_act = this.actualizacion.id;             //OBTENER EL ID DE LA ACTUALIZACION
+
+            let valor_condicion = this.condicion.obtener_valor(actual,global,ast)   //OBTENER VALOR DE LA CONDICION
+            let tipo_valor_condicion = this.condicion.tipo.obtener_tipo_de_dato();  //OBTENER TIPO DE VALOR DE LA CONDICION
+            
+            if(id_asig == id_act){//SI EL ID DE ASIGNACION COINCIDE CON EL ID DE ACTUALIZACION
+                if(tipo_valor_condicion == TIPO_DATO.BOOLEAN){ //SI CONDICION ES BOOLEANO
+                    let TABLA_FUNC_Y_VAR_FOR = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+                    //ast.escribir_en_consola("."+this.condicion.obtener_valor(actual,global,ast))
+                    
+                    while(this.condicion.obtener_valor(actual,global,ast) == true){
+                        
+                        for(let i=0; i<this.instrucciones.length;i++ )  //HACE 1 VEZ TODA LA LISTA DE INSTRUCCIONES
+                        {
+                            let instruccion = this.instrucciones[i]
+                            if(instruccion instanceof Instruccion)
+                            {
+                                instruccion.ejecutar(TABLA_FUNC_Y_VAR_FOR,global,ast);
+                            }
+                            else if (instruccion instanceof Expresion)
+                            {
+                                instruccion.obtener_valor(TABLA_FUNC_Y_VAR_FOR,global,ast);
+                            }
+                        }
+
+                        this.actualizacion.ejecutar(TABLA_FUNC_Y_VAR_FOR, actual,ast)   //EJECUTA LA ASIGNACION EN CADA ITERACION
                     }
                 }
-            }  
+                else{
+                    ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") CONDICION NO VALIDA");
+                }
+            }
+            else{
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") ACTUALIZACION TIENE DIFERENTE VARIABLE");
+            }
+
         }
-        else{
-            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") CONDICION NO VALIDA");
-        }
+        catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
     }
 }

@@ -19,6 +19,7 @@
     let IF                          =   require("./src/instrucciones/FUNCIONES").IF;
     let PRINT                       =   require("./src/instrucciones/FUNCIONES").PRINT;
     let WHILE                       =   require("./src/instrucciones/FUNCIONES").WHILE;
+    let FOR                         =   require("./src/instrucciones/FUNCIONES").FOR;
     let OPERACION_TERNARIA          =   require("./src/instrucciones/OPERACION_TERNARIA").OPERACION_TERNARIA;
     let CASTEOS                     =   require("./src/instrucciones/CASTEOS").CASTEOS;
 %}
@@ -160,11 +161,12 @@ instrucciones :    instrucciones instruccion        {$1.push($2);  $$ = $1;}
 
 instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
             |   DECLARACION_VECTORES ';'    { $$ = $1; }
-            |   ASIGNACION_VARIABLE         { $$ = $1; }
+            |   ASIGNACION_VARIABLE  ';'    { $$ = $1; }
             |   ASIGNACION_VECTORES         { $$ = $1; }
             |   FUNCION_IF                  { $$ = $1; }
             |   FUNCION_PRINT ';'           { $$ = $1; }
             |   FUNCION_WHILE               { $$ = $1; }
+            |   FUNCION_FOR                 { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
@@ -184,12 +186,12 @@ LISTA_EXPRESIONES:  LISTA_EXPRESIONES ',' EXPRESION {$1.push($3);  $$ = $1;}
 ;
 
 
-ASIGNACION_VARIABLE  :    id '=' EXPRESION ';'   { $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
-                         |id '=' EXPRESION_IF ';'{ $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
-                         |id '++' ';'            { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
+ASIGNACION_VARIABLE  :    id '=' EXPRESION       { $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+                         |id '=' EXPRESION_IF    { $$ = new ASIGNACION_VARIABLE($1, $3, @1.first_line, @1.first_column);}
+                         |id '++'                { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
                                                    $$ = new OPERACION_UNARIA($2, $$, @2.first_line, @2.first_column);
                                                    $$ = new ASIGNACION_VARIABLE($1,$$, @1.first_line, @1.first_column);}
-                         |id '--' ';'            { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
+                         |id '--'                { $$ = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);
                                                    $$ = new OPERACION_UNARIA($2, $$, @2.first_line, @2.first_column);
                                                    $$ = new ASIGNACION_VARIABLE($1,$$, @1.first_line, @1.first_column);}
 ;
@@ -214,6 +216,13 @@ FUNCION_PRINT: RPRINT '('EXPRESION')'   {$$ = new PRINT($3, @1.first_line, @1.fi
 ;
 
 FUNCION_WHILE: RWHILE '(' EXPRESION ')'  INSTRUCCIONES_FUNCION  {$$ = new WHILE($3,$5, @1.first_line, @1.first_column);}
+;
+
+FUNCION_FOR: RFOR '(' DEC_O_ASIG ';' EXPRESION ';' ASIGNACION_VARIABLE ')' INSTRUCCIONES_FUNCION  {$$ = new FOR($3,$5,$7,$9, @1.first_line, @1.first_column); }
+;
+
+DEC_O_ASIG:  ASIGNACION_VARIABLE    {$$ = $1}
+            |DECLARACION_VARIABLE   {$$ = $1}
 ;
 
 TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
