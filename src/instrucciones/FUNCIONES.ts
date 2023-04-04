@@ -194,3 +194,51 @@ export class FOR extends Instruccion
         catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
     }
 }
+
+export class DO_WHILE extends Instruccion
+{
+    condicion : Expresion;
+    instrucciones : LISTA_EJECUCIONES[]
+    
+
+    constructor(condicion :Expresion, instrucciones :LISTA_EJECUCIONES[], linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.condicion = condicion;
+        this.instrucciones = instrucciones
+
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        try{
+            let condicion_actual = this.condicion.obtener_valor(actual,global,ast)
+            let valor_condicion = this.condicion.obtener_valor(actual,global,ast)
+            //ast.escribir_en_consola("."+valor_condicion)
+            if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
+            {
+                let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+                
+                do{
+                    for(let i=0; i<this.instrucciones.length;i++ )
+                    {
+                        let instruccion = this.instrucciones[i]
+                        if(instruccion instanceof Instruccion)
+                        {
+                            instruccion.ejecutar(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                        }
+                        else if (instruccion instanceof Expresion)
+                        {
+                            instruccion.obtener_valor(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                        }
+                    }
+                }
+                while(this.condicion.obtener_valor(actual,global,ast) == true)
+            }
+            else{
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") CONDICION NO VALIDA");
+            }
+
+        }
+        catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
+        
+    }
+}

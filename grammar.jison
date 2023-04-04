@@ -20,6 +20,7 @@
     let PRINT                       =   require("./src/instrucciones/FUNCIONES").PRINT;
     let WHILE                       =   require("./src/instrucciones/FUNCIONES").WHILE;
     let FOR                         =   require("./src/instrucciones/FUNCIONES").FOR;
+    let DO_WHILE                    =   require("./src/instrucciones/FUNCIONES").DO_WHILE;
     let OPERACION_TERNARIA          =   require("./src/instrucciones/OPERACION_TERNARIA").OPERACION_TERNARIA;
     let CASTEOS                     =   require("./src/instrucciones/CASTEOS").CASTEOS;
 %}
@@ -167,6 +168,7 @@ instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
             |   FUNCION_PRINT ';'           { $$ = $1; }
             |   FUNCION_WHILE               { $$ = $1; }
             |   FUNCION_FOR                 { $$ = $1; }
+            |   FUNCION_DO_WHILE ';'        { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
@@ -221,6 +223,8 @@ FUNCION_WHILE: RWHILE '(' EXPRESION ')'  INSTRUCCIONES_FUNCION  {$$ = new WHILE(
 FUNCION_FOR: RFOR '(' DEC_O_ASIG ';' EXPRESION ';' ASIGNACION_VARIABLE ')' INSTRUCCIONES_FUNCION  {$$ = new FOR($3,$5,$7,$9, @1.first_line, @1.first_column); }
 ;
 
+FUNCION_DO_WHILE: RDO INSTRUCCIONES_FUNCION RWHILE'(' EXPRESION ')'   {$$ = new DO_WHILE($5,$2, @1.first_line, @1.first_column);}
+;
 DEC_O_ASIG:  ASIGNACION_VARIABLE    {$$ = $1}
             |DECLARACION_VARIABLE   {$$ = $1}
 ;
