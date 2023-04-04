@@ -21,6 +21,8 @@
     let WHILE                       =   require("./src/instrucciones/FUNCIONES").WHILE;
     let FOR                         =   require("./src/instrucciones/FUNCIONES").FOR;
     let DO_WHILE                    =   require("./src/instrucciones/FUNCIONES").DO_WHILE;
+    let SWITCH                    =   require("./src/instrucciones/FUNCIONES").SWITCH;
+    let CASE                    =   require("./src/instrucciones/FUNCIONES").CASE;
     let OPERACION_TERNARIA          =   require("./src/instrucciones/OPERACION_TERNARIA").OPERACION_TERNARIA;
     let CASTEOS                     =   require("./src/instrucciones/CASTEOS").CASTEOS;
 %}
@@ -158,6 +160,7 @@ ini
 
 instrucciones :    instrucciones instruccion        {$1.push($2);  $$ = $1;}
             |      instruccion {   let lstsent = [];        lstsent.push($1);       $$ = lstsent;}
+        
 ;
 
 instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
@@ -169,6 +172,7 @@ instruccion :   DECLARACION_VARIABLE ';'    { $$ = $1; }
             |   FUNCION_WHILE               { $$ = $1; }
             |   FUNCION_FOR                 { $$ = $1; }
             |   FUNCION_DO_WHILE ';'        { $$ = $1; }
+            |   FUNCION_SWITCH              { $$ = $1; }
             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
@@ -207,11 +211,10 @@ INSTRUCCIONES_FUNCION:  '{'instrucciones'}'{$$ = $2;}
                         |'{''}' {$$ = [];}
 ;
 
+
 FUNCION_IF: RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION                             {$$ = new IF($3, $5, [], @1.first_line, @1.first_column);}
            |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE INSTRUCCIONES_FUNCION {$$ = new IF($3, $5, $7, @1.first_line, @1.first_column);}
-           |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE IF                    {let funcion_else_if = [];
-                                                                                    funcion_else_if.push($7);
-                                                                                    $$ = funcion_else_if;}                       
+           |RIF '(' EXPRESION ')' INSTRUCCIONES_FUNCION RELSE IF                    {let funcion_else_if = [];                                                                                    funcion_else_if.push($7);                                                                                 $$ = funcion_else_if;}                       
 ;
 
 FUNCION_PRINT: RPRINT '('EXPRESION')'   {$$ = new PRINT($3, @1.first_line, @1.first_column);}
@@ -225,9 +228,30 @@ FUNCION_FOR: RFOR '(' DEC_O_ASIG ';' EXPRESION ';' ASIGNACION_VARIABLE ')' INSTR
 
 FUNCION_DO_WHILE: RDO INSTRUCCIONES_FUNCION RWHILE'(' EXPRESION ')'   {$$ = new DO_WHILE($5,$2, @1.first_line, @1.first_column);}
 ;
+
 DEC_O_ASIG:  ASIGNACION_VARIABLE    {$$ = $1}
             |DECLARACION_VARIABLE   {$$ = $1}
 ;
+
+FUNCION_SWITCH:  RSWITCH '(' EXPRESION ')' '{' CASES_SWITCH         '}'  {$$ = new SWITCH($3,$6,[],@1.first_line, @1.first_column);}
+                |RSWITCH '(' EXPRESION ')' '{' CASES_SWITCH DEFAULT '}'  {$$ = new SWITCH($3,$6,$7,@1.first_line, @1.first_column);}
+                |RSWITCH '(' EXPRESION ')' '{'              DEFAULT '}'  {$$ = new SWITCH($3,[],$6,@1.first_line, @1.first_column);}
+
+
+;
+
+CASES_SWITCH: CASES_SWITCH CASE_SWITCH  {$1.push($2);  $$ = $1;}
+            | CASE_SWITCH               {let lstswitch = [];        lstswitch.push($1);       $$ = lstswitch;}
+;
+CASE_SWITCH: RCASE EXPRESION ':'  INSTRUCCIONES_SWITCH  {$$ = new CASE($2,$4, @1.first_line, @1.first_column);}
+;
+
+DEFAULT: RDEFAULT ':'  INSTRUCCIONES_SWITCH      {$$ = $3}            
+;
+
+INSTRUCCIONES_SWITCH:     instrucciones    {$$ = $1;}
+                        |                  {$$ = [];}
+;  
 
 TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
         |       RBOOLEAN      { $$ = new Tipo(TIPO_DATO.BOOLEAN); }

@@ -242,3 +242,95 @@ export class DO_WHILE extends Instruccion
         
     }
 }
+export class SWITCH extends Instruccion
+{
+    valor : Expresion;
+    cases: CASE[];
+    case_default: LISTA_EJECUCIONES[];
+    
+
+    constructor(valor :Expresion,cases: CASE[],case_default:LISTA_EJECUCIONES[], linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+        this.cases = cases;
+        this.case_default = case_default;
+
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        let bandera_ejecutar = false;
+        let val_valor = this.valor.obtener_valor(actual,global,ast)
+        let tipo_valor = this.valor.tipo.obtener_tipo_de_dato();
+
+        for(let i=0;i<this.cases.length;i++){
+            let case_actual = this.cases[i];
+            let valor_case_actual = case_actual.valor.obtener_valor(actual,global,ast);
+            let val_case = case_actual.valor.obtener_valor(actual,global,ast)
+            let tipo_case = case_actual.valor.tipo.obtener_tipo_de_dato();
+            if(tipo_valor == tipo_case)//VERIFICA QUE EL CASE TENGA EL MISMO TIPO QUE LO QUE SE VA A COMPARAR
+            {
+                if(val_valor == val_case)//SI EL VALOR COINCIDE CON EL DE ALGUN CASE
+                {
+                    case_actual.ejecutar(actual,global,ast);
+                    bandera_ejecutar = true;
+                }
+            }
+            else
+            {
+                continue//COMO EL TIPO ES DIFERENTE ENTONCES NI LO ANALIZA
+            }
+            
+            
+            //ast.escribir_en_consola("."+ valor_case_actual);
+            //case_actual.ejecutar(actual,global,ast);
+            //ast.escribir_en_consola("ESTOY ANALIZANDO LOS CASES");
+        }
+        //RECORRIENDO 
+        if(this.case_default.length!=0){
+            let TABLA_FUNC_Y_VAR_SWITCH = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+
+            for(let i=0;i<this.case_default.length;i++){
+                let instruccion = this.case_default[i];
+                if(instruccion instanceof Instruccion)
+                {
+                    instruccion.ejecutar(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+                }
+                else if (instruccion instanceof Expresion)
+                {
+                    instruccion.obtener_valor(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+                }
+            }
+            //for(let i=0;i<this.case_default.length;i++){//RECORRE INSTRUCCIONES DE DEFAULT
+            //    ast.escribir_en_consola("ESTOY ANALIZANDO LOS CASES");
+            //}
+        }
+    }
+}
+export class CASE extends Instruccion
+{
+    valor : Expresion;
+    instrucciones: LISTA_EJECUCIONES[];
+    
+
+    constructor(valor :Expresion,instrucciones: LISTA_EJECUCIONES[], linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+        this.instrucciones = instrucciones
+
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        let TABLA_FUNC_Y_VAR_SWITCH = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+        for(let i=0;i<this.instrucciones.length;i++){
+            let instruccion = this.instrucciones[i];
+            if(instruccion instanceof Instruccion)
+            {
+                instruccion.ejecutar(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+            }
+            else if (instruccion instanceof Expresion)
+            {
+                instruccion.obtener_valor(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+            }
+        }  
+    }
+}
