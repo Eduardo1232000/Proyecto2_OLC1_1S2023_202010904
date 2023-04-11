@@ -23,7 +23,7 @@ router.get('/reportes', (req, res) =>{
 
 router.post('/ejecutar', (req, res) => {
     
-    let cadena_codigo = req.body.codigo;
+    let cadena_codigo = req.body.codigo //CODIGO ENVIADO DESDE NAVEGADOR
     //let analizador = new Analizador(cadena_codigo, "editor");
     //let ast: AST = analizador.Analizar();
     let archivo = "editar"
@@ -40,9 +40,11 @@ router.post('/ejecutar', (req, res) => {
 
 
     if(arbol != undefined) {
-        res.render('compilador.ejs', { title: 'TipeWize', salida: arbol.obtener_salida(), codigo: cadena_codigo});
+        res.json({respuesta: arbol.obtener_salida()});
+        //res.render('compilador.ejs', { title: 'TipeWize', salida: arbol.obtener_salida(), codigo: cadena_codigo});
     } else{
-        res.render('compilador.ejs', { title: 'TipeWize', salida: 'ERROR al procesar cadena', codigo: cadena_codigo});
+        //res.render('compilador.ejs', { title: 'TipeWize', salida: 'ERROR al procesar cadena', codigo: cadena_codigo});
+        res.json({respuesta: "ERROR al procesar cadena"});
     }
 });
 

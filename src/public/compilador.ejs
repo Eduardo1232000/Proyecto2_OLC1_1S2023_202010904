@@ -27,10 +27,24 @@
             <button id="boton_editor" type="submit" class="btn btn-primary w-20" >Editor</button>  
             <button id="boton_compilador" type="submit" class="btn btn-primary w-20">Compilador</button>
             <button id="boton_reportes"type="submit"class="btn btn-primary w-20 ">Reportes</button>
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+            
+            <button id="nueva_pestana"type="submit"class="btn btn-success w-20 ">Nueva Pestaña</button>
         </a>
       </nav>
     <font color="white">
-    <input id="fileInput" accept=".tw" type="file" size="10" onchange="processFiles(this.files)"><br>
+    <input id="fileInput" accept=".tw" type="file" size="10" onchange="processFiles(this.files)"><br><br>
+    
+    <ul class="nav nav-tabs" id="pestanas" role="tablist">
+
+    </ul>
+
+
+
+    <br>
     <div class="row">
         <div class="col-6"><h2>Entrada</h2></div>
         <div class="col-6"><h2>Salida</h2></div>
@@ -41,12 +55,10 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <form method="POST" action="/ejecutar">
                 <textarea  id="editor" name="codigo" ><%= codigo %></textarea><br>
                 <p style="text-align: center;">
-                    <button type="submit" class="btn btn-outline-success w-50 btn-lg" > Analizar Entrada</button> 
+                    <button id = boton_ejecutar type="submit" class="btn btn-outline-success w-50 btn-lg" > Analizar Entrada</button> 
                 </p>
-            </form>
         </div>
         <div class="col-6"> 
             <div class="row">
@@ -56,8 +68,39 @@
             </div>
         </div>   
     </div>
-
     <script>
+        let panel_pestana = document.getElementById("pestanas");
+        let numero = 0
+        let numero_pestana = 0
+        var lista_textos=new Array();
+        lista_textos.push("");//PRIMERA PESTAÑA
+
+        nueva_pesta()//PESTAÑA 0
+    nueva_pestana.addEventListener("click",(e) =>{
+        lista_textos[numero_pestana] = editor.getValue()
+        nueva_pesta()
+        editor.setValue("")
+        editor2.setValue("")
+    })
+
+    boton_ejecutar.addEventListener("click",(e) =>{
+        fetch("http://localhost:3000/ejecutar", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            codigo: editor.getValue()
+          }),
+        })
+        //Respuesta del servidor
+        .then(res => res.json())
+        .then(data => {
+          editor2.setValue(data.respuesta)
+        })
+    })
+
+
     boton_home.addEventListener("click",(e) =>{
         window.location.href = "http://localhost:3000/";
     })
@@ -102,6 +145,50 @@
         //editor.textContent = e.target.result;  //para un textarea normal
         };
         reader.readAsText(file);
+        }
+
+
+
+        function nueva_pesta(){
+            lista_textos.push("");
+            let pestana_li = document.createElement("li")
+            pestana_li.className = "nav-item"
+
+            let pest = document.createElement("a")
+            pest.className = "nav-link";
+            pest.id = numero.toString();
+            numero_pestana = numero//as
+            //editor.setValue("");
+            //editor2.setValue("");
+            numero = numero +1
+            
+            pest.href="#"+pest.id;
+            pest.role ="tab";
+            pest.innerText = "Pestaña "+ pest.id+ "  ";
+            pest.ariaSelected = "true";
+            pest.addEventListener("click", () => {
+                lista_textos[numero_pestana] = editor.getValue()
+                numero_pestana = parseInt(pest.id)
+                editor.setValue(lista_textos[parseInt(pest.id)])
+                
+                
+            });
+            
+            let boton_cerrar_pest = document.createElement("button")
+            boton_cerrar_pest.innerText = "X"
+            boton_cerrar_pest.className = "btn btn-danger";
+            boton_cerrar_pest.addEventListener("click", () => {
+
+                pest.remove()
+                editor.setValue("")
+                editor2.setValue("")
+
+            });
+            
+            pest.appendChild(boton_cerrar_pest)
+            pestana_li.appendChild(pest)
+            panel_pestana.appendChild(pestana_li)
+            
         }
     </script>
 </body>
