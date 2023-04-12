@@ -1,0 +1,19 @@
+#nombre_guardar_como{
+    resize: none;
+}
+#nombre_archivo{
+    resize: none;
+}
+#nombre_guardar_como{
+    font-size: 0.9vw;
+}
+#fileInput{
+    font-size: 0.9vw;
+    width: 8.8vw;
+}
+#boton_ejecutar{
+    height: 3vw;
+}
+#pestanas{
+    height: 3vw;
+}

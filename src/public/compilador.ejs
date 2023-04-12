@@ -17,45 +17,49 @@
      <link href="/codemirror/theme/midnight.css" rel="stylesheet" />      
      <script src="/codemirror/addon/edit/closebrackets.js"></script>      
      <script src="/codemirror/addon/selection/active-line.js"></script>
+     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body style="background-color:#2A302F;">
-    <nav class="navbar navbar-dark bg-dark mb-3">
+    <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
             TypeWise
-            &nbsp &nbsp &nbsp &nbsp
-            <button id="boton_home" type="submit" class="btn btn-primary w-20" >Home</button> 
-            <button id="boton_editor" type="submit" class="btn btn-primary w-20" >Editor</button>  
-            <button id="boton_compilador" type="submit" class="btn btn-primary w-20">Compilador</button>
-            <button id="boton_reportes"type="submit"class="btn btn-primary w-20 ">Reportes</button>
-            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
-            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
-            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
-            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp 
+            <button id="boton_home" type="submit" class="btn btn-primary btn-sm " >Home</button> 
+            <button id="boton_compilador" type="submit" class="btn btn-primary btn-sm ">Compilador</button>
+            <button id="boton_reportes"type="submit"class="btn btn-primary btn-sm  ">Reportes</button>
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp &nbsp&nbsp 
+            &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+
+            <button id="nueva_pestana"type="submit"class="btn btn-success btn-sm ">Nueva Pestaña</button>
+            <input id="fileInput" accept=".tw" type="file" size="10"  onchange="processFiles(this.files)">
+            <button id="boton_nuevo" type="submit" class="btn btn-primary btn-sm" >Nuevo</button>&nbsp
+            <button id="boton_guardar" type="submit" class="btn btn-primary btn-sm" >Guardar</button>&nbsp
+            <textarea id="nombre_guardar_como" name="nombre_arch" rows="1" cols="30" style="background-color:#2A302F;color:white;"></textarea> 
+            <button id="boton_guardar_exito" type="submit" class="btn btn-success btn-sm">Guardar con este nombre</button>
             
-            <button id="nueva_pestana"type="submit"class="btn btn-success w-20 ">Nueva Pestaña</button>
         </a>
       </nav>
     <font color="white">
-    <input id="fileInput" accept=".tw" type="file" size="10" onchange="processFiles(this.files)"><br><br>
+
+    <ul class="nav nav-tabs" id="pestanas" role="tablist"></ul>
     
-    <ul class="nav nav-tabs" id="pestanas" role="tablist">
-
-    </ul>
-
-
-
-    <br>
+    
+    
+    <center><h2>Compilador</h2></center>
     <div class="row">
-        <div class="col-6"><h2>Entrada</h2></div>
-        <div class="col-6"><h2>Salida</h2></div>
+        <div class="col-6"><h4>Entrada</h4></div>
+        <div class="col-6"><h4>Salida</h4></div>
     </div>
-    
+    <div class="col-6" >
+        &nbsp&nbsp
+        <textarea readonly id="nombre_archivo" name="nombre_arch" rows="1" cols="50" style="background-color:#2A302F;color:white;">Nuevo.tw</textarea> 
+    </div>
     </font>
     <div class="row">
     </div>
     <div class="row">
         <div class="col-6">
-                <textarea  id="editor" name="codigo" ><%= codigo %></textarea><br>
+                <textarea  id="editor" name="codigo" ><%= codigo %></textarea>
                 <p style="text-align: center;">
                     <button id = boton_ejecutar type="submit" class="btn btn-outline-success w-50 btn-lg" > Analizar Entrada</button> 
                 </p>
@@ -68,6 +72,7 @@
             </div>
         </div>   
     </div>
+    
     <script>
         let panel_pestana = document.getElementById("pestanas");
         let numero = 0
@@ -105,10 +110,6 @@
         window.location.href = "http://localhost:3000/";
     })
 
-    boton_editor.addEventListener("click",(e) =>{
-        window.location.href = "http://localhost:3000/editor";
-    })
-
     boton_compilador.addEventListener("click",(e) =>{
         window.location.href = "http://localhost:3000/compilador";
     })
@@ -116,6 +117,28 @@
     boton_reportes.addEventListener("click", (e) =>{
         window.location.href = "http://localhost:3000/reportes"; 
     })
+    boton_nuevo.addEventListener("click", (e) =>{
+        editor.setValue("")
+        nombre_archivo.value="Nuevo.tw";
+    })
+    boton_guardar.addEventListener("click", (e) =>{
+        download(nombre_archivo.value, editor.getValue());
+    })
+
+    boton_guardar_exito.addEventListener("click", (e) =>{
+        nombre_archivo.value = nombre_guardar_como.value
+        download(nombre_guardar_como.value, editor.getValue());
+    })
+    //--------------------------------- CREAR ARCHIVO Y DESCARGARLO ---------------------------------
+    function download(filename, textInput) {    
+        var element = document.createElement('a');
+        element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
+        element.setAttribute('download', filename);
+        document.body.appendChild(element);
+        element.click();
+        //document.body.removeChild(element);
+    }
+    //-----------------------------------------------------------------------------------------------
         let editor = CodeMirror.fromTextArea(document.getElementById("editor"),{
                     lineNumbers         : true,
                     mode                : "text/x-java",
@@ -175,8 +198,8 @@
             });
             
             let boton_cerrar_pest = document.createElement("button")
-            boton_cerrar_pest.innerText = "X"
-            boton_cerrar_pest.className = "btn btn-danger";
+            boton_cerrar_pest.innerText = "x"
+            boton_cerrar_pest.className = "btn btn-danger btn-sm";
             boton_cerrar_pest.addEventListener("click", () => {
 
                 pest.remove()
