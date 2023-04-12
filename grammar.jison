@@ -86,11 +86,11 @@ frac                        (?:\.[0-9]+)
 /*---------------------------------------------------------------*/
 
 /*------------------------- EXPRESIONES REGULARES ---------------*/
-([a-zA-ZÑñ]|("_"[a-zA-ZÑñ]))([a-zA-ZÑñ]|[0-9]|"_")*             yytext = yytext.toLowerCase();          return 'id';
-\"(?:[{corchete_abre}|{corchete_cierra}]|["\\"]["bnrt/["\\"]]|[^"["\\"])*\"         yytext = yytext.substr(1,yyleng-2);     return 'CADENA';
-\'(?:{doblediagonal}["bfnrt/{doblediagonal}]|{doblediagonal}"u"[a-fA-F0-9]{4}|[^"{doblediagonal}])\'    yytext = yytext.substr(1,yyleng-2);     return 'CARACTER'
-{int}{frac}\b                                                                                           return 'DECIMAL'
-{int}\b                                                                                                 return 'ENTERO'
+([a-zA-ZÑñ]|("_"[a-zA-ZÑñ]))([a-zA-ZÑñ]|[0-9]|"_")*                                 { yytext = yytext.toLowerCase();            return 'id';}
+\"(?:[{corchete_abre}|{corchete_cierra}]|["\\"]["bnrt/["\\"]]|[^"["\\"])*\"         { yytext = yytext.substr(1,yyleng-2);       return 'CADENA';}
+\'((\\\')|(\\\")|(\\\\)|(\\"n")|(\\"t")|[^\\\n\'])?\'	                                                            { yytext = yytext.substr(1,yyleng-2);       return 'CARACTER'; }  
+{int}{frac}\b                                                                                          { return 'DECIMAL'}
+{int}\b                                                                                                { return 'ENTERO' }
 /*---------------------------------------------------------------*/
 
 /*--------------------------SIGNOS-------------------------------*/
@@ -257,6 +257,7 @@ TIPO    :       RINT          { $$ = new Tipo(TIPO_DATO.INT); }
         |       RBOOLEAN      { $$ = new Tipo(TIPO_DATO.BOOLEAN); }
         |       RSTRING       { $$ = new Tipo(TIPO_DATO.STRING);  }
         |       RDOUBLE       { $$ = new Tipo(TIPO_DATO.DOUBLE);  }
+        |       RCHAR         { $$ = new Tipo(TIPO_DATO.CHAR);  }
 ; 
 
 EXPRESION :   EXPRESION '+' EXPRESION               {$$ = new OPERACIONES($1, $2, $3, @2.first_line, @2.first_column);}

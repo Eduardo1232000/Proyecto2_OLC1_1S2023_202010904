@@ -34,12 +34,15 @@ export class OPERACIONES extends Expresion {
                         (tipo_valor2 == TIPO_DATO.INT&&(tipo_valor1 ==TIPO_DATO.INT || tipo_valor1== TIPO_DATO.BOOLEAN || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON BOOLEANOS NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i + this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i + this.valor1.obtener_valor(actual,global,ast)
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.INT);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SOLO ENTRE ENTEROS
                         {
@@ -54,12 +57,15 @@ export class OPERACIONES extends Expresion {
                             (tipo_valor2 == TIPO_DATO.DOUBLE &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE || tipo_valor1== TIPO_DATO.BOOLEAN || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {   
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON CHAR NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i + this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i + this.valor1.obtener_valor(actual,global,ast)
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.DOUBLE);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SI ES ENTERO O DOUBLE
                         {
@@ -68,9 +74,10 @@ export class OPERACIONES extends Expresion {
                             return respuesta;
                         }                    
                     }
+                    
                     //RESPUESTA STRING
-                    else if((tipo_valor1 == TIPO_DATO.STRING &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE || tipo_valor2== TIPO_DATO.BOOLEAN || tipo_valor2 ==TIPO_DATO.CHAR || tipo_valor2 ==TIPO_DATO.STRING))||
-                            (tipo_valor2 == TIPO_DATO.STRING &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE || tipo_valor1== TIPO_DATO.BOOLEAN || tipo_valor1 ==TIPO_DATO.CHAR|| tipo_valor1 ==TIPO_DATO.STRING)))
+                    else if(((tipo_valor1 == TIPO_DATO.STRING || tipo_valor1 == TIPO_DATO.CHAR) &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE || tipo_valor2== TIPO_DATO.BOOLEAN || tipo_valor2 ==TIPO_DATO.CHAR || tipo_valor2 ==TIPO_DATO.STRING))||
+                            ((tipo_valor2 == TIPO_DATO.STRING || tipo_valor2 == TIPO_DATO.CHAR) &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE || tipo_valor1== TIPO_DATO.BOOLEAN || tipo_valor1 ==TIPO_DATO.CHAR|| tipo_valor1 ==TIPO_DATO.STRING)))
                     {
                         this.tipo = new Tipo(TIPO_DATO.STRING);
                         respuesta = this.valor1.obtener_valor(actual,global,ast) + this.valor2.obtener_valor(actual,global,ast)
@@ -90,12 +97,15 @@ export class OPERACIONES extends Expresion {
                         (tipo_valor2 == TIPO_DATO.INT&&(tipo_valor1 ==TIPO_DATO.INT || tipo_valor1== TIPO_DATO.BOOLEAN || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON CHAR NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i - this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = this.valor1.obtener_valor(actual,global,ast) - i 
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.INT);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SOLO ENTRE ENTEROS
                         {
@@ -110,12 +120,15 @@ export class OPERACIONES extends Expresion {
                             (tipo_valor2 == TIPO_DATO.DOUBLE &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE || tipo_valor1== TIPO_DATO.BOOLEAN || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {   
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON BOOLEANOS NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i - this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = this.valor1.obtener_valor(actual,global,ast) - i 
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.DOUBLE);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SI ES ENTERO O DOUBLE
                         {
@@ -138,12 +151,15 @@ export class OPERACIONES extends Expresion {
                         (tipo_valor2 == TIPO_DATO.INT&&(tipo_valor1 ==TIPO_DATO.INT || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON CHAR NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i * this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = this.valor1.obtener_valor(actual,global,ast) * i 
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.INT);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SOLO ENTRE ENTEROS
                         {
@@ -158,12 +174,15 @@ export class OPERACIONES extends Expresion {
                             (tipo_valor2 == TIPO_DATO.DOUBLE &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {   
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON CHAR NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i * this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = this.valor1.obtener_valor(actual,global,ast) * i 
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.DOUBLE);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SI ES ENTERO O DOUBLE
                         {
@@ -186,12 +205,15 @@ export class OPERACIONES extends Expresion {
                             ((tipo_valor2 == TIPO_DATO.INT ||tipo_valor2 == TIPO_DATO.DOUBLE) &&(tipo_valor1 ==TIPO_DATO.INT ||tipo_valor1== TIPO_DATO.DOUBLE || tipo_valor1 ==TIPO_DATO.CHAR)))
                     {   
                         if(tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor2 == TIPO_DATO.CHAR){
-                            ast.escribir_en_consola("OPERACION CON CHAR NO IMPLEMENTADA");
-                            //CAMBIAR
-                            this.tipo = new Tipo(TIPO_DATO.ERROR);
-                            respuesta = 0;
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                var i =this.valor1.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = i / this.valor2.obtener_valor(actual,global,ast)
+                            }else{
+                                var i =this.valor2.obtener_valor(actual,global,ast).charCodeAt(0);
+                                respuesta = this.valor1.obtener_valor(actual,global,ast) / i 
+                            }
+                            this.tipo = new Tipo(TIPO_DATO.DOUBLE);
                             return respuesta;
-                            //CAMBIAR
                         }
                         else//SI ES ENTERO O DOUBLE
                         {
@@ -247,45 +269,105 @@ export class OPERACIONES extends Expresion {
 //OPERACIONES RELACIONALES            
             case "==":
                 {
-                    //RESPUESTA DOUBLE
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
                         //SI EL TIPO DEBE SER IGUAL ENTONCES SOLO SE AGREGA === EN LUGAR DE ==
-                        if(this.valor1.obtener_valor(actual,global,ast) == this.valor2.obtener_valor(actual,global,ast)){
-                            respuesta = true;
+
+                        if(tipo_valor1 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.CHAR){
+                            var i  = this.valor1.obtener_valor(actual,global,ast)
+                            var j =  this.valor2.obtener_valor(actual,global,ast)
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                i =i.charCodeAt(0);
+                            }
+                            if(tipo_valor2 == TIPO_DATO.CHAR){
+                                j =j.charCodeAt(0);
+                            }
+                            if(i == j){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }else{
+                            if(this.valor1.obtener_valor(actual,global,ast) == this.valor2.obtener_valor(actual,global,ast)){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta; 
                         }
-                        else
-                        {
-                            respuesta = false;
-                        }
-                        return respuesta;                     
+                                            
                 }
             case "!=":
                 {
-                    //RESPUESTA DOUBLE
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
                         //SI EL TIPO DEBE SER IGUAL ENTONCES SOLO SE AGREGA === EN LUGAR DE ==
-                        if(this.valor1.obtener_valor(actual,global,ast) == this.valor2.obtener_valor(actual,global,ast)){
-                            respuesta = false;
+                        if(tipo_valor1 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.CHAR){
+                            var i  = this.valor1.obtener_valor(actual,global,ast)
+                            var j =  this.valor2.obtener_valor(actual,global,ast)
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                i =i.charCodeAt(0);
+                            }
+                            if(tipo_valor2 == TIPO_DATO.CHAR){
+                                j =j.charCodeAt(0);
+                            }
+                            if(i == j){
+                                respuesta = false;
+                            }
+                            else
+                            {
+                                respuesta = true;
+                            }
+                            return respuesta;
+                        }else{
+                            if(this.valor1.obtener_valor(actual,global,ast) == this.valor2.obtener_valor(actual,global,ast)){
+                                respuesta = false;
+                            }
+                            else
+                            {
+                                respuesta = true;
+                            }
+                            return respuesta;
                         }
-                        else
-                        {
-                            respuesta = true;
-                        }
-                        return respuesta;                     
+                                             
                 }
             case "<":
                 {
                     if((tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE || tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor1 == TIPO_DATO.BOOLEAN) &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE || tipo_valor2 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.BOOLEAN))
                     {   
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
-                        if(this.valor1.obtener_valor(actual,global,ast) < this.valor2.obtener_valor(actual,global,ast)){
-                            respuesta = true;
-                        }
-                        else
-                        {
-                            respuesta = false;
-                        }
-                        return respuesta;                     
+                        
+                        if(tipo_valor1 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.CHAR){
+                            var i  = this.valor1.obtener_valor(actual,global,ast)
+                            var j =  this.valor2.obtener_valor(actual,global,ast)
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                i =i.charCodeAt(0);
+                            }
+                            if(tipo_valor2 == TIPO_DATO.CHAR){
+                                j =j.charCodeAt(0);
+                            }
+                            if(i < j){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }else{
+
+                            if(this.valor1.obtener_valor(actual,global,ast) < this.valor2.obtener_valor(actual,global,ast)){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }                     
                     }
                 }
             case "<=":
@@ -293,14 +375,34 @@ export class OPERACIONES extends Expresion {
                     if((tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE || tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor1 == TIPO_DATO.BOOLEAN) &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE || tipo_valor2 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.BOOLEAN))
                     {   
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
-                        if(this.valor1.obtener_valor(actual,global,ast) <= this.valor2.obtener_valor(actual,global,ast)){
-                            respuesta = true;
-                        }
-                        else
-                        {
-                            respuesta = false;
-                        }
-                        return respuesta;                     
+
+                        if(tipo_valor1 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.CHAR){
+                            var i  = this.valor1.obtener_valor(actual,global,ast)
+                            var j =  this.valor2.obtener_valor(actual,global,ast)
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                i =i.charCodeAt(0);
+                            }
+                            if(tipo_valor2 == TIPO_DATO.CHAR){
+                                j =j.charCodeAt(0);
+                            }
+                            if(i <= j){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }else{
+                            if(this.valor1.obtener_valor(actual,global,ast) <= this.valor2.obtener_valor(actual,global,ast)){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta; 
+                        }                    
                     }
                 }
             case ">":
@@ -308,14 +410,34 @@ export class OPERACIONES extends Expresion {
                     if((tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE || tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor1 == TIPO_DATO.BOOLEAN) &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE || tipo_valor2 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.BOOLEAN))
                     {   
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
-                        if(this.valor1.obtener_valor(actual,global,ast) > this.valor2.obtener_valor(actual,global,ast)){
-                            respuesta = true;
-                        }
-                        else
-                        {
-                            respuesta = false;
-                        }
-                        return respuesta;                     
+
+                        if(tipo_valor1 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.CHAR){
+                            var i  = this.valor1.obtener_valor(actual,global,ast)
+                            var j =  this.valor2.obtener_valor(actual,global,ast)
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                i =i.charCodeAt(0);
+                            }
+                            if(tipo_valor2 == TIPO_DATO.CHAR){
+                                j =j.charCodeAt(0);
+                            }
+                            if(i > j){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }else{
+                            if(this.valor1.obtener_valor(actual,global,ast) > this.valor2.obtener_valor(actual,global,ast)){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }                     
                     }
                 }
             case ">=":
@@ -323,14 +445,33 @@ export class OPERACIONES extends Expresion {
                     if((tipo_valor1 == TIPO_DATO.INT ||tipo_valor1 == TIPO_DATO.DOUBLE || tipo_valor1 == TIPO_DATO.CHAR ||tipo_valor1 == TIPO_DATO.BOOLEAN) &&(tipo_valor2 ==TIPO_DATO.INT ||tipo_valor2== TIPO_DATO.DOUBLE || tipo_valor2 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.BOOLEAN))
                     {   
                         this.tipo = new Tipo(TIPO_DATO.BOOLEAN);
-                        if(this.valor1.obtener_valor(actual,global,ast) >= this.valor2.obtener_valor(actual,global,ast)){
-                            respuesta = true;
-                        }
-                        else
-                        {
-                            respuesta = false;
-                        }
-                        return respuesta;                     
+                        if(tipo_valor1 == TIPO_DATO.CHAR || tipo_valor2 == TIPO_DATO.CHAR){
+                            var i  = this.valor1.obtener_valor(actual,global,ast)
+                            var j =  this.valor2.obtener_valor(actual,global,ast)
+                            if(tipo_valor1 == TIPO_DATO.CHAR){
+                                i =i.charCodeAt(0);
+                            }
+                            if(tipo_valor2 == TIPO_DATO.CHAR){
+                                j =j.charCodeAt(0);
+                            }
+                            if(i >= j){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;
+                        }else{
+                            if(this.valor1.obtener_valor(actual,global,ast) >= this.valor2.obtener_valor(actual,global,ast)){
+                                respuesta = true;
+                            }
+                            else
+                            {
+                                respuesta = false;
+                            }
+                            return respuesta;     
+                        }                
                     }
                 }
 //OPERACIONES LOGICAS

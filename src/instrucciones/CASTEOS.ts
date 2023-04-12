@@ -26,7 +26,7 @@ export class CASTEOS extends Expresion {
         {
             case "INT":
             {
-                if(tipo_valor1 == TIPO_DATO.INT || tipo_valor1 == TIPO_DATO.CHAR )
+                if(tipo_valor1 == TIPO_DATO.INT)
                 {
                     this.tipo = new Tipo(TIPO_DATO.INT);
                     respuesta = valor_1
@@ -38,6 +38,11 @@ export class CASTEOS extends Expresion {
                     respuesta = Math.trunc(valor_1);
                     return respuesta
                 }
+                else if (tipo_valor1 == TIPO_DATO.CHAR){
+                    this.tipo = new Tipo(TIPO_DATO.INT);
+                    respuesta = valor_1.charCodeAt(0);
+                    return respuesta
+                }
                 else{
                     ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): CASTEO NO VALIDO.");
                     this.tipo = new Tipo(TIPO_DATO.ERROR);
@@ -47,10 +52,15 @@ export class CASTEOS extends Expresion {
             }
             case "DOUBLE":
             {
-                if(tipo_valor1 == TIPO_DATO.INT || tipo_valor1 == TIPO_DATO.DOUBLE || tipo_valor1 == TIPO_DATO.CHAR )
+                if(tipo_valor1 == TIPO_DATO.INT || tipo_valor1 == TIPO_DATO.DOUBLE  )
                 {
                     this.tipo = new Tipo(TIPO_DATO.DOUBLE);
                     respuesta = valor_1
+                    return respuesta
+                }
+                else if (tipo_valor1 == TIPO_DATO.CHAR){
+                    this.tipo = new Tipo(TIPO_DATO.DOUBLE);
+                    respuesta = valor_1.charCodeAt(0);
                     return respuesta
                 }
                 else{
@@ -80,7 +90,8 @@ export class CASTEOS extends Expresion {
                 if(tipo_valor1 == TIPO_DATO.INT)
                 {
                     this.tipo = new Tipo(TIPO_DATO.CHAR);
-                    respuesta = valor_1
+                    
+                    respuesta = String.fromCharCode(valor_1);
                     return respuesta
                 }
                 else{

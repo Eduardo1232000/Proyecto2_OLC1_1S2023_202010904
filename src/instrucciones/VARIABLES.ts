@@ -105,7 +105,7 @@ export class DECLARACION_VARIABLE extends Instruccion
                 } 
                 else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.CHAR) 
                 {
-                    res = "\u0000";
+                    res = '0';  //no se si es 0 porque el que esta en el enunciado me sale como un punto
                 } 
                 else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.STRING) 
                 {
