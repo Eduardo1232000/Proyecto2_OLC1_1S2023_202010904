@@ -56,14 +56,6 @@ export class AST {
     {
         return this.salida_cadena;
     }
-    public escribir_codigo_grafica(cadena: string)
-    {
-        this.codigo_grafica += cadena +"\n";
-    }
-    public obtener_codigo_grafica()
-    {
-        return this.codigo_grafica;
-    }
     public graficar(nodos:string)
     {
         this.escribir_en_consola("_____________________________________")
@@ -74,11 +66,6 @@ export class AST {
         codigo += nodos +"\n";
         codigo += "}";
         this.escribir_en_consola(codigo);
-    }
-    public graficar_recursivo(ejecucion)
-    {
-        
-
     }
 }
 

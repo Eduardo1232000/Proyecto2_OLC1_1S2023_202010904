@@ -61,11 +61,13 @@ export class TABLA_FUNCIONES_Y_VARIABLES
 
 export class FUNCION
 {
+    tipo:           Tipo;       
     nombre:         string;
     parametros:     PARAMETRO[];
     sentencias:     LISTA_EJECUCIONES[];
-    constructor(nombre: string, parametros: PARAMETRO[], sentencias: LISTA_EJECUCIONES[]) 
+    constructor(tipo: Tipo, nombre: string, parametros: PARAMETRO[], sentencias: LISTA_EJECUCIONES[]) 
     {
+        this.tipo = tipo;
         this.nombre = nombre;
         this.parametros = parametros;
         this.sentencias = sentencias;
@@ -79,6 +81,10 @@ export class FUNCION
     public obtener_parametros(): PARAMETRO[] 
     {
         return this.parametros;
+    }
+    public obtener_sentencias(): LISTA_EJECUCIONES[]
+    {
+        return this.sentencias;
     }
 }
 
@@ -187,5 +193,32 @@ export class METODO
     
 }
 export class PARAMETRO {
-     
+    tipo:   Tipo;
+    id:     string;
+    linea: number;
+    columna: number;
+    constructor(tipo:Tipo, id:string, linea:number, columna:number) 
+    {
+        this.tipo   = tipo;
+        this.id     = id;
+        this.linea = linea;
+        this.columna = columna;
+    }
+    public obtener_nombre(): string 
+    {
+        return this.id;
+    }
+
+    public obtener_tipo(): Tipo
+    {
+        return this.tipo;
+    }
+    public obtener_linea(): number
+    {
+        return this.linea;
+    }
+    public obtener_columna(): number
+    {
+        return this.columna;
+    }
 }

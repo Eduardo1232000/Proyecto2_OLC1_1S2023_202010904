@@ -1,5 +1,5 @@
 import { AST } from "../arbol/AST";
-import { TABLA_FUNCIONES_Y_VARIABLES } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import { FUNCION, PARAMETRO, TABLA_FUNCIONES_Y_VARIABLES } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import { Expresion } from "../arbol/EJECUCION";
 import { Instruccion } from "../arbol/EJECUCION";
 import { TIPO_DATO } from "../arbol/Tipo";
@@ -480,10 +480,10 @@ export class DECLARACION_METODO extends Instruccion
 {
     tipo:   Tipo;
     id:     string;
-    parametros:    Expresion[];
+    parametros:    PARAMETRO[];
     instrucciones: LISTA_EJECUCIONES[];
 
-    constructor(tipo: Tipo, id: string, parametros: Expresion[],instrucciones:LISTA_EJECUCIONES[], linea: number, columna: number) 
+    constructor(tipo: Tipo, id: string, parametros: PARAMETRO[],instrucciones:LISTA_EJECUCIONES[], linea: number, columna: number) 
     {
         super(linea, columna);
         this.tipo = tipo;
@@ -495,9 +495,9 @@ export class DECLARACION_METODO extends Instruccion
     public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
     {
         let res
-        let nueva_var = new METODO(this.tipo,this.id,this.parametros,this.instrucciones);
+        let nueva_var = new FUNCION(this.tipo,this.id,this.parametros,this.instrucciones);
         ast.escribir_en_consola("EXITO: metodo "+this.id +": creada");
-        tabla.agregar_variable_tabla(this.id,nueva_var);
+        tabla.agregar_funcion_tabla(this.id,nueva_var);
     }
     
 }
@@ -515,11 +515,51 @@ export class LLAMADA_METODO extends Instruccion
 
     public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
     {
-        ast.escribir_en_consola("VOY A BUSCAR LA FUNCION Y EJECUTARLA")
-        let funci = new VALIDAR_EXISTE_FUNCION(this.id,this.linea, this.columna)//OBTENER LA FUNCION SI EXISTE
+        let funci = tabla.obtener_funcion(this.id);
+        if(funci === undefined)
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): FUNCION O METODO "+this.id+" NO DEFINIDO.");
+        }
+        else{
+            let param = funci.obtener_parametros();
+            let instru = funci.obtener_sentencias();
+            //ast.escribir_en_consola("SI EXISTE LA FUNCION: "+funci.obtener_nombre());
+            //ASIGNACION DE PARAMETROS
+            if(param.length == this.parametros.length){
+                //CREAMOS NUESTRO NUEVO AMBITO
+                let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla);  //CREAMOS AMBITO PARA FUNCION
+                //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
+                for(let i=0;i<param.length;i++){
+                    let parametro = param[i];
+                    let id_parametro= parametro.obtener_nombre();
+                    let tipo_parametro = parametro.obtener_tipo().obtener_tipo_de_dato();
+                    let comparar = this.parametros[i]
+                    let valor_comparar = comparar.obtener_valor(tabla,global,ast);
+                    let tipo_comparar = comparar.tipo.obtener_tipo_de_dato();
+                    if(tipo_comparar == tipo_parametro){//SI LOS TIPOS COINCIDEN ENTRE PARAMETRO FUNCION Y PARAMETRO ENTRADA
+                        let vari = new VARIABLE(parametro.tipo,id_parametro,valor_comparar);             //CREAMOS UNA VARIABLE CON EL VALOR DE ENTRADA
+                        TABLA_FUNC_Y_VAR_FUNCION.agregar_variable_tabla(id_parametro,vari);             //LO AGREGAMOS AL AMBITO DE LA FUNCION
+                    }
+                }
+                for(let i=0;i<instru.length;i++){
+                    let sent = instru[i];
+                    //ES UNA INSTRUCCION COMO :(IF, WHILE, DECLARACIONES ETC)
+                    if(sent instanceof Instruccion) 
+                    {
+                        sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                    }
+                    //ES UNA EXPRESION (SUMA, RESTA ETC)
+                    else if(sent instanceof Expresion) 
+                    {
+                        sent.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                    }
+                }
+            }else{
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): CANTIDAD DE PARAMETROS INCORRECTO");
+            }
         
-        let valor_funci = funci.obtener_valor(tabla,global,ast)
-        ast.escribir_en_consola(""+funci.tipo)
+        }
+        
         
     }
     
@@ -541,7 +581,7 @@ export class VALIDAR_EXISTE_FUNCION extends Expresion
         
         if(variable === undefined) 
         {
-            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VECTOR "+this.nombre_funcion+" NO DEFINIDO.");
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): METODO "+this.nombre_funcion+" NO DEFINIDO.");
             let valor_var = "ERROR";
             this.tipo = new Tipo(TIPO_DATO.ERROR) ;
             return valor_var;
@@ -554,6 +594,28 @@ export class VALIDAR_EXISTE_FUNCION extends Expresion
         
 
     
+    }
+    
+}
+export class DECLARACION_PARAMETRO  
+{
+    tipo:   Tipo;
+    id:     string;
+    linea:  number;
+    columna: number;
+    constructor( tipo: Tipo,id: string, linea: number, columna: number) 
+    {
+        this.tipo = tipo;
+        this.id = id;
+        this.linea = linea;
+        this.columna = columna;
+    }
+
+    public ejecutar() 
+    {
+        //SI LA VARIABLE NO EXISTE
+        let nueva_var = new PARAMETRO(this.tipo, this.id, this.linea, this.columna);
+        return nueva_var;//CREO QUE RETORNA EL PARAMETRO (OBJETO)
     }
     
 }

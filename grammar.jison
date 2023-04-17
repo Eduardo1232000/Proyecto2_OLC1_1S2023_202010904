@@ -14,7 +14,8 @@
     let LISTA_EJECUCIONES           =   require("./src/arbol/LISTA_EJECUCIONES").LISTA_EJECUCIONES;
     let Tipo                        =   require("./src/arbol/Tipo").Tipo;
     let TIPO_DATO                   =   require("./src/arbol/Tipo").TIPO_DATO;
-    let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE; 
+    let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE;
+    let DECLARACION_PARAMETRO       =   require("./src/instrucciones/VARIABLES").DECLARACION_PARAMETRO;
     let DECLARACION_VECTOR_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_VECTOR_TIPO1; 
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
     let ASIGNACION_VECTOR           =   require("./src/instrucciones/VARIABLES").ASIGNACION_VECTOR;
@@ -305,7 +306,7 @@ DECLARACION_METODO:           RVOID id '('PARAMETROS')' INSTRUCCIONES_FUNCION   
                                                                                     }
 ;
 PARAMETROS:                   PARAMETROS ',' DECLARACION_VACIA_METODO     {lista_temporal = $1; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($3[0]);
-                                                                            lista_temporal_3 = lista_temporal[1];nodo_graf = new NODO_GRAFICAS( "PARAMETRO", @1.first_line, @1.first_column, "black" );
+                                                                            lista_temporal_3 = lista_temporal[1];nodo_graf = new NODO_GRAFICAS( "PARAMETRO", @3.first_line, @3.first_column, "black" );
                                                                             nodo_graf.agregar_hijo($3[1]);
                                                                             lista_temporal_3.push(nodo_graf);
                                                                             lista_temporal = []; lista_temporal.push(lista_temporal_2);lista_temporal.push(lista_temporal_3);$$ = lista_temporal;
@@ -319,7 +320,7 @@ PARAMETROS:                   PARAMETROS ',' DECLARACION_VACIA_METODO     {lista
                                                                         lista_temporal = []; lista_temporal.push(lstmet); lista_temporal.push(lista_temporal_3);$$ = lista_temporal;
                                                                         }
 ;
-DECLARACION_VACIA_METODO:     TIPO  id           {lista_temporal = []; val = new DECLARACION_VARIABLE($1, $2, undefined, @2.first_line, @2.first_column);lista_temporal.push(val);
+DECLARACION_VACIA_METODO:     TIPO  id           {lista_temporal = []; val = new DECLARACION_PARAMETRO($1[0], $2, undefined, @2.first_line, @2.first_column);val =val.ejecutar();lista_temporal.push(val);
                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION VARIABLE", @1.first_line, @1.first_column, "black" );
                                                 nodo_graf.agregar_hijo($1[1]);
                                                 nodo_prueba = new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "black" );
@@ -328,7 +329,7 @@ DECLARACION_VACIA_METODO:     TIPO  id           {lista_temporal = []; val = new
                                                 lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                  }
 ;
-LLAMADA_METODOS:              id '('PARAMETROS_LLAMADA')'             {lista_temporal = []; val = new LLAMADA_METODO($1,$3[0]);lista_temporal.push(val);
+LLAMADA_METODOS:              id '('PARAMETROS_LLAMADA')'             {lista_temporal = []; val = new LLAMADA_METODO($1,$3[0], @1.first_line, @1.first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", @1.first_line, @1.first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "black" );
                                                                         nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $1, @1.first_line, @1.first_column, "black" ))
@@ -340,7 +341,7 @@ LLAMADA_METODOS:              id '('PARAMETROS_LLAMADA')'             {lista_tem
                                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( ")", @1.first_line, @1.first_column, "black" ));
                                                                         lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                                         }
-                            | id '('')'                               {lista_temporal = []; val = new LLAMADA_METODO($1,[]);lista_temporal.push(val);
+                            | id '('')'                               {lista_temporal = []; val = new LLAMADA_METODO($1,[], @1.first_line, @1.first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", @1.first_line, @1.first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "black" );
                                                                         nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $1, @1.first_line, @1.first_column, "black" ))

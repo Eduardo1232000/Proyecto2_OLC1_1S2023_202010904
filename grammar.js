@@ -240,7 +240,7 @@ lista_temporal = []; val = new DECLARACION_METODO($$[$0-4],$$[$0-3],[],$$[$0][0]
 break;
 case 27:
 lista_temporal = $$[$0-2]; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($$[$0][0]);
-                                                                            lista_temporal_3 = lista_temporal[1];nodo_graf = new NODO_GRAFICAS( "PARAMETRO", _$[$0-2].first_line, _$[$0-2].first_column, "black" );
+                                                                            lista_temporal_3 = lista_temporal[1];nodo_graf = new NODO_GRAFICAS( "PARAMETRO", _$[$0].first_line, _$[$0].first_column, "black" );
                                                                             nodo_graf.agregar_hijo($$[$0][1]);
                                                                             lista_temporal_3.push(nodo_graf);
                                                                             lista_temporal = []; lista_temporal.push(lista_temporal_2);lista_temporal.push(lista_temporal_3);this.$ = lista_temporal;
@@ -257,7 +257,7 @@ case 28:
                                                                         
 break;
 case 29:
-lista_temporal = []; val = new DECLARACION_VARIABLE($$[$0-1], $$[$0], undefined, _$[$0].first_line, _$[$0].first_column);lista_temporal.push(val);
+lista_temporal = []; val = new DECLARACION_PARAMETRO($$[$0-1][0], $$[$0], undefined, _$[$0].first_line, _$[$0].first_column);val =val.ejecutar();lista_temporal.push(val);
                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION VARIABLE", _$[$0-1].first_line, _$[$0-1].first_column, "black" );
                                                 nodo_graf.agregar_hijo($$[$0-1][1]);
                                                 nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-1].first_line, _$[$0-1].first_column, "black" );
@@ -267,7 +267,7 @@ lista_temporal = []; val = new DECLARACION_VARIABLE($$[$0-1], $$[$0], undefined,
                                                  
 break;
 case 30:
-lista_temporal = []; val = new LLAMADA_METODO($$[$0-3],$$[$0-1][0]);lista_temporal.push(val);
+lista_temporal = []; val = new LLAMADA_METODO($$[$0-3],$$[$0-1][0], _$[$0-3].first_line, _$[$0-3].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", _$[$0-3].first_line, _$[$0-3].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-3].first_line, _$[$0-3].first_column, "black" );
                                                                         nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $$[$0-3], _$[$0-3].first_line, _$[$0-3].first_column, "black" ))
@@ -281,7 +281,7 @@ lista_temporal = []; val = new LLAMADA_METODO($$[$0-3],$$[$0-1][0]);lista_tempor
                                                                         
 break;
 case 31:
-lista_temporal = []; val = new LLAMADA_METODO($$[$0-2],[]);lista_temporal.push(val);
+lista_temporal = []; val = new LLAMADA_METODO($$[$0-2],[], _$[$0-2].first_line, _$[$0-2].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", _$[$0-2].first_line, _$[$0-2].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-2].first_line, _$[$0-2].first_column, "black" );
                                                                         nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $$[$0-2], _$[$0-2].first_line, _$[$0-2].first_column, "black" ))
@@ -1072,7 +1072,8 @@ _handle_error:
     let LISTA_EJECUCIONES           =   require("./src/arbol/LISTA_EJECUCIONES").LISTA_EJECUCIONES;
     let Tipo                        =   require("./src/arbol/Tipo").Tipo;
     let TIPO_DATO                   =   require("./src/arbol/Tipo").TIPO_DATO;
-    let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE; 
+    let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE;
+    let DECLARACION_PARAMETRO       =   require("./src/instrucciones/VARIABLES").DECLARACION_PARAMETRO;
     let DECLARACION_VECTOR_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_VECTOR_TIPO1; 
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
     let ASIGNACION_VECTOR           =   require("./src/instrucciones/VARIABLES").ASIGNACION_VECTOR;
