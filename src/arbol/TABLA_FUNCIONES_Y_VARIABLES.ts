@@ -148,6 +148,44 @@ export class VECTOR
 
     
 }
+export class METODO 
+{
+    tipo:   Tipo;
+    id:     string;
+    parametro:  any[];
+    valor: any[];
+    constructor(tipo:Tipo, id:string, parametro:any[],valor: any[]) 
+    {
+        this.tipo   = tipo;
+        this.id     = id;
+        this.parametro  = parametro;
+        this.valor = valor;
+    }
+    public obtener_valor(): any 
+    {
+        return this.valor;
+    }
+    public modificar_valor(valor: any[])
+    {
+        this.valor = valor;
+    }
+
+    public obtener_nombre(): string 
+    {
+        return this.id;
+    }
+
+    public obtener_tipo(): Tipo 
+    {
+        return this.tipo;
+    }
+    public obtener_parametros(): any
+    {
+        return this.parametro;
+    }
+
+    
+}
 export class PARAMETRO {
      
 }

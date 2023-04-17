@@ -4,6 +4,8 @@ const router = express.Router();
 //ARCHIVOS PARA ANALIZADOR
 import Parser from '../../grammar';
 import { AST } from '../arbol/AST';
+import { Valor } from '../instrucciones/Valor';
+import { NODO_GRAFICA } from '../arbol/NODO_GRAFICA';
 
 router.get('/', (req, res) => {
 	res.render('index.ejs', { title: 'TipeWize'});
@@ -29,10 +31,21 @@ router.post('/ejecutar', (req, res) => {
     let archivo = "editar"
     let parser:any 	= Parser.parser;        
     let arbol:AST   = undefined;            //CREAMOS UNO INDEFINIDO
+    let NODOS:NODO_GRAFICA;
+    let RESPUESTA_PARSER = [];
 
     try{
-        arbol = new AST(parser.parse(cadena_codigo));  //CREA UN ARBOL SINTACTICO CON LA LISTA DE EJECUCIONES DE LA ENTRADA
+
+        //PODRIA HACER QUE EL PARSE RETORNE UNA LISTA DE 2 ELEMENTOS, EL PRIMERO EL CODIGO PARA EL AST, Y EL SEGUNDO EL CODIGO PARA EL ARBOL
+        //let lst_TOTAL = parser.parse(cadena_codigo);
+        RESPUESTA_PARSER = parser.parse(cadena_codigo)
+        arbol = new AST(RESPUESTA_PARSER[0]);  //CREA UN ARBOL SINTACTICO CON LA LISTA DE EJECUCIONES DE LA ENTRADA
+
         arbol.ejecutar();                               //ANALIZA EL ARBOL SINTACTICO
+        let NODOS = RESPUESTA_PARSER[1];
+        
+        let codigo_nodos = NODOS.obtener_grafica_nodos();
+        arbol.graficar(codigo_nodos);
         //AGREGAR GRAFICAS Y REPORTES
     }catch(e){
         console.log(e);                                 //ERROR EN LA CREACION DEL ARBOL

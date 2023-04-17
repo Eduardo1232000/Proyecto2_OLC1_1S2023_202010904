@@ -10,11 +10,13 @@ export class AST {
     /*  LISTA_EJECUCIONES Raiz de ejecucion */
     private EJECUCIONES:   LISTA_EJECUCIONES[];            //LA RAIZ ES EJECUCION[0]
     private salida_cadena:  string;
+    private codigo_grafica: string;
 
     constructor (EJECUCIONES:LISTA_EJECUCIONES[]) 
     {
         this.EJECUCIONES = EJECUCIONES;                     //EJECUCIONES SON LAS INSTRUCCIONES Y EXPRESIONES QUE HAY EN LA ENTRADA
         this.salida_cadena = "";
+        this.codigo_grafica = "";
     }
 
     public ejecutar() 
@@ -53,6 +55,30 @@ export class AST {
     public obtener_salida() 
     {
         return this.salida_cadena;
+    }
+    public escribir_codigo_grafica(cadena: string)
+    {
+        this.codigo_grafica += cadena +"\n";
+    }
+    public obtener_codigo_grafica()
+    {
+        return this.codigo_grafica;
+    }
+    public graficar(nodos:string)
+    {
+        this.escribir_en_consola("_____________________________________")
+        this.escribir_en_consola("      INTENTO DE GRAFICA")
+        this.escribir_en_consola("_____________________________________")
+        let codigo = "digraph AST {\n";
+        codigo += "node [shape=box, style=rounded];\n";
+        codigo += nodos +"\n";
+        codigo += "}";
+        this.escribir_en_consola(codigo);
+    }
+    public graficar_recursivo(ejecucion)
+    {
+        
+
     }
 }
 

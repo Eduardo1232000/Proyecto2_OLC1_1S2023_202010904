@@ -158,6 +158,7 @@
                 });
         editor2.setSize("730","400");
 
+        //--------IMPORTAR TEXTO DE ARCHIVO A TEXTAREA-------------
         function processFiles(files) {    //IMPORTAR CONTENIDO A TEXTAREA
         var file = files[0];
         var reader = new FileReader();
@@ -165,10 +166,11 @@
         // Cuando éste evento se dispara, los datos están ya disponibles.
         // Se trata de copiarlos a una área <div> en la página.
         editor.setValue(e.target.result)
-        //editor.textContent = e.target.result;  //para un textarea normal
         };
         reader.readAsText(file);
+        nombre_archivo.value = file.name;
         }
+      //--------------------------------------------------------
 
 
 

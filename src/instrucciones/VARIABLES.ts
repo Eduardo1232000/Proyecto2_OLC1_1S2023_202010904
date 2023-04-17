@@ -7,6 +7,7 @@ import { TIPO_DATO } from "../arbol/Tipo";
 import { Tipo } from "../arbol/Tipo";
 import { VARIABLE } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import { VECTOR } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import { METODO } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
 
 export class ASIGNACION_VARIABLE extends Instruccion 
@@ -37,12 +38,9 @@ export class ASIGNACION_VARIABLE extends Instruccion
                 variable.modificar_valor(valor_asig);
                 ast.escribir_en_consola("EXITO variable modificada.Nuevo valor: "+valor_asig);
             }
-        }
-
-        
-
-        
+        }  
     }
+    
 }
 
 export class DECLARACION_VARIABLE extends Instruccion 
@@ -117,6 +115,7 @@ export class DECLARACION_VARIABLE extends Instruccion
             }
         }
     }
+    
 }
 
 export class VALIDAR_EXISTE_VARIABLE extends Expresion
@@ -143,6 +142,7 @@ export class VALIDAR_EXISTE_VARIABLE extends Expresion
         this.tipo = variable.obtener_tipo();
         return valor_var;
     }
+    
 }
 
 export class DECLARACION_VECTOR_TIPO1 extends Instruccion 
@@ -185,6 +185,7 @@ export class DECLARACION_VECTOR_TIPO1 extends Instruccion
                     let res: number[] = [];
                     for(let i = 0; i<cantidad;i++){
                         let val = this.expresion[i]
+                        console.log(val);
                         let valvalor = val.obtener_valor(tabla,global,ast)
                         let valtipo = val.tipo.obtener_tipo_de_dato()
                         if(valtipo != this.tipo.obtener_tipo_de_dato())
@@ -361,6 +362,7 @@ export class DECLARACION_VECTOR_TIPO1 extends Instruccion
             }
         }
     }
+    
 }
 
 export class ASIGNACION_VECTOR extends Instruccion 
@@ -412,6 +414,7 @@ export class ASIGNACION_VECTOR extends Instruccion
             
         }
     }
+    
 }
 
 export class VALIDAR_EXISTE_VECTOR extends Expresion
@@ -470,4 +473,87 @@ export class VALIDAR_EXISTE_VECTOR extends Expresion
 
         }
     }
+    
+}
+
+export class DECLARACION_METODO extends Instruccion 
+{
+    tipo:   Tipo;
+    id:     string;
+    parametros:    Expresion[];
+    instrucciones: LISTA_EJECUCIONES[];
+
+    constructor(tipo: Tipo, id: string, parametros: Expresion[],instrucciones:LISTA_EJECUCIONES[], linea: number, columna: number) 
+    {
+        super(linea, columna);
+        this.tipo = tipo;
+        this.id = id;
+        this.parametros = parametros;
+        this.instrucciones = instrucciones
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let res
+        let nueva_var = new METODO(this.tipo,this.id,this.parametros,this.instrucciones);
+        ast.escribir_en_consola("EXITO: metodo "+this.id +": creada");
+        tabla.agregar_variable_tabla(this.id,nueva_var);
+    }
+    
+}
+export class LLAMADA_METODO extends Instruccion 
+{
+    id:     string;
+    parametros:    Expresion[];
+
+    constructor(id: string, parametros: Expresion[], linea: number, columna: number) 
+    {
+        super(linea, columna);
+        this.id = id;
+        this.parametros = parametros;
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        ast.escribir_en_consola("VOY A BUSCAR LA FUNCION Y EJECUTARLA")
+        let funci = new VALIDAR_EXISTE_FUNCION(this.id,this.linea, this.columna)//OBTENER LA FUNCION SI EXISTE
+        
+        let valor_funci = funci.obtener_valor(tabla,global,ast)
+        ast.escribir_en_consola(""+funci.tipo)
+        
+    }
+    
+}
+export class VALIDAR_EXISTE_FUNCION extends Expresion
+{
+    nombre_funcion  : string;
+    constructor(nombre_funcion : string, linea : number, columna : number) 
+    {
+        super(linea,columna);
+        this.nombre_funcion = nombre_funcion;
+    }
+    
+    public obtener_valor(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        //VALIDA SI EXISTE LA VARIABLE
+        let variable = tabla.obtener_variable(this.nombre_funcion);
+
+        
+        if(variable === undefined) 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VECTOR "+this.nombre_funcion+" NO DEFINIDO.");
+            let valor_var = "ERROR";
+            this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+            return valor_var;
+        }   
+        
+        let valor_var = variable.obtener_valor();
+        this.tipo = variable.obtener_tipo();
+        return valor_var;
+        
+        
+
+    
+    }
+    
 }

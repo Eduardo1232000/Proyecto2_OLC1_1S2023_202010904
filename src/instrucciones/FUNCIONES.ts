@@ -63,8 +63,8 @@ export class IF extends Instruccion
             ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") CONDICION NO VALIDA");
         }   
     }
+    
 }
-
 export class PRINT extends Instruccion
 {
     valor : Expresion;
@@ -84,8 +84,8 @@ export class PRINT extends Instruccion
             ast.escribir_en_consola(respuesta);
         }        
     }
+    
 }
-
 export class WHILE extends Instruccion
 {
     condicion : Expresion;
@@ -131,8 +131,8 @@ export class WHILE extends Instruccion
         catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
         
     }
+    
 }
-
 export class FOR extends Instruccion
 {
     asignacion: ASIGNACION_VARIABLE
@@ -193,8 +193,8 @@ export class FOR extends Instruccion
         }
         catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
     }
+    
 }
-
 export class DO_WHILE extends Instruccion
 {
     condicion : Expresion;
@@ -241,6 +241,7 @@ export class DO_WHILE extends Instruccion
         catch{}//SI HAY ERROR NO DEBE HACER NADA PORQUE EN LA INSTRUCCION MOSTRARA EL ERROR
         
     }
+    
 }
 export class SWITCH extends Instruccion
 {
@@ -305,6 +306,7 @@ export class SWITCH extends Instruccion
             //}
         }
     }
+    
 }
 export class CASE extends Instruccion
 {
@@ -333,4 +335,5 @@ export class CASE extends Instruccion
             }
         }  
     }
+    
 }
