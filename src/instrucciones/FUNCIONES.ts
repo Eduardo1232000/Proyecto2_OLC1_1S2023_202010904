@@ -7,6 +7,7 @@ import { Tipo } from "../arbol/Tipo";
 import { TIPO_DATO } from "../arbol/Tipo";
 import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
 import { ASIGNACION_VARIABLE } from "./VARIABLES";
+import { VARIABLE } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 
 export class IF extends Instruccion
 {
@@ -336,4 +337,263 @@ export class CASE extends Instruccion
         }  
     }
     
+}
+export class TO_LOWER extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        if(tipo_valor_exp == TIPO_DATO.STRING)
+        {
+            let respuesta = String(valor_exp).toLowerCase();
+            //ast.escribir_en_consola("RECONOCE TO LOWER: "+respuesta);
+            this.tipo = this.valor.tipo;
+            return respuesta;
+        }
+        else 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+        }
+    }
+}
+export class TO_UPPER extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        if(tipo_valor_exp == TIPO_DATO.STRING)
+        {
+            let respuesta = String(valor_exp).toUpperCase();
+            //ast.escribir_en_consola("RECONOCE TO LOWER: "+respuesta);
+            this.tipo = this.valor.tipo;
+            return respuesta;
+        }
+        else 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+        }
+    }
+}
+export class LENGHT extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let respuesta;
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("RECONOCE LENGTH: "+valor_exp);
+        //ast.escribir_en_consola("LENGTH: "+valor_exp.length);
+        let longitud;
+        try {
+            longitud =valor_exp.length
+        } catch (error) {
+            
+        }
+        if(longitud)
+        {
+            //ast.escribir_en_consola("LENGTH: "+valor_exp.length);
+
+            respuesta = valor_exp.length;
+            this.tipo = new Tipo(TIPO_DATO.INT);
+            return respuesta;
+        }
+        else 
+        {
+            //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+            this.tipo = new Tipo(TIPO_DATO.ERROR);
+            respuesta = 0;
+            return respuesta;
+        }
+    }
+}
+export class TRUNCATE extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let respuesta;
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("RECONOCE LENGTH: "+valor_exp);
+        //ast.escribir_en_consola("LENGTH: "+valor_exp.length);
+        if(tipo_valor_exp == TIPO_DATO.INT || tipo_valor_exp == TIPO_DATO.DOUBLE)
+        {
+            
+            respuesta = Math.trunc(valor_exp);
+            ast.escribir_en_consola("TRUNCATE: "+ respuesta);
+            this.tipo = new Tipo(TIPO_DATO.INT);
+            return respuesta;
+        }
+        else 
+        {
+            //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+            this.tipo = new Tipo(TIPO_DATO.ERROR);
+            respuesta = 0;
+            return respuesta;
+        }
+    }
+}
+export class ROUND extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let respuesta;
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("RECONOCE LENGTH: "+valor_exp);
+        //ast.escribir_en_consola("LENGTH: "+valor_exp.length);
+        if(tipo_valor_exp == TIPO_DATO.INT || tipo_valor_exp == TIPO_DATO.DOUBLE)
+        {
+            
+            respuesta = Math.round(valor_exp);
+            ast.escribir_en_consola("ROUND: "+ respuesta);
+            this.tipo = new Tipo(TIPO_DATO.INT);
+            return respuesta;
+        }
+        else 
+        {
+            //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+            this.tipo = new Tipo(TIPO_DATO.ERROR);
+            respuesta = 0;
+            return respuesta;
+        }
+    }
+}
+export class TYPEOF extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let respuesta;
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("RECONOCE LENGTH: "+valor_exp);
+        //ast.escribir_en_consola("LENGTH: "+valor_exp.length);
+        if(tipo_valor_exp == TIPO_DATO.INT )
+        {
+            respuesta = "int"
+            ast.escribir_en_consola("TYPEOF: int");
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        } 
+        else if(tipo_valor_exp == TIPO_DATO.DOUBLE )
+        {
+            respuesta = "double"
+            ast.escribir_en_consola("TYPEOF: double");
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        }
+        else if(tipo_valor_exp == TIPO_DATO.CHAR )
+        {
+            respuesta = "char"
+            ast.escribir_en_consola("TYPEOF: char");
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        }
+        else if(tipo_valor_exp == TIPO_DATO.BOOLEAN )
+        {
+            respuesta = "boolean"
+            ast.escribir_en_consola("TYPEOF: boolean");
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        }
+        else if(tipo_valor_exp == TIPO_DATO.STRING )
+        {
+            respuesta = "string"
+            ast.escribir_en_consola("TYPEOF: string");
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        }
+        /*
+        else if(tipo_valor_exp == TIPO_DATO.LIST )
+        {
+            respuesta = "list"
+            ast.escribir_en_consola("TYPEOF: list");
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        }
+        */
+        else 
+        {
+            //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+            this.tipo = new Tipo(TIPO_DATO.ERROR);
+            respuesta = 0;
+            return respuesta;
+        }
+    }
+}
+export class TOSTRING extends Expresion
+{
+    valor : Expresion;    
+
+    constructor(valor :Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna);
+        this.valor = valor;
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let respuesta;
+        let valor_exp = this.valor.obtener_valor(actual,global,ast);
+        let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("RECONOCE LENGTH: "+valor_exp);
+        //ast.escribir_en_consola("LENGTH: "+valor_exp.length);
+        if(tipo_valor_exp == TIPO_DATO.INT ||tipo_valor_exp == TIPO_DATO.DOUBLE||tipo_valor_exp == TIPO_DATO.BOOLEAN)
+        {
+            respuesta = String(valor_exp);
+            ast.escribir_en_consola("TOSTRING: "+respuesta);
+            this.tipo = new Tipo(TIPO_DATO.STRING);
+            return respuesta;
+        } 
+        
+        else 
+        {
+            //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO NO VALIDO");
+            this.tipo = new Tipo(TIPO_DATO.ERROR);
+            respuesta = 0;
+            return respuesta;
+        }
+    }
 }

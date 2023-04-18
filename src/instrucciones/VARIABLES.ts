@@ -185,7 +185,7 @@ export class DECLARACION_VECTOR_TIPO1 extends Instruccion
                     let res: number[] = [];
                     for(let i = 0; i<cantidad;i++){
                         let val = this.expresion[i]
-                        console.log(val);
+                        //console.log(val);
                         let valvalor = val.obtener_valor(tabla,global,ast)
                         let valtipo = val.tipo.obtener_tipo_de_dato()
                         if(valtipo != this.tipo.obtener_tipo_de_dato())
