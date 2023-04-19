@@ -35,6 +35,7 @@
     let CASTEOS                     =   require("./src/instrucciones/CASTEOS").CASTEOS;
     let DECLARACION_METODO          =   require("./src/instrucciones/VARIABLES").DECLARACION_METODO;
     let LLAMADA_METODO              =   require("./src/instrucciones/VARIABLES").LLAMADA_METODO;
+    let LLAMADA_MAIN                =   require("./src/instrucciones/VARIABLES").LLAMADA_MAIN;
     let TO_LOWER                    =   require("./src/instrucciones/FUNCIONES").TO_LOWER;
     let TO_UPPER                    =   require("./src/instrucciones/FUNCIONES").TO_UPPER;
     let LENGHT                      =   require("./src/instrucciones/FUNCIONES").LENGHT;
@@ -42,6 +43,8 @@
     let ROUND                       =   require("./src/instrucciones/FUNCIONES").ROUND;
     let TYPEOF                      =   require("./src/instrucciones/FUNCIONES").TYPEOF;
     let TOSTRING                    =   require("./src/instrucciones/FUNCIONES").TOSTRING;
+    let SENT_BREAK                  =   require("./src/instrucciones/FUNCIONES").BREAK;
+    let SENT_CONTINUE               =   require("./src/instrucciones/FUNCIONES").CONTINUE;
 %}
 /* ------------------------------------------------- */
  /* Definicion Lexica */
@@ -205,23 +208,25 @@ instruccion :                   DECLARACION_VARIABLE ';'    { lista_temporal2= $
                             |   FUNCION_SWITCH              { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   FUNCION_TO_LOWER ';'        { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   FUNCION_MAIN ';'            { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
+                            |   SENTENCIA_BREAK             { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
+                            |   SENTENCIA_CONTINUE          { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   error PTCOMA                {console.error('Este es un error SINTACTICO');}
                             |   error                       {console.error('Este es un error SINTACTICO');}
 ;       
 
-FUNCION_MAIN:               RMAIN id '('PARAMETROS_LLAMADA')'             {lista_temporal = []; val = new LLAMADA_METODO($2,$4[0], @1.first_line, @1.first_column);lista_temporal.push(val);
+FUNCION_MAIN:               RMAIN id '('PARAMETROS_LLAMADA')'             {lista_temporal = []; val = new LLAMADA_MAIN($2,$4[0], @1.first_line, @1.first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "MAIN", @1.first_line, @1.first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "black" );
                                                                         nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $2, @1.first_line, @1.first_column, "black" ))
                                                                         nodo_graf.agregar_hijo(nodo_prueba);
                                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", @1.first_line, @1.first_column, "black" ));
                                                                         nodo_prueba=new NODO_GRAFICAS( "PARAMETROS", @1.first_line, @1.first_column, "black" );
-                                                                        lista_temporal_3 = $3[1]; for(let i = 0; i< lista_temporal_3.length;i++){nodo_prueba.agregar_hijo(lista_temporal_3[i]);if(i!=lista_temporal.length){nodo_prueba.agregar_hijo(new NODO_GRAFICAS( ",", @1.first_line, @1.first_column, "black" ));}}
+                                                                        lista_temporal_3 = $4[1]; for(let i = 0; i< lista_temporal_3.length;i++){nodo_prueba.agregar_hijo(lista_temporal_3[i]);if(i!=lista_temporal.length){nodo_prueba.agregar_hijo(new NODO_GRAFICAS( ",", @1.first_line, @1.first_column, "black" ));}}
                                                                         nodo_graf.agregar_hijo(nodo_prueba);
                                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( ")", @1.first_line, @1.first_column, "black" ));
                                                                         lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                                         }
-                            |RMAIN id '('')'                               {lista_temporal = []; val = new LLAMADA_METODO($2,[], @1.first_line, @1.first_column);lista_temporal.push(val);
+                            |RMAIN id '('')'                               {lista_temporal = []; val = new LLAMADA_MAIN($2,[], @1.first_line, @1.first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "MAIN", @1.first_line, @1.first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "black" );
                                                                         nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $2, @1.first_line, @1.first_column, "black" ))
@@ -704,6 +709,21 @@ INSTRUCCIONES_SWITCH:     instrucciones    {lista_temporal = []; val = $1[0]; li
                                             lista_temporal.push(lista_temporal_3); $$ = lista_temporal;
                                             }
 ;  
+
+SENTENCIA_BREAK:    RBREAK ';'              {lista_temporal = []; val = new SENT_BREAK(@1.first_line, @1.first_column);lista_temporal.push(val);
+                                            nodo_graf = new NODO_GRAFICAS( "BREAK", @1.first_line, @1.first_column, "blue" );
+                                            nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: BREAK", @1.first_line, @1.first_column, "blue" ));
+                                            nodo_graf.agregar_hijo(new NODO_GRAFICAS( ";", @1.first_line, @1.first_column, "blue" ));
+                                            lista_temporal.push(nodo_graf); $$ = lista_temporal;
+                                            }
+;
+SENTENCIA_CONTINUE:    RCONTINUE ';'        {lista_temporal = []; val = new SENT_CONTINUE(@1.first_line, @1.first_column);lista_temporal.push(val);
+                                            nodo_graf = new NODO_GRAFICAS( "CONTINUE", @1.first_line, @1.first_column, "blue" );
+                                            nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: CONTINUE", @1.first_line, @1.first_column, "blue" ));
+                                            nodo_graf.agregar_hijo(new NODO_GRAFICAS( ";", @1.first_line, @1.first_column, "blue" ));
+                                            lista_temporal.push(nodo_graf); $$ = lista_temporal;
+                                            }
+;
 
 TIPO    :       RINT          { val = new Tipo(TIPO_DATO.INT);     nodo_graf = new NODO_GRAFICAS( "TIPO", @1.first_line, @1.first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "INT", @1.first_line, @1.first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); $$= lista_temporal}
         |       RBOOLEAN      { val = new Tipo(TIPO_DATO.BOOLEAN); nodo_graf = new NODO_GRAFICAS( "TIPO", @1.first_line, @1.first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "BOOLEAN", @1.first_line, @1.first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); $$= lista_temporal}

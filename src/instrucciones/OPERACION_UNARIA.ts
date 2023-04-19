@@ -10,7 +10,7 @@ export class OPERACION_UNARIA extends Expresion {
     operacion: string;
     constructor(operacion: string,valor1: Expresion, linea:number, columna:number)
     {
-        super(linea, columna);
+        super(linea, columna,"OPERACIONUNARIA");
         this.operacion = operacion;
         this.valor1 = valor1;
         

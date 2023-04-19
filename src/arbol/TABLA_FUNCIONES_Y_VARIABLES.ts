@@ -10,12 +10,14 @@ export class TABLA_FUNCIONES_Y_VARIABLES
     anterior: TABLA_FUNCIONES_Y_VARIABLES;
     tabla_variables: Map<string , VARIABLE>;
     tabla_funciones: Map<string , FUNCION>;
+    nombre_ambito:string;
 
-    constructor(anterior: TABLA_FUNCIONES_Y_VARIABLES) 
+    constructor(anterior: TABLA_FUNCIONES_Y_VARIABLES, nombre_ambito:string) 
     {
         this.anterior = anterior;
         this.tabla_variables = new Map<string , VARIABLE>();
         this.tabla_funciones = new Map<string , FUNCION>();
+        this.nombre_ambito = nombre_ambito;
     }
     public agregar_variable_tabla(id :string, variable :VARIABLE) 
     {

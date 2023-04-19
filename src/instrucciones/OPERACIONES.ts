@@ -11,7 +11,7 @@ export class OPERACIONES extends Expresion {
     valor2: Expresion;
     constructor(valor1: Expresion,operacion: string, valor2:Expresion, linea:number, columna:number)
     {
-        super(linea, columna);
+        super(linea, columna,"OPERACION");
         this.valor1 = valor1;
         this.operacion = operacion;
         this.valor2 = valor2;

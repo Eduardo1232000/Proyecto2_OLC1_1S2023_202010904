@@ -11,7 +11,7 @@ export class CASTEOS extends Expresion {
     
     constructor(tipo_val: string, valor1: Expresion, linea:number, columna:number)
     {
-        super(linea, columna);
+        super(linea, columna,"CASTEO");
         this.tipo_val = tipo_val;
         this.valor1 = valor1;
     }

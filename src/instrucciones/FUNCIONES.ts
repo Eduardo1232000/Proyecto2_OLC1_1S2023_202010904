@@ -17,7 +17,7 @@ export class IF extends Instruccion
 
     constructor(condicion :Expresion, si_cumple :LISTA_EJECUCIONES[], no_cumple :LISTA_EJECUCIONES[], linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"IF");
         this.condicion = condicion;
         this.si_cumple = si_cumple;
         this.no_cumple = no_cumple;
@@ -28,7 +28,7 @@ export class IF extends Instruccion
         //LOS IF SOLO PUEDEN EJECUTAR CUANDO CUMPLE O NO CUMPLE (TRUE O FALSE QUE SON BOOLEANOS)
         if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
         {
-            let TABLA_FUNC_Y_VAR_IF = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+            let TABLA_FUNC_Y_VAR_IF = new TABLA_FUNCIONES_Y_VARIABLES(actual,"funcion if");
             if(condicion_actual == true)//SI CUMPLE LA CONDICION
             {
                 for(let i=0; i<this.si_cumple.length;i++){//RECORREMOS LA LISTA DE EJECUCIONES
@@ -36,6 +36,14 @@ export class IF extends Instruccion
                     if(ejecucion instanceof Instruccion)    //SI ES UNA INSTRUCCION (IF, PRINT ETC)
                     {
                         ejecucion.ejecutar(TABLA_FUNC_Y_VAR_IF,global,ast);
+                        if(ejecucion.nombre_in_ex=="BREAK"){
+                            this.ejecuto_break=1;
+                            break;
+                        }
+                        if(ejecucion.nombre_in_ex=="CONTINUE"){
+                            this.ejecuto_continue=1;
+                            break;                                  //seria break porque en un if se termina el if
+                        }
                     }
                     else if (ejecucion instanceof Expresion)//SI ES UNA EXPRESION (SUMA, RESTA, ETC)
                     {
@@ -73,7 +81,7 @@ export class PRINT extends Instruccion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"PRINT");
         this.valor = valor;
 
     }
@@ -95,7 +103,7 @@ export class WHILE extends Instruccion
 
     constructor(condicion :Expresion, instrucciones :LISTA_EJECUCIONES[], linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"WHILE");
         this.condicion = condicion;
         this.instrucciones = instrucciones
 
@@ -107,15 +115,42 @@ export class WHILE extends Instruccion
             //ast.escribir_en_consola("."+valor_condicion)
             if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
             {
-                let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+                let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual,"funcion while");
                 
                 while(this.condicion.obtener_valor(actual,global,ast) == true){
+                    if(this.ejecuto_break == 1){
+                        break;
+                    }
+                    if(this.ejecuto_continue==1){
+                        this.ejecuto_continue = 0;
+                        continue;
+                    }
                     for(let i=0; i<this.instrucciones.length;i++ )
                     {
                         let instruccion = this.instrucciones[i]
                         if(instruccion instanceof Instruccion)
                         {
                             instruccion.ejecutar(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                            //SI ES WHILE,CONTINUE,RETURN(ES ANTES)
+                            if(instruccion.nombre_in_ex=="IF"){
+                                if(instruccion.ejecuto_break==1){
+                                    this.ejecuto_break = 1;
+                                    break;
+                                }
+                                if(instruccion.ejecuto_continue==1){
+                                    instruccion.ejecuto_continue=0;
+                                    this.ejecuto_continue = 1;
+                                    break;
+                                }
+                            }
+                            if(instruccion.nombre_in_ex=="BREAK"){
+                                this.ejecuto_break = 1;
+                                break;
+                            }
+                            if(instruccion.nombre_in_ex =="CONTINUE"){
+                                this.ejecuto_continue = 1;
+                                break;
+                            }
                         }
                         else if (instruccion instanceof Expresion)
                         {
@@ -144,7 +179,7 @@ export class FOR extends Instruccion
 
     constructor(asignacion: ASIGNACION_VARIABLE,condicion :Expresion,actualizacion:ASIGNACION_VARIABLE, instrucciones :LISTA_EJECUCIONES[], linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"FOR");
         this.asignacion = asignacion;
         this.condicion = condicion;
         this.actualizacion = actualizacion;
@@ -162,17 +197,43 @@ export class FOR extends Instruccion
             
             if(id_asig == id_act){//SI EL ID DE ASIGNACION COINCIDE CON EL ID DE ACTUALIZACION
                 if(tipo_valor_condicion == TIPO_DATO.BOOLEAN){ //SI CONDICION ES BOOLEANO
-                    let TABLA_FUNC_Y_VAR_FOR = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+                    let TABLA_FUNC_Y_VAR_FOR = new TABLA_FUNCIONES_Y_VARIABLES(actual,"funcion for");
                     //ast.escribir_en_consola("."+this.condicion.obtener_valor(actual,global,ast))
                     
                     while(this.condicion.obtener_valor(actual,global,ast) == true){
-                        
+                        if(this.ejecuto_break == 1){
+                            break;
+                        }
+                        if(this.ejecuto_continue==1){
+                            this.ejecuto_continue = 0;
+                            continue;
+                        }
                         for(let i=0; i<this.instrucciones.length;i++ )  //HACE 1 VEZ TODA LA LISTA DE INSTRUCCIONES
                         {
                             let instruccion = this.instrucciones[i]
                             if(instruccion instanceof Instruccion)
                             {
                                 instruccion.ejecutar(TABLA_FUNC_Y_VAR_FOR,global,ast);
+                                //SI ES WHILE,CONTINUE,RETURN(ES ANTES)
+                            if(instruccion.nombre_in_ex=="IF"){
+                                if(instruccion.ejecuto_break==1){
+                                    this.ejecuto_break = 1;
+                                    break;
+                                }
+                                if(instruccion.ejecuto_continue==1){
+                                    instruccion.ejecuto_continue=0;
+                                    this.ejecuto_continue = 1;
+                                    break;
+                                }
+                            }
+                            if(instruccion.nombre_in_ex=="BREAK"){
+                                this.ejecuto_break = 1;
+                                break;
+                            }
+                            if(instruccion.nombre_in_ex =="CONTINUE"){
+                                this.ejecuto_continue = 1;
+                                break;
+                            }
                             }
                             else if (instruccion instanceof Expresion)
                             {
@@ -204,7 +265,7 @@ export class DO_WHILE extends Instruccion
 
     constructor(condicion :Expresion, instrucciones :LISTA_EJECUCIONES[], linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"DOWHILE");
         this.condicion = condicion;
         this.instrucciones = instrucciones
 
@@ -216,15 +277,42 @@ export class DO_WHILE extends Instruccion
             //ast.escribir_en_consola("."+valor_condicion)
             if(this.condicion.tipo.obtener_tipo_de_dato() == TIPO_DATO.BOOLEAN)
             {
-                let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+                let TABLA_FUNC_Y_VAR_WHILE = new TABLA_FUNCIONES_Y_VARIABLES(actual, "funcion do-while");
                 
                 do{
+                    if(this.ejecuto_break == 1){
+                        break;
+                    }
+                    if(this.ejecuto_continue==1){
+                        this.ejecuto_continue = 0;
+                        continue;
+                    }
                     for(let i=0; i<this.instrucciones.length;i++ )
                     {
                         let instruccion = this.instrucciones[i]
                         if(instruccion instanceof Instruccion)
                         {
                             instruccion.ejecutar(TABLA_FUNC_Y_VAR_WHILE,global,ast);
+                            //SI ES WHILE,CONTINUE,RETURN(ES ANTES)
+                            if(instruccion.nombre_in_ex=="IF"){
+                                if(instruccion.ejecuto_break==1){
+                                    this.ejecuto_break = 1;
+                                    break;
+                                }
+                                if(instruccion.ejecuto_continue==1){
+                                    instruccion.ejecuto_continue=0;
+                                    this.ejecuto_continue = 1;
+                                    break;
+                                }
+                            }
+                            if(instruccion.nombre_in_ex=="BREAK"){
+                                this.ejecuto_break = 1;
+                                break;
+                            }
+                            if(instruccion.nombre_in_ex =="CONTINUE"){
+                                this.ejecuto_continue = 1;
+                                break;
+                            }
                         }
                         else if (instruccion instanceof Expresion)
                         {
@@ -253,7 +341,7 @@ export class SWITCH extends Instruccion
 
     constructor(valor :Expresion,cases: CASE[],case_default:LISTA_EJECUCIONES[], linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"SWITCH");
         this.valor = valor;
         this.cases = cases;
         this.case_default = case_default;
@@ -261,6 +349,7 @@ export class SWITCH extends Instruccion
     }
     public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
         let bandera_ejecutar = false;
+        let break_activo = false;
         let val_valor = this.valor.obtener_valor(actual,global,ast)
         let tipo_valor = this.valor.tipo.obtener_tipo_de_dato();
 
@@ -274,6 +363,10 @@ export class SWITCH extends Instruccion
                 if(val_valor == val_case)//SI EL VALOR COINCIDE CON EL DE ALGUN CASE
                 {
                     case_actual.ejecutar(actual,global,ast);
+                    //SI ES WHILE,CONTINUE,RETURN(ES ANTES)
+                    //ast.escribir_en_consola(""+case_actual.ejecuto_break+""+case_actual.ejecuto_continue);
+                    this.ejecuto_break = case_actual.ejecuto_break;
+                    this.ejecuto_continue = case_actual.ejecuto_continue;
                     bandera_ejecutar = true;
                 }
             }
@@ -282,30 +375,54 @@ export class SWITCH extends Instruccion
                 continue//COMO EL TIPO ES DIFERENTE ENTONCES NI LO ANALIZA
             }
             
-            
             //ast.escribir_en_consola("."+ valor_case_actual);
             //case_actual.ejecutar(actual,global,ast);
             //ast.escribir_en_consola("ESTOY ANALIZANDO LOS CASES");
         }
         //RECORRIENDO 
-        if(this.case_default.length!=0){
-            let TABLA_FUNC_Y_VAR_SWITCH = new TABLA_FUNCIONES_Y_VARIABLES(actual);
-
-            for(let i=0;i<this.case_default.length;i++){
-                let instruccion = this.case_default[i];
-                if(instruccion instanceof Instruccion)
-                {
-                    instruccion.ejecutar(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+        //ast.escribir_en_consola(""+this.ejecuto_break+""+this.ejecuto_continue);
+        
+        if(this.ejecuto_break == 0){
+            if(this.case_default.length!=0){
+                let TABLA_FUNC_Y_VAR_SWITCH = new TABLA_FUNCIONES_Y_VARIABLES(actual, "switch-default");
+    
+                for(let i=0;i<this.case_default.length;i++){
+                    let instruccion = this.case_default[i];
+                    if(instruccion instanceof Instruccion)
+                    {
+                        instruccion.ejecutar(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+                        //SI ES WHILE,CONTINUE,RETURN(ES ANTES)
+                        if(instruccion.nombre_in_ex=="IF"){
+                            if(instruccion.ejecuto_break==1){
+                                this.ejecuto_break = 1;
+                                break;
+                            }
+                            if(instruccion.ejecuto_continue==1){
+                                instruccion.ejecuto_continue=0;
+                                this.ejecuto_continue = 1;
+                                break;
+                            }
+                        }
+                        if(instruccion.nombre_in_ex=="BREAK"){
+                            this.ejecuto_break = 1;
+                            break;
+                        }
+                        if(instruccion.nombre_in_ex =="CONTINUE"){
+                            this.ejecuto_continue = 1;
+                            break;
+                        }
+                    }
+                    else if (instruccion instanceof Expresion)
+                    {
+                        instruccion.obtener_valor(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+                    }
                 }
-                else if (instruccion instanceof Expresion)
-                {
-                    instruccion.obtener_valor(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
-                }
+                //for(let i=0;i<this.case_default.length;i++){//RECORRE INSTRUCCIONES DE DEFAULT
+                //    ast.escribir_en_consola("ESTOY ANALIZANDO LOS CASES");
+                //}
             }
-            //for(let i=0;i<this.case_default.length;i++){//RECORRE INSTRUCCIONES DE DEFAULT
-            //    ast.escribir_en_consola("ESTOY ANALIZANDO LOS CASES");
-            //}
         }
+        
     }
     
 }
@@ -317,18 +434,42 @@ export class CASE extends Instruccion
 
     constructor(valor :Expresion,instrucciones: LISTA_EJECUCIONES[], linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"CASE");
         this.valor = valor;
         this.instrucciones = instrucciones
 
     }
     public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
-        let TABLA_FUNC_Y_VAR_SWITCH = new TABLA_FUNCIONES_Y_VARIABLES(actual);
+        let TABLA_FUNC_Y_VAR_SWITCH = new TABLA_FUNCIONES_Y_VARIABLES(actual,"switch case");
         for(let i=0;i<this.instrucciones.length;i++){
             let instruccion = this.instrucciones[i];
             if(instruccion instanceof Instruccion)
             {
                 instruccion.ejecutar(TABLA_FUNC_Y_VAR_SWITCH,global,ast);
+                //SI ES WHILE,CONTINUE,RETURN(ES ANTES)
+                if(instruccion.nombre_in_ex=="IF"){
+                    if(instruccion.ejecuto_break==1){
+                        this.ejecuto_break = 1;
+                        //ast.escribir_en_consola("CASE"+this.ejecuto_break+""+this.ejecuto_continue);
+                        break;
+                    }
+                    if(instruccion.ejecuto_continue==1){
+                        instruccion.ejecuto_continue=0;
+                        this.ejecuto_continue = 1;
+                        //ast.escribir_en_consola("CASE"+this.ejecuto_break+""+this.ejecuto_continue);
+                        break;
+                    }
+                }
+                if(instruccion.nombre_in_ex=="BREAK"){
+                    this.ejecuto_break = 1;
+                    //ast.escribir_en_consola("CASE"+this.ejecuto_break+""+this.ejecuto_continue);
+                    break;
+                }
+                if(instruccion.nombre_in_ex =="CONTINUE"){
+                    this.ejecuto_continue = 1;
+                    //ast.escribir_en_consola("CASE"+this.ejecuto_break+""+this.ejecuto_continue);
+                    break;
+                }
             }
             else if (instruccion instanceof Expresion)
             {
@@ -344,7 +485,7 @@ export class TO_LOWER extends Expresion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"TOLOWER");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
@@ -370,7 +511,7 @@ export class TO_UPPER extends Expresion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"TOUPPER");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
@@ -396,7 +537,7 @@ export class LENGHT extends Expresion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"LENGHT");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
@@ -435,7 +576,7 @@ export class TRUNCATE extends Expresion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"TRUNCATE");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
@@ -468,7 +609,7 @@ export class ROUND extends Expresion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"ROUND");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
@@ -501,7 +642,7 @@ export class TYPEOF extends Expresion
 
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"TYPEOF");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
@@ -567,14 +708,15 @@ export class TYPEOF extends Expresion
 export class TOSTRING extends Expresion
 {
     valor : Expresion;    
-
+    
     constructor(valor :Expresion, linea :number, columna :number) 
     {
-        super(linea, columna);
+        super(linea, columna,"TOSTRING");
         this.valor = valor;
     }
     public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
     {
+        //ast.escribir_en_consola(actual.nombre_ambito)
         let respuesta;
         let valor_exp = this.valor.obtener_valor(actual,global,ast);
         let tipo_valor_exp =this.valor.tipo.obtener_tipo_de_dato();
@@ -596,4 +738,26 @@ export class TOSTRING extends Expresion
             return respuesta;
         }
     }
+}
+export class BREAK extends Instruccion
+{
+    constructor(linea :number, columna :number) 
+    {
+        super(linea, columna,"BREAK");
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        ast.escribir_en_consola("BREAK;")   
+    }
+    
+}
+export class CONTINUE extends Instruccion
+{
+    constructor(linea :number, columna :number) 
+    {
+        super(linea, columna,"CONTINUE");
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        ast.escribir_en_consola("CONTINUE;")   
+    }
+    
 }

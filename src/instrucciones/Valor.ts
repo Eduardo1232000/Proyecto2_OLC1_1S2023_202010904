@@ -11,7 +11,7 @@ export class Valor extends Expresion
 
     constructor(valor :string, tipo_valor :string, linea :number, columna :number ) 
     {
-        super(linea, columna);
+        super(linea, columna,"VALOR");
         this.valor = valor;
         this.tipo_valor = tipo_valor;
     }

@@ -17,7 +17,7 @@ export class ASIGNACION_VARIABLE extends Instruccion
 
     constructor(id: string, expresion: Expresion, linea: number, columna: number) 
     {
-        super(linea, columna);
+        super(linea, columna,"ASIGNACIONVARIABLE");
         this.id = id;
         this.expresion = expresion;
     }
@@ -51,7 +51,7 @@ export class DECLARACION_VARIABLE extends Instruccion
 
     constructor(tipo: Tipo, id: string, exp: Expresion, linea: number, columna: number) 
     {
-        super(linea, columna);
+        super(linea, columna,"DECLARACIONVARIABLE");
         this.tipo = tipo;
         this.id = id;
         this.expresion = exp;
@@ -123,7 +123,7 @@ export class VALIDAR_EXISTE_VARIABLE extends Expresion
     nombreVar  : string;
     constructor(nombreVar : string, linea : number, columna : number) 
     {
-        super(linea,columna);
+        super(linea,columna,"VALIDAREXISTEVARIABLE");
         this.nombreVar = nombreVar;
     }
     
@@ -154,7 +154,7 @@ export class DECLARACION_VECTOR_TIPO1 extends Instruccion
 
     constructor(tipo: Tipo, id: string, exp: Expresion[],size:Expresion, linea: number, columna: number) 
     {
-        super(linea, columna);
+        super(linea, columna,"DECLARACIONVECTOR");
         this.tipo = tipo;
         this.id = id;
         this.expresion = exp;
@@ -373,7 +373,7 @@ export class ASIGNACION_VECTOR extends Instruccion
 
     constructor(id: string, posicion: Expresion, expresion: Expresion, linea: number, columna: number) 
     {
-        super(linea, columna);
+        super(linea, columna,"ASIGNACIONVECTOR");
         this.id = id;
         this.posicion = posicion
         this.expresion = expresion;
@@ -423,7 +423,7 @@ export class VALIDAR_EXISTE_VECTOR extends Expresion
     posicion   : Expresion;
     constructor(nombreVar : string, posicion:Expresion, linea : number, columna : number) 
     {
-        super(linea,columna);
+        super(linea,columna,"VALIDAREXISTEVECTOR");
         this.nombrevector = nombreVar;
         this.posicion = posicion;
     }
@@ -485,7 +485,7 @@ export class DECLARACION_METODO extends Instruccion
 
     constructor(tipo: Tipo, id: string, parametros: PARAMETRO[],instrucciones:LISTA_EJECUCIONES[], linea: number, columna: number) 
     {
-        super(linea, columna);
+        super(linea, columna,"DECLARACIONMETODO");
         this.tipo = tipo;
         this.id = id;
         this.parametros = parametros;
@@ -508,7 +508,7 @@ export class LLAMADA_METODO extends Instruccion
 
     constructor(id: string, parametros: Expresion[], linea: number, columna: number) 
     {
-        super(linea, columna);
+        super(linea, columna,"LLAMADAMETODO");
         this.id = id;
         this.parametros = parametros;
     }
@@ -527,7 +527,70 @@ export class LLAMADA_METODO extends Instruccion
             //ASIGNACION DE PARAMETROS
             if(param.length == this.parametros.length){
                 //CREAMOS NUESTRO NUEVO AMBITO
-                let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla);  //CREAMOS AMBITO PARA FUNCION
+                let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,"funcion");  //CREAMOS AMBITO PARA FUNCION
+                //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
+                for(let i=0;i<param.length;i++){
+                    let parametro = param[i];
+                    let id_parametro= parametro.obtener_nombre();
+                    let tipo_parametro = parametro.obtener_tipo().obtener_tipo_de_dato();
+                    let comparar = this.parametros[i]
+                    let valor_comparar = comparar.obtener_valor(tabla,global,ast);
+                    let tipo_comparar = comparar.tipo.obtener_tipo_de_dato();
+                    if(tipo_comparar == tipo_parametro){//SI LOS TIPOS COINCIDEN ENTRE PARAMETRO FUNCION Y PARAMETRO ENTRADA
+                        let vari = new VARIABLE(parametro.tipo,id_parametro,valor_comparar);             //CREAMOS UNA VARIABLE CON EL VALOR DE ENTRADA
+                        TABLA_FUNC_Y_VAR_FUNCION.agregar_variable_tabla(id_parametro,vari);             //LO AGREGAMOS AL AMBITO DE LA FUNCION
+                    }
+                }
+                for(let i=0;i<instru.length;i++){
+                    let sent = instru[i];
+                    //ES UNA INSTRUCCION COMO :(IF, WHILE, DECLARACIONES ETC)
+                    if(sent instanceof Instruccion) 
+                    {
+                        sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                    }
+                    //ES UNA EXPRESION (SUMA, RESTA ETC)
+                    else if(sent instanceof Expresion) 
+                    {
+                        sent.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                    }
+                }
+            }else{
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): CANTIDAD DE PARAMETROS INCORRECTO");
+            }
+        
+        }
+        
+        
+    }
+    
+}
+export class LLAMADA_MAIN extends Instruccion 
+{
+    id:     string;
+    parametros:    Expresion[];
+
+    constructor(id: string, parametros: Expresion[], linea: number, columna: number) 
+    {
+        super(linea, columna,"MAIN");
+        this.id = id;
+        this.parametros = parametros;
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let funci = tabla.obtener_funcion(this.id);
+        if(funci === undefined)
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): FUNCION O METODO "+this.id+" NO DEFINIDO.");
+        }
+        else{
+            let param = funci.obtener_parametros();
+            let instru = funci.obtener_sentencias();
+            //ast.escribir_en_consola("SI EXISTE LA FUNCION: "+funci.obtener_nombre());
+            //ASIGNACION DE PARAMETROS
+            if(param.length == this.parametros.length){
+                //CREAMOS NUESTRO NUEVO AMBITO
+                let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,"main");  //CREAMOS AMBITO PARA FUNCION
                 //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
                 for(let i=0;i<param.length;i++){
                     let parametro = param[i];
@@ -569,7 +632,7 @@ export class VALIDAR_EXISTE_FUNCION extends Expresion
     nombre_funcion  : string;
     constructor(nombre_funcion : string, linea : number, columna : number) 
     {
-        super(linea,columna);
+        super(linea,columna,"VALIDAREXISTEFUNCION");
         this.nombre_funcion = nombre_funcion;
     }
     

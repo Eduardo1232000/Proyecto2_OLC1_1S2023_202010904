@@ -11,7 +11,7 @@ export class OPERACION_TERNARIA extends Expresion {
     valor3: Expresion;
     constructor(condicion: Expresion, valor2: Expresion,valor3: Expresion, linea:number, columna:number)
     {
-        super(linea, columna);
+        super(linea, columna,"OPERACIONTERNARIA");
         this.condicion = condicion;
         this.valor2 = valor2;
         this.valor3 = valor3;

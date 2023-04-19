@@ -23,24 +23,65 @@ export class AST {
     {
         try
         {
-            let TABLA_FUNCIONES_Y_VARIABLES_global:TABLA_FUNCIONES_Y_VARIABLES = new TABLA_FUNCIONES_Y_VARIABLES(undefined);
+            let cantidad_main=0;//para verificar que solo exista 1 main
+            let TABLA_FUNCIONES_Y_VARIABLES_global:TABLA_FUNCIONES_Y_VARIABLES = new TABLA_FUNCIONES_Y_VARIABLES(undefined,"global");
             let TABLA_FUNCIONES_Y_VARIABLES_actual:TABLA_FUNCIONES_Y_VARIABLES = TABLA_FUNCIONES_Y_VARIABLES_global;
-            
-            //SI NO ES NINGUNO DE LOS ANTERIORES
+            //RECORRER PARA DECLARAR FUNCIONES
+            console.log("DECLARACION DE METODOS ------------");
             for(let x = 0; x < this.EJECUCIONES.length ; x++)
             {
                 let sent = this.EJECUCIONES[x];
                 //ES UNA INSTRUCCION COMO :(IF, WHILE, DECLARACIONES ETC)
                 if(sent instanceof Instruccion) 
                 {
-                    sent.ejecutar(TABLA_FUNCIONES_Y_VARIABLES_actual, TABLA_FUNCIONES_Y_VARIABLES_global, this);
+                    if(sent.nombre_in_ex=="DECLARACIONMETODO")
+                    {
+                        console.log(sent.nombre_in_ex);
+                        sent.ejecutar(TABLA_FUNCIONES_Y_VARIABLES_actual, TABLA_FUNCIONES_Y_VARIABLES_global, this);
+                    }
+                    else if(sent.nombre_in_ex=="MAIN")
+                    {
+                        cantidad_main+=1;
+                    }
+                    
+                    
                 }
-                //ES UNA EXPRESION (SUMA, RESTA ETC)
-                else if(sent instanceof Expresion) 
+            } 
+            console.log("FIN DECLARACION DE METODOS ------------");
+            //SI NO ES NINGUNO DE LOS ANTERIORES
+            if(cantidad_main <2){
+                for(let x = 0; x < this.EJECUCIONES.length ; x++)
                 {
-                    sent.obtener_valor(TABLA_FUNCIONES_Y_VARIABLES_actual, TABLA_FUNCIONES_Y_VARIABLES_global, this);
+                    let sent = this.EJECUCIONES[x];
+                    //ES UNA INSTRUCCION COMO :(IF, WHILE, DECLARACIONES ETC)
+                    if(sent instanceof Instruccion) 
+                    {
+                        if(sent.nombre_in_ex!="DECLARACIONMETODO")
+                        {
+                            //SOLO EJECUTA DECLARACION DE VARIABLES Y EL MAIN (QUITAR ESTE IF SI QUIERO QUE EJECUTE TODO)
+                            if(sent.nombre_in_ex=="DECLARACIONVARIABLE"||sent.nombre_in_ex=="MAIN") 
+                            {
+                                console.log(sent.nombre_in_ex);
+                                sent.ejecutar(TABLA_FUNCIONES_Y_VARIABLES_actual, TABLA_FUNCIONES_Y_VARIABLES_global, this);
+                            }
+                        }
+                    }
+                    //ES UNA EXPRESION (SUMA, RESTA ETC)
+                    else if(sent instanceof Expresion) 
+                    {
+                        if(sent.nombre_in_ex!="DECLARACIONMETODO")
+                        {
+                            console.log(sent.nombre_in_ex);
+                            sent.obtener_valor(TABLA_FUNCIONES_Y_VARIABLES_actual, TABLA_FUNCIONES_Y_VARIABLES_global, this);
+                        }
+                    }
                 }
-            }  
+
+            }
+            else{
+                this.escribir_en_consola("ERROR. HAY MAS DE 1 MAIN");
+            }
+              
         }catch(ex){
             this.escribir_en_consola("ERROR => " + ex.message);
             console.log(ex);
