@@ -17,6 +17,7 @@
     let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE;
     let DECLARACION_PARAMETRO       =   require("./src/instrucciones/VARIABLES").DECLARACION_PARAMETRO;
     let DECLARACION_VECTOR_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_VECTOR_TIPO1; 
+    let DECLARACION_LISTA_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_LISTA_TIPO1; 
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
     let ASIGNACION_VECTOR           =   require("./src/instrucciones/VARIABLES").ASIGNACION_VECTOR;
     let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
@@ -95,6 +96,7 @@ frac                        (?:\.[0-9]+)
 "continue"          {lexico.push("CONTINUE");    return 'RCONTINUE';}
 "return"            {lexico.push("RETURN");      return 'RRETURN';}
 "new"               {lexico.push("RNEW");        return 'RNEW';}
+"list"              {lexico.push("RNEW");        return 'RLIST';}
 
 "toLower"           {lexico.push("TOLOWER");     return 'RTOLOWER';}
 "toUpper"           {lexico.push("TOUPPER");     return 'RTOUPPER';}
@@ -198,6 +200,7 @@ instrucciones :    instrucciones instruccion        {lista_temporal = $1;  lista
 
 instruccion :                   DECLARACION_VARIABLE ';'    { lista_temporal2= $1[0];lista_temporal=[]; lista_temporal.push(lista_temporal2); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   DECLARACION_VECTORES ';'    { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
+                            |   DECLARACION_LISTAS ';'      { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   DECLARACION_METODO          { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   DECLARACION_FUNCION         { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
                             |   LLAMADA_METODOS             { lista_temporal=[]; lista_temporal.push($1[0]); nodo_graf = $1[1]; lista_temporal.push(nodo_graf); $$ = lista_temporal; }
@@ -300,7 +303,12 @@ DECLARACION_VECTORES:         TIPO '[' ']' id '=' 'RNEW' TIPO '['EXPRESION']' {v
                                                                                 nodo_graf.agregar_hijo(new NODO_GRAFICAS( ";", @1.first_line, @1.first_column, "black" ));
                                                                                 lista_temporal = []; lista_temporal.push(val); lista_temporal.push(nodo_graf); $$ = lista_temporal
                                                                                 }
-;   
+; 
+DECLARACION_LISTAS: RLIST '<' TIPO '>' id '=' RNEW RLIST '<' TIPO '>' {lista_temporal = [];val = new DECLARACION_LISTA_TIPO1($3[0], $5, $10[0],@4.first_line,@4.first_column ); lista_temporal.push(val);
+                                                                        nodo_graf = new NODO_GRAFICAS( "DECLARACION LISTA", @1.first_line, @1.first_column, "white" );
+                                                                        lista_temporal.push(nodo_graf); $$ = lista_temporal;
+                                                                        }
+;  
 LISTA_EXPRESIONES:            LISTA_EXPRESIONES ',' EXPRESION { lista_temporal = $1; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($3[0]);
                                                                 lista_temporal_3 = lista_temporal[1]; nodo_graf=$3[1]; lista_temporal_3.push(nodo_graf);
                                                                 lista_temporal = []; lista_temporal.push(lista_temporal_2); lista_temporal.push(lista_temporal_3); $$ = lista_temporal;
@@ -366,7 +374,7 @@ DECLARACION_FUNCION:           TIPO id '('PARAMETROS')' INSTRUCCIONES_FUNCION   
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", @1.first_line, @1.first_column, "black" ))
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( ")", @1.first_line, @1.first_column, "black" ))
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "{", @1.first_line, @1.first_column, "black" ))
-                                                                                    nodo_graf.agregar_hijo($6[1]);
+                                                                                    nodo_graf.agregar_hijo($5[1]);
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "}", @1.first_line, @1.first_column, "black" ))
                                                                                     lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                                                     }

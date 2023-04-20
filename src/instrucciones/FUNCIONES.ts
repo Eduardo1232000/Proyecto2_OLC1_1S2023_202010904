@@ -674,35 +674,35 @@ export class TYPEOF extends Expresion
         if(tipo_valor_exp == TIPO_DATO.INT )
         {
             respuesta = "int"
-            ast.escribir_en_consola("TYPEOF: int");
+            //ast.escribir_en_consola("TYPEOF: int");
             this.tipo = new Tipo(TIPO_DATO.STRING);
             return respuesta;
         } 
         else if(tipo_valor_exp == TIPO_DATO.DOUBLE )
         {
             respuesta = "double"
-            ast.escribir_en_consola("TYPEOF: double");
+            //ast.escribir_en_consola("TYPEOF: double");
             this.tipo = new Tipo(TIPO_DATO.STRING);
             return respuesta;
         }
         else if(tipo_valor_exp == TIPO_DATO.CHAR )
         {
             respuesta = "char"
-            ast.escribir_en_consola("TYPEOF: char");
+            //ast.escribir_en_consola("TYPEOF: char");
             this.tipo = new Tipo(TIPO_DATO.STRING);
             return respuesta;
         }
         else if(tipo_valor_exp == TIPO_DATO.BOOLEAN )
         {
             respuesta = "boolean"
-            ast.escribir_en_consola("TYPEOF: boolean");
+            //ast.escribir_en_consola("TYPEOF: boolean");
             this.tipo = new Tipo(TIPO_DATO.STRING);
             return respuesta;
         }
         else if(tipo_valor_exp == TIPO_DATO.STRING )
         {
             respuesta = "string"
-            ast.escribir_en_consola("TYPEOF: string");
+            //ast.escribir_en_consola("TYPEOF: string");
             this.tipo = new Tipo(TIPO_DATO.STRING);
             return respuesta;
         }

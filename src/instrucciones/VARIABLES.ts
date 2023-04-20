@@ -7,6 +7,7 @@ import { TIPO_DATO } from "../arbol/Tipo";
 import { Tipo } from "../arbol/Tipo";
 import { VARIABLE } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import { VECTOR } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import { LISTA } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import { METODO } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
 
@@ -530,6 +531,9 @@ export class LLAMADA_METODO extends Instruccion
     public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
     {
         let funci = tabla.obtener_funcion(this.id);
+        if(funci ===undefined){
+            funci = global.obtener_funcion(this.id);
+        }
         if(funci === undefined)
         {
             ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): FUNCION O METODO "+this.id+" NO DEFINIDO.");
@@ -571,11 +575,11 @@ export class LLAMADA_METODO extends Instruccion
                     {
                         sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
                         if(sent.nombre_in_ex =="IF"){
-                            ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
+                            //ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
                             return sent.ejecuto_break;
                         }
                         if(sent.nombre_in_ex=="RETURN"){
-                            ast.escribir_en_consola("DEBO FINALIZAR");
+                            //ast.escribir_en_consola("DEBO FINALIZAR");
                             return //sent.ejecuto_return;
                             
                         }
@@ -621,6 +625,7 @@ export class LLAMADA_METODO_EXPRESION extends Expresion
         else{
             let param = funci.obtener_parametros();
             let instru = funci.obtener_sentencias();
+            ast.escribir_en_consola(""+instru.length);
             let error_crear = 0;//0 = todo bien, 1= no crear
             //ast.escribir_en_consola("SI EXISTE LA FUNCION: "+funci.obtener_nombre());
             //ASIGNACION DE PARAMETROS
@@ -655,13 +660,13 @@ export class LLAMADA_METODO_EXPRESION extends Expresion
                     {
                         sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
                         if(sent.nombre_in_ex =="IF"){
-                            ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
+                            //ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
                             this.tipo = funci.tipo;
                             let respuesta = sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast);
                             return respuesta
                         }
                         if(sent.nombre_in_ex=="RETURN"){
-                            ast.escribir_en_consola("DEBO FINALIZAR");
+                            //ast.escribir_en_consola("DEBO FINALIZAR");
                             this.tipo = funci.tipo;
                             let respuesta = sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast);
                             return respuesta
@@ -744,12 +749,12 @@ export class LLAMADA_MAIN extends Instruccion
                         sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
                         if(sent.nombre_in_ex =="IF"){
                             this.ejecuto_return = sent.ejecuto_return;  //SI TIENE ALGUN RETURN LO VA A PASAR
-                            ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
+                            //ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
                             return this.ejecuto_break;
                         }
                         if(sent.nombre_in_ex=="RETURN"){
                             this.ejecuto_return = sent.ejecuto_return
-                            ast.escribir_en_consola("DEBO FINALIZAR");
+                            //ast.escribir_en_consola("DEBO FINALIZAR");
                             return this.ejecuto_break
                         }
                     }
@@ -824,4 +829,76 @@ export class DECLARACION_PARAMETRO
         return nueva_var;//CREO QUE RETORNA EL PARAMETRO (OBJETO)
     }
     
+}
+
+export class DECLARACION_LISTA_TIPO1 extends Instruccion 
+{
+    tipo:   Tipo;
+    id:     string;
+    expresion:    Expresion[];
+    tipo_confirmacion:  Tipo;
+
+    constructor(tipo: Tipo, id: string,tipo_confirmacion:Tipo, linea: number, columna: number) 
+    {
+        super(linea, columna,"DECLARACIONLISTA");
+        this.tipo = tipo;
+        this.id = id;  
+        this.expresion = [];
+        this.tipo_confirmacion = tipo_confirmacion;      
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        //ast.escribir_en_consola("TENGO QUE DECLARAR VECTORES CON VALOR.");
+         //SI LA VARIABLE EXISTE NO SE CREA NADA
+        if(this.tipo.obtener_tipo_de_dato() == this.tipo_confirmacion.obtener_tipo_de_dato())
+        {
+            if( tabla.variable_existe(this.id) ) 
+            {
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VARIABLE YA EXISTE.");
+            }
+            //SI LA VARIABLE NO EXISTE
+            else
+            {
+                if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.INT)
+                {
+                    let res: number[] = [];
+                    let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                }
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.DOUBLE)
+                {
+                    let res: number[] = [];
+                    let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.BOOLEAN)
+                {
+                    let res: boolean[] = [];
+                    let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.CHAR) 
+                {
+                    let res: String[] = [];
+                    let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+                else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.STRING) 
+                {
+                    let res: String[] = [];
+                    let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                    ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                    tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                } 
+            }
+        }
+        else{
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): TIPOS DE LISTA NO COINCIDEN.");
+        }
+    }  
 }
