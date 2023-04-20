@@ -33,6 +33,11 @@ export class ASIGNACION_VARIABLE extends Instruccion
             let valor_asig = this.expresion.obtener_valor(tabla, global, ast);
             if(variable.obtener_tipo().obtener_tipo_de_dato() != this.expresion.tipo.obtener_tipo_de_dato()) 
             {
+                /*if(variable.obtener_tipo().obtener_tipo_de_dato()==TIPO_DATO.DOUBLE && this.expresion.tipo.obtener_tipo_de_dato()== TIPO_DATO.INT)
+                {
+                    variable.modificar_valor(valor_asig);
+                    ast.escribir_en_consola("EXITO variable modificada.Nuevo valor: "+valor_asig);
+                }*/
                 ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): EL VALOR NO COINCIDE CON EL TIPO.");
             }else{
                 variable.modificar_valor(valor_asig);
@@ -74,6 +79,15 @@ export class DECLARACION_VARIABLE extends Instruccion
                 //VALIDAR CON EL TIPO DE DATO
                 if(this.tipo.obtener_tipo_de_dato() != this.expresion.tipo.obtener_tipo_de_dato())
                 {
+                    //PARA ACEPTAR ENTEROS EN DOUBLE
+                    /*
+                    if(this.expresion.tipo.obtener_tipo_de_dato() === TIPO_DATO.INT && this.tipo.obtener_tipo_de_dato() == TIPO_DATO.DOUBLE)
+                    {
+                        let nueva_var = new VARIABLE(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: variable "+this.id +": creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nueva_var);
+                    }
+                    */
                     if(this.expresion.tipo.obtener_tipo_de_dato() === TIPO_DATO.ERROR){
                         ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") TIPO DE DATO INCORRECTO O NO EXISTE VARIABLE ");
                     }else{
@@ -523,6 +537,7 @@ export class LLAMADA_METODO extends Instruccion
         else{
             let param = funci.obtener_parametros();
             let instru = funci.obtener_sentencias();
+            let error_crear = 0;//0 = todo bien, 1= no crear
             //ast.escribir_en_consola("SI EXISTE LA FUNCION: "+funci.obtener_nombre());
             //ASIGNACION DE PARAMETROS
             if(param.length == this.parametros.length){
@@ -540,6 +555,14 @@ export class LLAMADA_METODO extends Instruccion
                         let vari = new VARIABLE(parametro.tipo,id_parametro,valor_comparar);             //CREAMOS UNA VARIABLE CON EL VALOR DE ENTRADA
                         TABLA_FUNC_Y_VAR_FUNCION.agregar_variable_tabla(id_parametro,vari);             //LO AGREGAMOS AL AMBITO DE LA FUNCION
                     }
+                    else{
+                        error_crear = 1;
+                    }
+
+                }
+                if(error_crear ==1){
+                    ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): PARAMETRO DE TIPO INCORRECTO");
+                    return
                 }
                 for(let i=0;i<instru.length;i++){
                     let sent = instru[i];
@@ -547,6 +570,15 @@ export class LLAMADA_METODO extends Instruccion
                     if(sent instanceof Instruccion) 
                     {
                         sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                        if(sent.nombre_in_ex =="IF"){
+                            ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
+                            return sent.ejecuto_break;
+                        }
+                        if(sent.nombre_in_ex=="RETURN"){
+                            ast.escribir_en_consola("DEBO FINALIZAR");
+                            return //sent.ejecuto_return;
+                            
+                        }
                     }
                     //ES UNA EXPRESION (SUMA, RESTA ETC)
                     else if(sent instanceof Expresion) 
@@ -559,6 +591,97 @@ export class LLAMADA_METODO extends Instruccion
             }
         
         }
+        
+        
+    }
+    
+}
+export class LLAMADA_METODO_EXPRESION extends Expresion 
+{
+    id:     string;
+    parametros:    Expresion[];
+
+    constructor(id: string, parametros: Expresion[], linea: number, columna: number) 
+    {
+        super(linea, columna,"LLAMADAMETODO");
+        this.id = id;
+        this.parametros = parametros;
+    }
+
+    public obtener_valor(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let funci = tabla.obtener_funcion(this.id);
+        if(funci ===undefined){
+            funci = global.obtener_funcion(this.id);
+        }
+        if(funci === undefined)
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): FUNCION O METODO "+this.id+" NO DEFINIDO.");
+        }
+        else{
+            let param = funci.obtener_parametros();
+            let instru = funci.obtener_sentencias();
+            let error_crear = 0;//0 = todo bien, 1= no crear
+            //ast.escribir_en_consola("SI EXISTE LA FUNCION: "+funci.obtener_nombre());
+            //ASIGNACION DE PARAMETROS
+            if(param.length == this.parametros.length){
+                //CREAMOS NUESTRO NUEVO AMBITO
+                let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,"funcion");  //CREAMOS AMBITO PARA FUNCION
+                //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
+                for(let i=0;i<param.length;i++){
+                    let parametro = param[i];
+                    let id_parametro= parametro.obtener_nombre();
+                    let tipo_parametro = parametro.obtener_tipo().obtener_tipo_de_dato();
+                    let comparar = this.parametros[i]
+                    let valor_comparar = comparar.obtener_valor(tabla,global,ast);
+                    let tipo_comparar = comparar.tipo.obtener_tipo_de_dato();
+                    if(tipo_comparar == tipo_parametro){//SI LOS TIPOS COINCIDEN ENTRE PARAMETRO FUNCION Y PARAMETRO ENTRADA
+                        let vari = new VARIABLE(parametro.tipo,id_parametro,valor_comparar);             //CREAMOS UNA VARIABLE CON EL VALOR DE ENTRADA
+                        TABLA_FUNC_Y_VAR_FUNCION.agregar_variable_tabla(id_parametro,vari);             //LO AGREGAMOS AL AMBITO DE LA FUNCION
+                    }
+                    else{
+                        error_crear = 1;
+                    }
+
+                }
+                if(error_crear ==1){
+                    ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): PARAMETRO DE TIPO INCORRECTO");
+                    return
+                }
+                for(let i=0;i<instru.length;i++){
+                    let sent = instru[i];
+                    //ES UNA INSTRUCCION COMO :(IF, WHILE, DECLARACIONES ETC)
+                    if(sent instanceof Instruccion) 
+                    {
+                        sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                        if(sent.nombre_in_ex =="IF"){
+                            ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
+                            this.tipo = funci.tipo;
+                            let respuesta = sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast);
+                            return respuesta
+                        }
+                        if(sent.nombre_in_ex=="RETURN"){
+                            ast.escribir_en_consola("DEBO FINALIZAR");
+                            this.tipo = funci.tipo;
+                            let respuesta = sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast);
+                            return respuesta
+                            
+                        }
+                    }
+                    //ES UNA EXPRESION (SUMA, RESTA ETC)
+                    else if(sent instanceof Expresion) 
+                    {
+                        sent.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                    }
+                }
+            }else{
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): CANTIDAD DE PARAMETROS INCORRECTO");
+            }
+        
+        }
+        this.tipo = new Tipo(TIPO_DATO.ERROR);
+        let respuesta = 0;
+        return respuesta
         
         
     }
@@ -586,6 +709,7 @@ export class LLAMADA_MAIN extends Instruccion
         else{
             let param = funci.obtener_parametros();
             let instru = funci.obtener_sentencias();
+            let error_crear = 0;//0 = todo bien, 1= no crear
             //ast.escribir_en_consola("SI EXISTE LA FUNCION: "+funci.obtener_nombre());
             //ASIGNACION DE PARAMETROS
             if(param.length == this.parametros.length){
@@ -603,18 +727,37 @@ export class LLAMADA_MAIN extends Instruccion
                         let vari = new VARIABLE(parametro.tipo,id_parametro,valor_comparar);             //CREAMOS UNA VARIABLE CON EL VALOR DE ENTRADA
                         TABLA_FUNC_Y_VAR_FUNCION.agregar_variable_tabla(id_parametro,vari);             //LO AGREGAMOS AL AMBITO DE LA FUNCION
                     }
+                    else{
+                        error_crear = 1;
+                    }
+                }
+                if(error_crear ==1){
+                    ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): PARAMETRO DE TIPO INCORRECTO");
+                    return
                 }
                 for(let i=0;i<instru.length;i++){
                     let sent = instru[i];
                     //ES UNA INSTRUCCION COMO :(IF, WHILE, DECLARACIONES ETC)
                     if(sent instanceof Instruccion) 
                     {
+
                         sent.ejecutar(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                        if(sent.nombre_in_ex =="IF"){
+                            this.ejecuto_return = sent.ejecuto_return;  //SI TIENE ALGUN RETURN LO VA A PASAR
+                            ast.escribir_en_consola("RETURN IF: "+sent.ejecuto_return.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION,global,ast))
+                            return this.ejecuto_break;
+                        }
+                        if(sent.nombre_in_ex=="RETURN"){
+                            this.ejecuto_return = sent.ejecuto_return
+                            ast.escribir_en_consola("DEBO FINALIZAR");
+                            return this.ejecuto_break
+                        }
                     }
                     //ES UNA EXPRESION (SUMA, RESTA ETC)
                     else if(sent instanceof Expresion) 
                     {
                         sent.obtener_valor(TABLA_FUNC_Y_VAR_FUNCION, global, ast);
+                        
                     }
                 }
             }else{

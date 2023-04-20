@@ -8,6 +8,7 @@ import { TIPO_DATO } from "../arbol/Tipo";
 import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
 import { ASIGNACION_VARIABLE } from "./VARIABLES";
 import { VARIABLE } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import exp from "constants";
 
 export class IF extends Instruccion
 {
@@ -44,6 +45,12 @@ export class IF extends Instruccion
                             this.ejecuto_continue=1;
                             break;                                  //seria break porque en un if se termina el if
                         }
+                        if(ejecucion.nombre_in_ex=="RETURN"){
+                            
+                            this.ejecuto_return = ejecucion.ejecuto_return
+                            //ast.escribir_en_consola("RETURN IF: "+this.ejecuto_return.obtener_valor(actual,global,ast))
+                            break;
+                        }
                     }
                     else if (ejecucion instanceof Expresion)//SI ES UNA EXPRESION (SUMA, RESTA, ETC)
                     {
@@ -59,6 +66,18 @@ export class IF extends Instruccion
                     if(ejecucion instanceof Instruccion)    //SI ES UNA INSTRUCCION (IF, PRINT ETC)
                     {
                         ejecucion.ejecutar(TABLA_FUNC_Y_VAR_IF,global,ast);
+                        if(ejecucion.nombre_in_ex=="BREAK"){
+                            this.ejecuto_break=1;
+                            break;
+                        }
+                        if(ejecucion.nombre_in_ex=="CONTINUE"){
+                            this.ejecuto_continue=1;
+                            break;                                  //seria break porque en un if se termina el if
+                        }
+                        if(ejecucion.nombre_in_ex=="RETURN"){
+                            this.ejecuto_return = ejecucion.ejecuto_return
+                            break;
+                        }
                     }
                     else if (ejecucion instanceof Expresion)//SI ES UNA EXPRESION (SUMA, RESTA, ETC)
                     {
@@ -758,6 +777,21 @@ export class CONTINUE extends Instruccion
     }
     public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
         ast.escribir_en_consola("CONTINUE;")   
+    }
+    
+}
+export class RETURN extends Instruccion
+{
+    expresion : Expresion;
+    constructor(expresion: Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna,"RETURN");
+        this.expresion = expresion;
+        
+    }
+    public ejecutar(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        //ast.escribir_en_consola("RETURN;")
+        this.ejecuto_return = this.expresion;   
     }
     
 }
