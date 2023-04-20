@@ -156,6 +156,7 @@ frac                        (?:\.[0-9]+)
 
 /* Asociacion de operadores y precedencia */
 /*Operaciones logicas*/
+%left '?' ':'
 %left '++' '--'
 %left '||'
 %left '&&'
@@ -259,19 +260,7 @@ DECLARACION_VARIABLE :        TIPO  id  '=' EXPRESION  {val = new DECLARACION_VA
                                                 nodo_graf.agregar_hijo(nodo_prueba);
                                                 lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                 }
-                            | TIPO  id  '=' EXPRESION_IF {lista_temporal=[]; val = new DECLARACION_VARIABLE($1[0], $2, $4[0], @2.first_line, @2.first_column);
-                                                        nodo_graf = new NODO_GRAFICAS( "DECLARACION_VARIABLE", @1.first_line, @1.first_column, "skyblue" );
-                                                        nodo_graf.agregar_hijo($1[1]);    //TIPO
-                                                        nodo_prueba = new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "skyblue" );//ID
-                                                        nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $2, @1.first_line, @1.first_column, "black" ))
-                                                        nodo_graf.agregar_hijo(nodo_prueba);
-                                                        nodo_prueba = new NODO_GRAFICAS( "=", @1.first_line, @1.first_column, "black" );//=
-                                                        nodo_graf.agregar_hijo(nodo_prueba);
-                                                        nodo_graf.agregar_hijo($4[1]);//VALOR
-                                                        nodo_prueba = new NODO_GRAFICAS( ";", @1.first_line, @1.first_column, "black" );//;
-                                                        nodo_graf.agregar_hijo(nodo_prueba);
-                                                        lista_temporal=[];lista_temporal.push(val);lista_temporal.push(nodo_graf); $$ = lista_temporal;
-                                                            }
+                            
 ;
 DECLARACION_VECTORES:         TIPO '[' ']' id '=' 'RNEW' TIPO '['EXPRESION']' {val = new DECLARACION_VECTOR_TIPO1($1[0], $4, [],$9[0],@4.first_line,@4.first_column );
                                                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION VECTOR", @1.first_line, @1.first_column, "skyblue" );
@@ -432,18 +421,7 @@ ASIGNACION_VARIABLE  :        id '=' EXPRESION       { lista_temporal = []; val 
                                                     nodo_graf.agregar_hijo(nodo_prueba);
                                                     lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                     }
-                            | id '=' EXPRESION_IF    {lista_temporal = []; val = new ASIGNACION_VARIABLE($1, $3[0], @1.first_line, @1.first_column);lista_temporal.push(val)
-                                                    nodo_graf = new NODO_GRAFICAS( "ASIGNACION VARIABLE", @1.first_line, @1.first_column, "green" );
-                                                        nodo_prueba = new NODO_GRAFICAS( "ID", @1.first_line, @1.first_column, "skyblue" );//ID
-                                                        nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $2, @1.first_line, @1.first_column, "black" ))
-                                                        nodo_graf.agregar_hijo(nodo_prueba);
-                                                        nodo_prueba = new NODO_GRAFICAS( "=", @1.first_line, @1.first_column, "black" );//=
-                                                        nodo_graf.agregar_hijo(nodo_prueba);
-                                                        nodo_graf.agregar_hijo($3[1]);//VALOR
-                                                        nodo_prueba = new NODO_GRAFICAS( ";", @1.first_line, @1.first_column, "black" );//;
-                                                        nodo_graf.agregar_hijo(nodo_prueba);
-                                                        lista_temporal=[];lista_temporal.push(val);lista_temporal.push(nodo_graf); $$ = lista_temporal;
-                                                    }
+                            
                             | id '++'                {lista_temporal = []; val = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column); 
                                                         val = new OPERACION_UNARIA($2, val, @2.first_line, @2.first_column);
                                                         val = new ASIGNACION_VARIABLE($1,val, @1.first_line, @1.first_column); lista_temporal.push(val);
@@ -485,16 +463,6 @@ ASIGNACION_VECTORES :         id '[' EXPRESION ']' '=' EXPRESION ';'  {lista_tem
                                                                     }
 ;
 
-EXPRESION_IF:                 EXPRESION '?' EXPRESION ':' EXPRESION {lista_temporal = []; val = new OPERACION_TERNARIA($1[0], $3[0], $5[0], @2.first_line, @2.first_column); lista_temporal.push(val);
-                                                                    nodo_graf = new NODO_GRAFICAS( "OPERACION TERNARIA", @1.first_line, @1.first_column, "skyblue" );
-                                                                    nodo_graf.agregar_hijo($1[1]);
-                                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( "?", @1.first_line, @1.first_column, "skyblue" ));
-                                                                    nodo_graf.agregar_hijo($3[1]);
-                                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( ":", @1.first_line, @1.first_column, "skyblue" ));
-                                                                    nodo_graf.agregar_hijo($5[1]);
-                                                                    lista_temporal.push(nodo_graf); $$ = lista_temporal;
-                                                                    }
-;
 
 INSTRUCCIONES_FUNCION:        '{'instrucciones'}'{val = $2[0]; lista_temporal = []; lista_temporal.push(val); 
                                                 nodo_graf = new NODO_GRAFICAS( "INSTRUCCIONES", @1.first_line, @1.first_column, "blue" );
@@ -563,6 +531,7 @@ FUNCION_PRINT:                RPRINT '('EXPRESION')'   {lista_temporal = []; val
                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( ";", @1.first_line, @1.first_column, "black" ));
                                                         lista_temporal.push(nodo_graf); $$ = lista_temporal;
                                                         }
+                            
 ;
 
 FUNCION_WHILE:                RWHILE '(' EXPRESION ')'  INSTRUCCIONES_FUNCION  {lista_temporal = []; val = new WHILE($3[0],$5[0], @1.first_line, @1.first_column); lista_temporal.push(val);
@@ -903,6 +872,16 @@ EXPRESION :   EXPRESION '+' EXPRESION               {val = new OPERACIONES($1[0]
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( ")", @1.first_line, @1.first_column, "black" ));
                                                     nodo_graf.agregar_hijo($4[1]);
                                                     }
+    |   EXPRESION '?' EXPRESION ':' EXPRESION       {lista_temporal = []; val = new OPERACION_TERNARIA($1[0], $3[0], $5[0], @2.first_line, @2.first_column); lista_temporal.push(val);
+                                                    nodo_graf = new NODO_GRAFICAS( "OPERACION TERNARIA", @1.first_line, @1.first_column, "skyblue" );
+                                                    nodo_graf.agregar_hijo($1[1]);
+                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( "?", @1.first_line, @1.first_column, "skyblue" ));
+                                                    nodo_graf.agregar_hijo($3[1]);
+                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( ":", @1.first_line, @1.first_column, "skyblue" ));
+                                                    nodo_graf.agregar_hijo($5[1]);
+                                                    lista_temporal.push(nodo_graf); $$ = lista_temporal;
+                                                    }
+
     |   id                                          {val = new VALIDAR_EXISTE_VARIABLE($1,@1.first_line,@1.first_column);          nodo_graf = new NODO_GRAFICAS( "EXPRESION", @1.first_line, @1.first_column, "skyblue" );     nodo_prueba = new NODO_GRAFICAS( "VARIABLE", @1.first_line, @1.first_column, "skyblue" );nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $1, @1.first_line, @1.first_column, "black" )); nodo_graf.agregar_hijo(nodo_prueba);lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); $$= lista_temporal}
     |   id '['EXPRESION']'                          {val = new VALIDAR_EXISTE_VECTOR($1,$3[0],@1.first_line,@1.first_column);      nodo_graf = new NODO_GRAFICAS( "EXPRESION", @1.first_line, @1.first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $1, @1.first_line, @1.first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); $$= lista_temporal}
     |   ENTERO                                      {val = new Valor($1,"INT",@1.first_line,@1.first_column);                      nodo_graf = new NODO_GRAFICAS( "EXPRESION", @1.first_line, @1.first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $1, @1.first_line, @1.first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); $$= lista_temporal}

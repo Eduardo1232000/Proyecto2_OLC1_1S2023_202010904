@@ -30,14 +30,14 @@ export class OPERACION_TERNARIA extends Expresion {
         //ES COMO UN IF, SOLO VALIDA SI ES TRUE O FALSE Y SE ASIGNAN LOS VALORES      
 
         //SI LOS TIPOS DEL VALOR 2 Y 3 SON DISTINTOS HAY ERROR
-        if(tipo_valor2 != tipo_valor3)
-        {
-            console.log("LOS TIPOS NO SON IGUALES");
-            //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") VALORES DE DIFERENTE TIPO");
-            this.tipo = new Tipo(TIPO_DATO.ERROR);
-            respuesta = 0;
-            return respuesta;
-        }
+        //if(tipo_valor2 != tipo_valor3)
+        //{
+        //    console.log("LOS TIPOS NO SON IGUALES");
+        //    //ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ ") VALORES DE DIFERENTE TIPO");
+        //    this.tipo = new Tipo(TIPO_DATO.ERROR);
+        //    respuesta = 0;
+        //    return respuesta;
+        //}
         //SI ES BOOLEANA LA CONDICION SE PUEDE REALIZAR
         if(tipo_valor1 == TIPO_DATO.BOOLEAN)
         {
