@@ -72,12 +72,12 @@
   }
 */
 var grammar = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,23],$V1=[1,18],$V2=[1,34],$V3=[1,27],$V4=[1,25],$V5=[1,26],$V6=[1,28],$V7=[1,29],$V8=[1,30],$V9=[1,31],$Va=[1,32],$Vb=[1,33],$Vc=[1,35],$Vd=[1,36],$Ve=[1,37],$Vf=[1,38],$Vg=[1,39],$Vh=[1,40],$Vi=[1,41],$Vj=[1,42],$Vk=[2,5,22,28,29,41,42,46,52,54,55,56,58,59,63,66,67,68,69,70,71,72,73,74],$Vl=[1,59],$Vm=[1,60],$Vn=[1,61],$Vo=[1,68],$Vp=[1,84],$Vq=[1,75],$Vr=[1,74],$Vs=[1,76],$Vt=[1,77],$Vu=[1,78],$Vv=[1,79],$Vw=[1,80],$Vx=[1,81],$Vy=[1,82],$Vz=[1,83],$VA=[1,85],$VB=[1,86],$VC=[1,87],$VD=[1,88],$VE=[1,89],$VF=[1,90],$VG=[29,36,44],$VH=[2,28],$VI=[1,91],$VJ=[8,32],$VK=[1,107],$VL=[1,123],$VM=[1,124],$VN=[1,129],$VO=[1,130],$VP=[1,115],$VQ=[1,116],$VR=[1,117],$VS=[1,118],$VT=[1,119],$VU=[1,120],$VV=[1,121],$VW=[1,122],$VX=[1,125],$VY=[1,126],$VZ=[1,127],$V_=[1,128],$V$=[1,131],$V01=[8,32,37,41,43,44,45,50,51,64,75,76,77,78,79,80,81,82,83,84,85,86,95],$V11=[1,158],$V21=[32,45],$V31=[2,5,22,28,29,41,42,46,52,53,54,55,56,58,59,63,66,67,68,69,70,71,72,73,74],$V41=[1,201],$V51=[8,32,37,41,43,44,45,50,51,64,75,76,81,82,83,84,85,86,95],$V61=[8,32,37,41,43,44,45,50,51,64,75,76,77,78,80,81,82,83,84,85,86,95],$V71=[8,32,37,41,43,44,45,50,51,64,81,82,83,84,85,86,95],$V81=[1,244],$V91=[1,243],$Va1=[41,63,66],$Vb1=[41,45],$Vc1=[2,68];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,25],$V1=[1,20],$V2=[1,36],$V3=[1,29],$V4=[1,27],$V5=[1,28],$V6=[1,30],$V7=[1,31],$V8=[1,32],$V9=[1,33],$Va=[1,34],$Vb=[1,35],$Vc=[1,37],$Vd=[1,38],$Ve=[1,39],$Vf=[1,40],$Vg=[1,41],$Vh=[1,42],$Vi=[1,43],$Vj=[1,44],$Vk=[2,5,24,30,31,43,44,50,56,58,59,60,62,63,67,70,71,72,73,74,75,76,77,78],$Vl=[1,62],$Vm=[1,63],$Vn=[1,64],$Vo=[1,72],$Vp=[1,89],$Vq=[1,80],$Vr=[1,79],$Vs=[1,81],$Vt=[1,82],$Vu=[1,83],$Vv=[1,84],$Vw=[1,85],$Vx=[1,86],$Vy=[1,87],$Vz=[1,88],$VA=[1,90],$VB=[1,91],$VC=[1,92],$VD=[1,93],$VE=[1,94],$VF=[1,95],$VG=[1,96],$VH=[31,38,46],$VI=[2,30],$VJ=[1,97],$VK=[8,34],$VL=[1,115],$VM=[1,131],$VN=[1,132],$VO=[1,137],$VP=[1,138],$VQ=[1,123],$VR=[1,124],$VS=[1,125],$VT=[1,126],$VU=[1,127],$VV=[1,128],$VW=[1,129],$VX=[1,130],$VY=[1,133],$VZ=[1,134],$V_=[1,135],$V$=[1,136],$V01=[1,139],$V11=[8,34,39,43,45,46,49,54,55,68,79,80,81,82,83,84,85,86,87,88,89,90,99],$V21=[1,167],$V31=[34,49],$V41=[2,5,24,30,31,43,44,50,56,57,58,59,60,62,63,67,70,71,72,73,74,75,76,77,78],$V51=[1,214],$V61=[8,34,39,43,45,46,49,54,55,68,79,80,85,86,87,88,89,90,99],$V71=[8,34,39,43,45,46,49,54,55,68,79,80,81,82,84,85,86,87,88,89,90,99],$V81=[8,34,39,43,45,46,49,54,55,68,85,86,87,88,89,90,99],$V91=[1,263],$Va1=[1,262],$Vb1=[43,67,70],$Vc1=[43,49],$Vd1=[2,73];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"ini":3,"instrucciones":4,"EOF":5,"instruccion":6,"DECLARACION_VARIABLE":7,";":8,"DECLARACION_VECTORES":9,"DECLARACION_LISTAS":10,"DECLARACION_METODO":11,"DECLARACION_FUNCION":12,"LLAMADA_METODOS":13,"ASIGNACION_VARIABLE":14,"ASIGNACION_VECTORES":15,"FUNCION_IF":16,"FUNCION_PRINT":17,"FUNCION_WHILE":18,"FUNCION_FOR":19,"FUNCION_DO_WHILE":20,"FUNCION_SWITCH":21,"FUNCION_TO_LOWER":22,"FUNCION_MAIN":23,"SENTENCIA_BREAK":24,"SENTENCIA_CONTINUE":25,"SENTENCIA_RETURN":26,"PTCOMA":27,"RMAIN":28,"id":29,"(":30,"PARAMETROS_LLAMADA":31,")":32,"TIPO":33,"=":34,"EXPRESION":35,"[":36,"]":37,"RNEW":38,"{":39,"LISTA_EXPRESIONES":40,"}":41,"RLIST":42,"<":43,">":44,",":45,"RVOID":46,"PARAMETROS":47,"INSTRUCCIONES_FUNCION":48,"DECLARACION_VACIA_METODO":49,"++":50,"--":51,"RIF":52,"RELSE":53,"RPRINT":54,"RWHILE":55,"RFOR":56,"DEC_O_ASIG":57,"RDO":58,"RSWITCH":59,"CASES_SWITCH":60,"DEFAULT":61,"CASE_SWITCH":62,"RCASE":63,":":64,"INSTRUCCIONES_SWITCH":65,"RDEFAULT":66,"RBREAK":67,"RCONTINUE":68,"RRETURN":69,"RINT":70,"RBOOLEAN":71,"RSTRING":72,"RDOUBLE":73,"RCHAR":74,"+":75,"-":76,"*":77,"/":78,"^":79,"%":80,"==":81,"!=":82,"<=":83,">=":84,"||":85,"&&":86,"!":87,"RTOLOWER":88,"RTOUPPER":89,"RLENGTH":90,"RTRUNCATE":91,"RROUND":92,"RTYPEOF":93,"RTOSTRING":94,"?":95,"ENTERO":96,"DECIMAL":97,"CARACTER":98,"CADENA":99,"RTRUE":100,"RFALSE":101,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",8:";",22:"FUNCION_TO_LOWER",27:"PTCOMA",28:"RMAIN",29:"id",30:"(",32:")",34:"=",36:"[",37:"]",38:"RNEW",39:"{",41:"}",42:"RLIST",43:"<",44:">",45:",",46:"RVOID",50:"++",51:"--",52:"RIF",53:"RELSE",54:"RPRINT",55:"RWHILE",56:"RFOR",58:"RDO",59:"RSWITCH",63:"RCASE",64:":",66:"RDEFAULT",67:"RBREAK",68:"RCONTINUE",69:"RRETURN",70:"RINT",71:"RBOOLEAN",72:"RSTRING",73:"RDOUBLE",74:"RCHAR",75:"+",76:"-",77:"*",78:"/",79:"^",80:"%",81:"==",82:"!=",83:"<=",84:">=",85:"||",86:"&&",87:"!",88:"RTOLOWER",89:"RTOUPPER",90:"RLENGTH",91:"RTRUNCATE",92:"RROUND",93:"RTYPEOF",94:"RTOSTRING",95:"?",96:"ENTERO",97:"DECIMAL",98:"CARACTER",99:"CADENA",100:"RTRUE",101:"RFALSE"},
-productions_: [0,[3,2],[4,2],[4,1],[6,2],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,1],[6,1],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,1],[23,5],[23,4],[7,4],[7,2],[9,10],[9,8],[10,11],[40,3],[40,1],[11,6],[11,5],[12,6],[12,5],[47,3],[47,1],[49,2],[13,4],[13,3],[31,3],[31,1],[14,3],[14,2],[14,2],[15,7],[48,3],[48,2],[16,5],[16,7],[16,7],[17,4],[18,5],[19,9],[20,6],[57,1],[57,1],[21,7],[21,8],[21,7],[60,2],[60,1],[62,4],[61,3],[65,1],[65,0],[24,2],[25,2],[26,3],[33,1],[33,1],[33,1],[33,1],[33,1],[35,3],[35,3],[35,3],[35,3],[35,3],[35,3],[35,2],[35,3],[35,3],[35,3],[35,3],[35,3],[35,3],[35,3],[35,3],[35,3],[35,2],[35,2],[35,2],[35,4],[35,4],[35,4],[35,4],[35,4],[35,4],[35,4],[35,4],[35,4],[35,4],[35,4],[35,5],[35,4],[35,3],[35,1],[35,4],[35,1],[35,1],[35,1],[35,1],[35,1],[35,1]],
+symbols_: {"error":2,"ini":3,"instrucciones":4,"EOF":5,"instruccion":6,"DECLARACION_VARIABLE":7,";":8,"DECLARACION_VECTORES":9,"DECLARACION_LISTAS":10,"DECLARACION_METODO":11,"DECLARACION_FUNCION":12,"LLAMADA_METODOS":13,"ASIGNACION_VARIABLE":14,"ASIGNACION_VECTORES":15,"ASIGNACION_LISTAS":16,"AGREGAR_DATO_LISTAS":17,"FUNCION_IF":18,"FUNCION_PRINT":19,"FUNCION_WHILE":20,"FUNCION_FOR":21,"FUNCION_DO_WHILE":22,"FUNCION_SWITCH":23,"FUNCION_TO_LOWER":24,"FUNCION_MAIN":25,"SENTENCIA_BREAK":26,"SENTENCIA_CONTINUE":27,"SENTENCIA_RETURN":28,"PTCOMA":29,"RMAIN":30,"id":31,"(":32,"PARAMETROS_LLAMADA":33,")":34,"TIPO":35,"=":36,"EXPRESION":37,"[":38,"]":39,"RNEW":40,"{":41,"LISTA_EXPRESIONES":42,"}":43,"RLIST":44,"<":45,">":46,".":47,"RADD":48,",":49,"RVOID":50,"PARAMETROS":51,"INSTRUCCIONES_FUNCION":52,"DECLARACION_VACIA_METODO":53,"++":54,"--":55,"RIF":56,"RELSE":57,"RPRINT":58,"RWHILE":59,"RFOR":60,"DEC_O_ASIG":61,"RDO":62,"RSWITCH":63,"CASES_SWITCH":64,"DEFAULT":65,"CASE_SWITCH":66,"RCASE":67,":":68,"INSTRUCCIONES_SWITCH":69,"RDEFAULT":70,"RBREAK":71,"RCONTINUE":72,"RRETURN":73,"RINT":74,"RBOOLEAN":75,"RSTRING":76,"RDOUBLE":77,"RCHAR":78,"+":79,"-":80,"*":81,"/":82,"^":83,"%":84,"==":85,"!=":86,"<=":87,">=":88,"||":89,"&&":90,"!":91,"RTOLOWER":92,"RTOUPPER":93,"RLENGTH":94,"RTRUNCATE":95,"RROUND":96,"RTYPEOF":97,"RTOSTRING":98,"?":99,"RTOCHARARRAY":100,"ENTERO":101,"DECIMAL":102,"CARACTER":103,"CADENA":104,"RTRUE":105,"RFALSE":106,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",8:";",24:"FUNCION_TO_LOWER",29:"PTCOMA",30:"RMAIN",31:"id",32:"(",34:")",36:"=",38:"[",39:"]",40:"RNEW",41:"{",43:"}",44:"RLIST",45:"<",46:">",47:".",48:"RADD",49:",",50:"RVOID",54:"++",55:"--",56:"RIF",57:"RELSE",58:"RPRINT",59:"RWHILE",60:"RFOR",62:"RDO",63:"RSWITCH",67:"RCASE",68:":",70:"RDEFAULT",71:"RBREAK",72:"RCONTINUE",73:"RRETURN",74:"RINT",75:"RBOOLEAN",76:"RSTRING",77:"RDOUBLE",78:"RCHAR",79:"+",80:"-",81:"*",82:"/",83:"^",84:"%",85:"==",86:"!=",87:"<=",88:">=",89:"||",90:"&&",91:"!",92:"RTOLOWER",93:"RTOUPPER",94:"RLENGTH",95:"RTRUNCATE",96:"RROUND",97:"RTYPEOF",98:"RTOSTRING",99:"?",100:"RTOCHARARRAY",101:"ENTERO",102:"DECIMAL",103:"CARACTER",104:"CADENA",105:"RTRUE",106:"RFALSE"},
+productions_: [0,[3,2],[4,2],[4,1],[6,2],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,1],[6,1],[6,2],[6,1],[6,2],[6,2],[6,1],[6,1],[6,1],[6,2],[6,1],[25,5],[25,4],[7,4],[7,2],[9,10],[9,8],[10,11],[10,7],[17,6],[42,3],[42,1],[11,6],[11,5],[12,6],[12,5],[51,3],[51,1],[53,2],[13,4],[13,3],[33,3],[33,1],[14,3],[14,2],[14,2],[15,7],[16,9],[52,3],[52,2],[18,5],[18,7],[18,7],[19,4],[20,5],[21,9],[22,6],[61,1],[61,1],[23,7],[23,8],[23,7],[64,2],[64,1],[66,4],[65,3],[69,1],[69,0],[26,2],[27,2],[28,3],[28,2],[35,1],[35,1],[35,1],[35,1],[35,1],[37,3],[37,3],[37,3],[37,3],[37,3],[37,3],[37,2],[37,3],[37,3],[37,3],[37,3],[37,3],[37,3],[37,3],[37,3],[37,3],[37,2],[37,2],[37,2],[37,4],[37,4],[37,4],[37,4],[37,4],[37,4],[37,4],[37,4],[37,4],[37,4],[37,4],[37,5],[37,4],[37,3],[37,6],[37,4],[37,1],[37,4],[37,1],[37,1],[37,1],[37,1],[37,1],[37,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -110,16 +110,16 @@ break;
 case 4:
  lista_temporal2= $$[$0-1][0];lista_temporal=[]; lista_temporal.push(lista_temporal2); nodo_graf = $$[$0-1][1]; lista_temporal.push(nodo_graf); this.$ = lista_temporal; 
 break;
-case 5: case 6: case 10: case 13: case 16: case 18: case 19:
+case 5: case 6: case 10: case 13: case 15: case 18: case 20: case 21:
  lista_temporal=[]; lista_temporal.push($$[$0-1][0]); nodo_graf = $$[$0-1][1]; lista_temporal.push(nodo_graf); this.$ = lista_temporal; 
 break;
-case 7: case 8: case 9: case 11: case 12: case 14: case 15: case 17: case 20: case 21: case 22:
+case 7: case 8: case 9: case 11: case 12: case 14: case 16: case 17: case 19: case 22: case 23: case 24:
  lista_temporal=[]; lista_temporal.push($$[$0][0]); nodo_graf = $$[$0][1]; lista_temporal.push(nodo_graf); this.$ = lista_temporal; 
 break;
-case 23: case 24:
+case 25: case 26:
 console.error('Este es un error SINTACTICO');
 break;
-case 25:
+case 27:
 lista_temporal = []; val = new LLAMADA_MAIN($$[$0-3],$$[$0-1][0], _$[$0-4].first_line, _$[$0-4].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "MAIN", _$[$0-4].first_line, _$[$0-4].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-4].first_line, _$[$0-4].first_column, "black" );
@@ -133,7 +133,7 @@ lista_temporal = []; val = new LLAMADA_MAIN($$[$0-3],$$[$0-1][0], _$[$0-4].first
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 26:
+case 28:
 lista_temporal = []; val = new LLAMADA_MAIN($$[$0-2],[], _$[$0-3].first_line, _$[$0-3].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "MAIN", _$[$0-3].first_line, _$[$0-3].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-3].first_line, _$[$0-3].first_column, "black" );
@@ -144,7 +144,7 @@ lista_temporal = []; val = new LLAMADA_MAIN($$[$0-2],[], _$[$0-3].first_line, _$
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 27:
+case 29:
 val = new DECLARACION_VARIABLE($$[$0-3][0], $$[$0-2], $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column);
                               nodo_graf = new NODO_GRAFICAS( "DECLARACION_VARIABLE", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );
                               nodo_graf.agregar_hijo($$[$0-3][1]);    //TIPO
@@ -159,7 +159,7 @@ val = new DECLARACION_VARIABLE($$[$0-3][0], $$[$0-2], $$[$0][0], _$[$0-2].first_
                               lista_temporal=[];lista_temporal.push(val);lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                 
 break;
-case 28:
+case 30:
 lista_temporal = []; val = new DECLARACION_VARIABLE($$[$0-1][0], $$[$0], undefined, _$[$0].first_line, _$[$0].first_column); lista_temporal.push(val);
                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION_VARIABLE", _$[$0-1].first_line, _$[$0-1].first_column, "skyblue" );
                                                 nodo_graf.agregar_hijo($$[$0-1][1]);    //TIPO
@@ -171,7 +171,7 @@ lista_temporal = []; val = new DECLARACION_VARIABLE($$[$0-1][0], $$[$0], undefin
                                                 lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                 
 break;
-case 29:
+case 31:
 val = new DECLARACION_VECTOR_TIPO1($$[$0-9][0], $$[$0-6], [],$$[$0-1][0],_$[$0-6].first_line,_$[$0-6].first_column );
                                                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION VECTOR", _$[$0-9].first_line, _$[$0-9].first_column, "skyblue" );
                                                                                 nodo_graf.agregar_hijo($$[$0-9][1]);
@@ -190,7 +190,7 @@ val = new DECLARACION_VECTOR_TIPO1($$[$0-9][0], $$[$0-6], [],$$[$0-1][0],_$[$0-6
                                                                                 lista_temporal = []; lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                 
 break;
-case 30:
+case 32:
  lista_temporal_2 =$$[$0-1][0]; 
                                                                                 val = new DECLARACION_VECTOR_TIPO1($$[$0-7][0], $$[$0-4], lista_temporal_2,0,_$[$0-4].first_line,_$[$0-4].first_column );
                                                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION VECTOR", _$[$0-7].first_line, _$[$0-7].first_column, "skyblue" );
@@ -210,27 +210,41 @@ case 30:
                                                                                 lista_temporal = []; lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$ = lista_temporal
                                                                                 
 break;
-case 31:
-lista_temporal = [];val = new DECLARACION_LISTA_TIPO1($$[$0-8][0], $$[$0-6], $$[$0-1][0],_$[$0-7].first_line,_$[$0-7].first_column ); lista_temporal.push(val);
+case 33:
+lista_temporal = [];val = new DECLARACION_LISTA_TIPO1($$[$0-8][0], $$[$0-6],[], $$[$0-1][0],_$[$0-6].first_line,_$[$0-6].first_column ); lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "DECLARACION LISTA", _$[$0-10].first_line, _$[$0-10].first_column, "white" );
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 32:
+case 34:
+lista_temporal = [];lista_temporal_2=[]; lista_temporal_2.push($$[$0][0]);
+                                                                        val = new DECLARACION_LISTA_TIPO1($$[$0-4][0], $$[$0-2],lista_temporal_2,$$[$0-4][0],_$[$0-2].first_line,_$[$0-2].first_column ); lista_temporal.push(val);
+                                                                        nodo_graf = new NODO_GRAFICAS( "DECLARACION LISTA", _$[$0-6].first_line, _$[$0-6].first_column, "white" );
+                                                                        lista_temporal.push(nodo_graf); this.$ = lista_temporal;
+                                                                        
+break;
+case 35:
+lista_temporal = []; val = new AGREGAR_A_LISTA($$[$0-5],$$[$0-1][0], _$[$0-5].first_line, _$[$0-5].first_column); lista_temporal.push(val);
+                                                            console.log("detecto agregar lista");
+                                                            nodo_graf = new NODO_GRAFICAS( "DECLARACION LISTA", _$[$0-5].first_line, _$[$0-5].first_column, "white" );
+                                                            lista_temporal.push(nodo_graf); this.$ = lista_temporal;
+                                                            
+break;
+case 36:
  lista_temporal = $$[$0-2]; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($$[$0][0]);
                                                                 lista_temporal_3 = lista_temporal[1]; nodo_graf=$$[$0][1]; lista_temporal_3.push(nodo_graf);
                                                                 lista_temporal = []; lista_temporal.push(lista_temporal_2); lista_temporal.push(lista_temporal_3); this.$ = lista_temporal;
                                                                 
 break;
-case 33:
+case 37:
    let lstexp = [];        lstexp.push($$[$0][0]);  
                                                                 nodo_graf = $$[$0][1]
                                                                 lista_temporal_3 = []; lista_temporal_3.push(nodo_graf);
                                                                 lista_temporal = []; lista_temporal.push(lstexp); lista_temporal.push(lista_temporal_3);  this.$ = lista_temporal
                                                             
 break;
-case 34:
-lista_temporal = [];val = new DECLARACION_METODO($$[$0-5],$$[$0-4],$$[$0-2][0],$$[$0][0]); lista_temporal.push(val);
+case 38:
+lista_temporal = [];val = new DECLARACION_METODO($$[$0-5],$$[$0-4],$$[$0-2][0],$$[$0][0], _$[$0-4].first_line, _$[$0-4].first_column); lista_temporal.push(val);
                                                                                     nodo_graf = new NODO_GRAFICAS( "DECLARACION METODO", _$[$0-5].first_line, _$[$0-5].first_column, "black" );
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: VOID", _$[$0-5].first_line, _$[$0-5].first_column, "black" ))
                                                                                     nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-5].first_line, _$[$0-5].first_column, "black" );
@@ -248,8 +262,8 @@ lista_temporal = [];val = new DECLARACION_METODO($$[$0-5],$$[$0-4],$$[$0-2][0],$
                                                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                     
 break;
-case 35:
-lista_temporal = []; val = new DECLARACION_METODO($$[$0-4],$$[$0-3],[],$$[$0][0]); lista_temporal.push(val);
+case 39:
+lista_temporal = []; val = new DECLARACION_METODO($$[$0-4],$$[$0-3],[],$$[$0][0], _$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                                                     nodo_graf = new NODO_GRAFICAS( "DECLARACION METODO", _$[$0-4].first_line, _$[$0-4].first_column, "black" );
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: VOID", _$[$0-4].first_line, _$[$0-4].first_column, "black" ))
                                                                                     nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-4].first_line, _$[$0-4].first_column, "black" );
@@ -265,8 +279,8 @@ lista_temporal = []; val = new DECLARACION_METODO($$[$0-4],$$[$0-3],[],$$[$0][0]
 
                                                                                     
 break;
-case 36:
-lista_temporal = [];val = new DECLARACION_METODO($$[$0-5][0],$$[$0-4],$$[$0-2][0],$$[$0][0]); lista_temporal.push(val);
+case 40:
+lista_temporal = [];val = new DECLARACION_METODO($$[$0-5][0],$$[$0-4],$$[$0-2][0],$$[$0][0], _$[$0-4].first_line, _$[$0-4].first_column); lista_temporal.push(val);
                                                                                     nodo_graf = new NODO_GRAFICAS( "DECLARACION FUNCION", _$[$0-5].first_line, _$[$0-5].first_column, "black" );
                                                                                     nodo_graf.agregar_hijo($$[$0-5][1]);
                                                                                     nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-5].first_line, _$[$0-5].first_column, "black" );
@@ -284,8 +298,8 @@ lista_temporal = [];val = new DECLARACION_METODO($$[$0-5][0],$$[$0-4],$$[$0-2][0
                                                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                     
 break;
-case 37:
-lista_temporal = []; val = new DECLARACION_METODO($$[$0-4][0],$$[$0-3],[],$$[$0][0]); lista_temporal.push(val);
+case 41:
+lista_temporal = []; val = new DECLARACION_METODO($$[$0-4][0],$$[$0-3],[],$$[$0][0], _$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                                                     nodo_graf = new NODO_GRAFICAS( "DECLARACION FUNCION", _$[$0-4].first_line, _$[$0-4].first_column, "black" );
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", _$[$0-4].first_line, _$[$0-4].first_column, "black" ))
                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( ")", _$[$0-4].first_line, _$[$0-4].first_column, "black" ))
@@ -295,7 +309,7 @@ lista_temporal = []; val = new DECLARACION_METODO($$[$0-4][0],$$[$0-3],[],$$[$0]
                                                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                     
 break;
-case 38:
+case 42:
 lista_temporal = $$[$0-2]; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($$[$0][0]);
                                                                             lista_temporal_3 = lista_temporal[1];nodo_graf = new NODO_GRAFICAS( "PARAMETRO", _$[$0].first_line, _$[$0].first_column, "black" );
                                                                             nodo_graf.agregar_hijo($$[$0][1]);
@@ -303,7 +317,7 @@ lista_temporal = $$[$0-2]; lista_temporal_2 = lista_temporal[0]; lista_temporal_
                                                                             lista_temporal = []; lista_temporal.push(lista_temporal_2);lista_temporal.push(lista_temporal_3);this.$ = lista_temporal;
                                                                             
 break;
-case 39:
+case 43:
  let lstmet = [];        lstmet.push($$[$0][0]);  
                                                                         nodo_graf = new NODO_GRAFICAS( "PARAMETRO", _$[$0].first_line, _$[$0].first_column, "black" );     
                                                                         nodo_prueba = $$[$0][1];
@@ -313,7 +327,7 @@ case 39:
                                                                         lista_temporal = []; lista_temporal.push(lstmet); lista_temporal.push(lista_temporal_3);this.$ = lista_temporal;
                                                                         
 break;
-case 40:
+case 44:
 lista_temporal = []; val = new DECLARACION_PARAMETRO($$[$0-1][0], $$[$0], undefined, _$[$0].first_line, _$[$0].first_column);val =val.ejecutar();lista_temporal.push(val);
                                                 nodo_graf = new NODO_GRAFICAS( "DECLARACION VARIABLE", _$[$0-1].first_line, _$[$0-1].first_column, "black" );
                                                 nodo_graf.agregar_hijo($$[$0-1][1]);
@@ -323,7 +337,7 @@ lista_temporal = []; val = new DECLARACION_PARAMETRO($$[$0-1][0], $$[$0], undefi
                                                 lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                  
 break;
-case 41:
+case 45:
 lista_temporal = []; val = new LLAMADA_METODO($$[$0-3],$$[$0-1][0], _$[$0-3].first_line, _$[$0-3].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", _$[$0-3].first_line, _$[$0-3].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-3].first_line, _$[$0-3].first_column, "black" );
@@ -337,7 +351,7 @@ lista_temporal = []; val = new LLAMADA_METODO($$[$0-3],$$[$0-1][0], _$[$0-3].fir
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 42:
+case 46:
 lista_temporal = []; val = new LLAMADA_METODO($$[$0-2],[], _$[$0-2].first_line, _$[$0-2].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", _$[$0-2].first_line, _$[$0-2].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-2].first_line, _$[$0-2].first_column, "black" );
@@ -348,20 +362,20 @@ lista_temporal = []; val = new LLAMADA_METODO($$[$0-2],[], _$[$0-2].first_line, 
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 43:
+case 47:
 lista_temporal = $$[$0-2]; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($$[$0][0]);lista_temporal.push(lista_temporal_2);
                                                                     lista_temporal_3 = lista_temporal[1]; nodo_graf = $$[$0][1]; lista_temporal_3.push(nodo_graf);
                                                                     lista_temporal.push(lista_temporal_3); this.$ = lista_temporal;
                                                                     
 break;
-case 44:
+case 48:
 lista_temporal=[];let lstexp_llam = [];        lstexp_llam.push($$[$0][0]); lista_temporal.push(lstexp_llam);
                                                                    lista_temporal_3 = []
                                                                    nodo_graf = $$[$0][1]; lista_temporal_3.push(nodo_graf);
                                                                    lista_temporal.push(lista_temporal_3);this.$ = lista_temporal;
                                                                    
 break;
-case 45:
+case 49:
  lista_temporal = []; val = new ASIGNACION_VARIABLE($$[$0-2], $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "ASIGNACION VARIABLE", _$[$0-2].first_line, _$[$0-2].first_column, "green" );
                                                     nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );//ID
@@ -375,7 +389,7 @@ case 45:
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 46:
+case 50:
 lista_temporal = []; val = new VALIDAR_EXISTE_VARIABLE($$[$0-1],_$[$0-1].first_line,_$[$0-1].first_column); 
                                                         val = new OPERACION_UNARIA($$[$0], val, _$[$0].first_line, _$[$0].first_column);
                                                         val = new ASIGNACION_VARIABLE($$[$0-1],val, _$[$0-1].first_line, _$[$0-1].first_column); lista_temporal.push(val);
@@ -389,7 +403,7 @@ lista_temporal = []; val = new VALIDAR_EXISTE_VARIABLE($$[$0-1],_$[$0-1].first_l
                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                        
 break;
-case 47:
+case 51:
  lista_temporal = []; val = new VALIDAR_EXISTE_VARIABLE($$[$0-1],_$[$0-1].first_line,_$[$0-1].first_column); 
                                                         val = new OPERACION_UNARIA($$[$0], val, _$[$0].first_line, _$[$0].first_column);
                                                         val = new ASIGNACION_VARIABLE($$[$0-1],val, _$[$0-1].first_line, _$[$0-1].first_column); lista_temporal.push(val);
@@ -403,7 +417,7 @@ case 47:
                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                        
 break;
-case 48:
+case 52:
 lista_temporal = []; val = new ASIGNACION_VECTOR($$[$0-6], $$[$0-4][0], $$[$0-1][0], _$[$0-6].first_line, _$[$0-6].first_column); lista_temporal.push(val);
                                                                     nodo_graf = new NODO_GRAFICAS( "ASIGNACION VECTOR", _$[$0-6].first_line, _$[$0-6].first_column, "green" );
                                                                     nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-6].first_line, _$[$0-6].first_column, "skyblue" );//ID
@@ -419,7 +433,23 @@ lista_temporal = []; val = new ASIGNACION_VECTOR($$[$0-6], $$[$0-4][0], $$[$0-1]
                                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                     
 break;
-case 49:
+case 53:
+lista_temporal = []; val = new ASIGNACION_LISTA($$[$0-8], $$[$0-5][0], $$[$0-1][0], _$[$0-8].first_line, _$[$0-8].first_column); lista_temporal.push(val);
+                                                                    nodo_graf = new NODO_GRAFICAS( "ASIGNACION LISTA", _$[$0-8].first_line, _$[$0-8].first_column, "green" );
+                                                                    nodo_prueba = new NODO_GRAFICAS( "ID", _$[$0-8].first_line, _$[$0-8].first_column, "skyblue" );//ID
+                                                                    nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $$[$0-8], _$[$0-8].first_line, _$[$0-8].first_column, "black" ));
+                                                                    nodo_graf.agregar_hijo(nodo_prueba);
+                                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( "[", _$[$0-8].first_line, _$[$0-8].first_column, "black" ));
+                                                                    nodo_graf.agregar_hijo($$[$0-5][1]);
+                                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( "]", _$[$0-8].first_line, _$[$0-8].first_column, "black" ));
+                                                                    nodo_graf.agregar_hijo(new NODO_GRAFICAS( "=", _$[$0-8].first_line, _$[$0-8].first_column, "black" ));
+                                                                    nodo_graf.agregar_hijo($$[$0-1][1]);
+                                                                    nodo_prueba = new NODO_GRAFICAS( ";", _$[$0-8].first_line, _$[$0-8].first_column, "black" );//;
+                                                                    nodo_graf.agregar_hijo(nodo_prueba);
+                                                                    lista_temporal.push(nodo_graf); this.$ = lista_temporal;
+                                                                    
+break;
+case 54:
 val = $$[$0-1][0]; lista_temporal = []; lista_temporal.push(val); 
                                                 nodo_graf = new NODO_GRAFICAS( "INSTRUCCIONES", _$[$0-2].first_line, _$[$0-2].first_column, "blue" );
                                                     lista_temporal_3 = $$[$0-1][1];
@@ -427,13 +457,13 @@ val = $$[$0-1][0]; lista_temporal = []; lista_temporal.push(val);
                                                 lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                 
 break;
-case 50:
+case 55:
 val = []; lista_temporal = []; lista_temporal.push(val)
                                     nodo_graf = new NODO_GRAFICAS( "INSTRUCCIONES FUNCION", _$[$0-1].first_line, _$[$0-1].first_column, "skyblue" );
                                     lista_temporal.push(nodo_graf); this.$= lista_temporal;
                                     
 break;
-case 51:
+case 56:
 lista_temporal = []; val = new IF($$[$0-2][0], $$[$0][0], [], _$[$0-4].first_line, _$[$0-4].first_column); lista_temporal.push(val);
                                                                                                     nodo_graf = new NODO_GRAFICAS( "FUNCION IF", _$[$0-4].first_line, _$[$0-4].first_column, "yellow" );
                                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: IF", _$[$0-4].first_line, _$[$0-4].first_column, "yellow" ));
@@ -446,7 +476,7 @@ lista_temporal = []; val = new IF($$[$0-2][0], $$[$0][0], [], _$[$0-4].first_lin
                                                                                                     lista_temporal.push(nodo_graf);this.$ = lista_temporal;
                                                                                                     
 break;
-case 52:
+case 57:
 lista_temporal = []; val = new IF($$[$0-4][0], $$[$0-2][0], $$[$0][0], _$[$0-6].first_line, _$[$0-6].first_column); lista_temporal.push(val);
                                                                                                     nodo_graf = new NODO_GRAFICAS( "FUNCION IF", _$[$0-6].first_line, _$[$0-6].first_column, "yellow" );
                                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: IF", _$[$0-6].first_line, _$[$0-6].first_column, "yellow" ));
@@ -465,7 +495,7 @@ lista_temporal = []; val = new IF($$[$0-4][0], $$[$0-2][0], $$[$0][0], _$[$0-6].
                                                                                                     lista_temporal.push(nodo_graf);this.$ = lista_temporal;
                                                                                                     
 break;
-case 53:
+case 58:
 lista_temporal = []; let funcion_else_if = []; funcion_else_if.push($$[$0][0]); 
                                                                                                      val = new IF($$[$0-4][0], $$[$0-2][0], funcion_else_if, _$[$0-6].first_line, _$[$0-6].first_column); lista_temporal.push(val);
                                                                                                     nodo_graf = new NODO_GRAFICAS( "FUNCION IF", _$[$0-6].first_line, _$[$0-6].first_column, "yellow" );
@@ -482,7 +512,7 @@ lista_temporal = []; let funcion_else_if = []; funcion_else_if.push($$[$0][0]);
                                                                                                     lista_temporal.push(nodo_graf);this.$ = lista_temporal;
                                                                                                     
 break;
-case 54:
+case 59:
 lista_temporal = []; val = new PRINT($$[$0-1][0], _$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                         nodo_graf = new NODO_GRAFICAS( "FUNCION PRINT", _$[$0-3].first_line, _$[$0-3].first_column, "blue" );
                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: PRINT", _$[$0-3].first_line, _$[$0-3].first_column, "blue" ));
@@ -493,7 +523,7 @@ lista_temporal = []; val = new PRINT($$[$0-1][0], _$[$0-3].first_line, _$[$0-3].
                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                         
 break;
-case 55:
+case 60:
 lista_temporal = []; val = new WHILE($$[$0-2][0],$$[$0][0], _$[$0-4].first_line, _$[$0-4].first_column); lista_temporal.push(val);
                                                                                 nodo_graf = new NODO_GRAFICAS( "FUNCION WHILE", _$[$0-4].first_line, _$[$0-4].first_column, "blue" );
                                                                                 nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: WHILE", _$[$0-4].first_line, _$[$0-4].first_column, "blue" ));
@@ -506,7 +536,7 @@ lista_temporal = []; val = new WHILE($$[$0-2][0],$$[$0][0], _$[$0-4].first_line,
                                                                                 lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                 
 break;
-case 56:
+case 61:
 lista_temporal = []; val = new FOR($$[$0-6][0],$$[$0-4][0],$$[$0-2][0],$$[$0][0], _$[$0-8].first_line, _$[$0-8].first_column); lista_temporal.push(val);
                                                                                                                     nodo_graf = new NODO_GRAFICAS( "FUNCION FOR", _$[$0-8].first_line, _$[$0-8].first_column, "blue" );
                                                                                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: FOR", _$[$0-8].first_line, _$[$0-8].first_column, "blue" ));
@@ -523,7 +553,7 @@ lista_temporal = []; val = new FOR($$[$0-6][0],$$[$0-4][0],$$[$0-2][0],$$[$0][0]
                                                                                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                                                     
 break;
-case 57:
+case 62:
 lista_temporal = [];val = new DO_WHILE($$[$0-1][0],$$[$0-4][0], _$[$0-5].first_line, _$[$0-5].first_column);lista_temporal.push(val);
                                                                                 
                                                                                 nodo_graf = new NODO_GRAFICAS( "FUNCION DO WHILE", _$[$0-5].first_line, _$[$0-5].first_column, "blue" );
@@ -538,13 +568,13 @@ lista_temporal = [];val = new DO_WHILE($$[$0-1][0],$$[$0-4][0], _$[$0-5].first_l
                                                                                 lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                 
 break;
-case 58:
+case 63:
 lista_temporal = [];val = $$[$0][0];lista_temporal.push(val); nodo_graf = $$[$0][1]; lista_temporal.push(nodo_graf); this.$ =lista_temporal;
 break;
-case 59:
+case 64:
 lista_temporal = [];val = $$[$0][0];lista_temporal.push(val); nodo_graf = $$[$0][1]; lista_temporal.push(nodo_graf);this.$ =lista_temporal;
 break;
-case 60:
+case 65:
 lista_temporal = []; val = new SWITCH($$[$0-4][0],$$[$0-1][0],[],_$[$0-6].first_line, _$[$0-6].first_column); lista_temporal.push(val);
                                                                                         nodo_graf = new NODO_GRAFICAS( "FUNCION SWITCH", _$[$0-6].first_line, _$[$0-6].first_column, "blue" );
                                                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: SWITCH", _$[$0-6].first_line, _$[$0-6].first_column, "blue" ));
@@ -560,7 +590,7 @@ lista_temporal = []; val = new SWITCH($$[$0-4][0],$$[$0-1][0],[],_$[$0-6].first_
                                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                         
 break;
-case 61:
+case 66:
 lista_temporal = []; val = new SWITCH($$[$0-5][0],$$[$0-2][0],$$[$0-1][0],_$[$0-7].first_line, _$[$0-7].first_column); lista_temporal.push(val);
                                                                                         nodo_graf = new NODO_GRAFICAS( "FUNCION SWITCH", _$[$0-7].first_line, _$[$0-7].first_column, "blue" );
                                                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: SWITCH", _$[$0-7].first_line, _$[$0-7].first_column, "blue" ));
@@ -581,7 +611,7 @@ lista_temporal = []; val = new SWITCH($$[$0-5][0],$$[$0-2][0],$$[$0-1][0],_$[$0-
                                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                         
 break;
-case 62:
+case 67:
 lista_temporal=[]; val = new SWITCH($$[$0-4][0],[],$$[$0-1][0],_$[$0-6].first_line, _$[$0-6].first_column); lista_temporal.push(val);
                                                                                         nodo_graf = new NODO_GRAFICAS( "FUNCION SWITCH", _$[$0-6].first_line, _$[$0-6].first_column, "blue" );
                                                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: SWITCH", _$[$0-6].first_line, _$[$0-6].first_column, "blue" ));
@@ -594,7 +624,7 @@ lista_temporal=[]; val = new SWITCH($$[$0-4][0],[],$$[$0-1][0],_$[$0-6].first_li
                                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                                         
 break;
-case 63:
+case 68:
 lista_temporal = $$[$0-1]; lista_temporal_2 = lista_temporal[0]; lista_temporal_2.push($$[$0][0]); 
                                         lista_temporal_3 = lista_temporal[1];
                                         nodo_graf = $$[$0][1];
@@ -602,14 +632,14 @@ lista_temporal = $$[$0-1]; lista_temporal_2 = lista_temporal[0]; lista_temporal_
                                         lista_temporal = [];lista_temporal.push(lista_temporal_2); lista_temporal.push(lista_temporal_3);  this.$ = lista_temporal;
                                         
 break;
-case 64:
+case 69:
 lista_temporal = [];let lstswitch = [];        lstswitch.push($$[$0][0]);       lista_temporal.push(lstswitch);
                                         nodo_graf = $$[$0][1];
                                         lista_temporal_3 = []; lista_temporal_3.push(nodo_graf);
                                         lista_temporal.push(lista_temporal_3); this.$ = lista_temporal;
                                         
 break;
-case 65:
+case 70:
 lista_temporal = []; val = new CASE($$[$0-2][0],$$[$0][0], _$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                         nodo_graf = new NODO_GRAFICAS( "CASE", _$[$0-3].first_line, _$[$0-3].first_column, "blue" );
                                                         nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: CASE", _$[$0-3].first_line, _$[$0-3].first_column, "blue" ));
@@ -622,7 +652,7 @@ lista_temporal = []; val = new CASE($$[$0-2][0],$$[$0][0], _$[$0-3].first_line, 
                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                         
 break;
-case 66:
+case 71:
 lista_temporal = []; val = $$[$0][0]; lista_temporal.push(val);
 
                                                     nodo_graf = new NODO_GRAFICAS( "DEFAULT", _$[$0-2].first_line, _$[$0-2].first_column, "blue" );
@@ -635,19 +665,19 @@ lista_temporal = []; val = $$[$0][0]; lista_temporal.push(val);
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 67:
+case 72:
 lista_temporal = []; val = $$[$0][0]; lista_temporal.push(val);
                                             lista_temporal_3 = $$[$0][1];
                                             lista_temporal.push(lista_temporal_3); this.$ = lista_temporal;
                                             
 break;
-case 68:
+case 73:
 lista_temporal = []; val = []; lista_temporal.push(val)
                                             lista_temporal_3 = []
                                             lista_temporal.push(lista_temporal_3); this.$ = lista_temporal;
                                             
 break;
-case 69:
+case 74:
 lista_temporal = []; val = new SENT_BREAK(_$[$0-1].first_line, _$[$0-1].first_column);lista_temporal.push(val);
                                             nodo_graf = new NODO_GRAFICAS( "BREAK", _$[$0-1].first_line, _$[$0-1].first_column, "blue" );
                                             nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: BREAK", _$[$0-1].first_line, _$[$0-1].first_column, "blue" ));
@@ -655,7 +685,7 @@ lista_temporal = []; val = new SENT_BREAK(_$[$0-1].first_line, _$[$0-1].first_co
                                             lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                             
 break;
-case 70:
+case 75:
 lista_temporal = []; val = new SENT_CONTINUE(_$[$0-1].first_line, _$[$0-1].first_column);lista_temporal.push(val);
                                             nodo_graf = new NODO_GRAFICAS( "CONTINUE", _$[$0-1].first_line, _$[$0-1].first_column, "blue" );
                                             nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: CONTINUE", _$[$0-1].first_line, _$[$0-1].first_column, "blue" ));
@@ -663,7 +693,7 @@ lista_temporal = []; val = new SENT_CONTINUE(_$[$0-1].first_line, _$[$0-1].first
                                             lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                             
 break;
-case 71:
+case 76:
 lista_temporal = []; val = new SENT_RETURN($$[$0-1][0], _$[$0-2].first_line, _$[$0-2].first_column);lista_temporal.push(val);
                                             nodo_graf = new NODO_GRAFICAS( "RETURN", _$[$0-2].first_line, _$[$0-2].first_column, "blue" );
                                             nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: RETURN", _$[$0-2].first_line, _$[$0-2].first_column, "blue" ));
@@ -672,126 +702,134 @@ lista_temporal = []; val = new SENT_RETURN($$[$0-1][0], _$[$0-2].first_line, _$[
                                             lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                             
 break;
-case 72:
+case 77:
+lista_temporal = []; val = new SENT_RETURN("", _$[$0-1].first_line, _$[$0-1].first_column);lista_temporal.push(val);
+                                            nodo_graf = new NODO_GRAFICAS( "RETURN", _$[$0-1].first_line, _$[$0-1].first_column, "blue" );
+                                            nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: RETURN", _$[$0-1].first_line, _$[$0-1].first_column, "blue" ));
+                                            nodo_graf.agregar_hijo(new NODO_GRAFICAS( ";", _$[$0-1].first_line, _$[$0-1].first_column, "blue" ));
+                                            lista_temporal.push(nodo_graf); this.$ = lista_temporal;
+                                            
+break;
+case 78:
  val = new Tipo(TIPO_DATO.INT);     nodo_graf = new NODO_GRAFICAS( "TIPO", _$[$0].first_line, _$[$0].first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "INT", _$[$0].first_line, _$[$0].first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
 break;
-case 73:
+case 79:
  val = new Tipo(TIPO_DATO.BOOLEAN); nodo_graf = new NODO_GRAFICAS( "TIPO", _$[$0].first_line, _$[$0].first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "BOOLEAN", _$[$0].first_line, _$[$0].first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
 break;
-case 74:
+case 80:
  val = new Tipo(TIPO_DATO.STRING);  nodo_graf = new NODO_GRAFICAS( "TIPO", _$[$0].first_line, _$[$0].first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "STRING", _$[$0].first_line, _$[$0].first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
 break;
-case 75:
+case 81:
  val = new Tipo(TIPO_DATO.DOUBLE);  nodo_graf = new NODO_GRAFICAS( "TIPO", _$[$0].first_line, _$[$0].first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "DOUBLE", _$[$0].first_line, _$[$0].first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
 break;
-case 76:
+case 82:
  val = new Tipo(TIPO_DATO.CHAR);    nodo_graf = new NODO_GRAFICAS( "TIPO", _$[$0].first_line, _$[$0].first_column, "skyblue" );    nodo_prueba = new NODO_GRAFICAS( "CHAR", _$[$0].first_line, _$[$0].first_column, "black" );    nodo_graf.agregar_hijo(nodo_prueba);  lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
 break;
-case 77:
+case 83:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION ARITMETICA", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);nodo_graf.agregar_hijo(new NODO_GRAFICAS( "+", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 78:
+case 84:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION ARITMETICA", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);nodo_graf.agregar_hijo(new NODO_GRAFICAS( "-", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 79:
+case 85:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION ARITMETICA", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);nodo_graf.agregar_hijo(new NODO_GRAFICAS( "*", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 80:
+case 86:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION ARITMETICA", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);nodo_graf.agregar_hijo(new NODO_GRAFICAS( "/", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 81:
+case 87:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION ARITMETICA", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);nodo_graf.agregar_hijo(new NODO_GRAFICAS( "^", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 82:
+case 88:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION ARITMETICA", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);nodo_graf.agregar_hijo(new NODO_GRAFICAS( "%", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 83:
+case 89:
 val = new OPERACION_UNARIA($$[$0-1], $$[$0][0], _$[$0].first_line, _$[$0].first_column);        nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0-1].first_line, _$[$0-1].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "-", _$[$0-1].first_line, _$[$0-1].first_column, "black" ));nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 84:
+case 90:
 val = $$[$0-1][0];                                                                  nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0-2].first_line, _$[$0-2].first_column, "skyblue" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0-1][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( ")", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     
 break;
-case 85:
+case 91:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION RELACIONAL", _$[$0-2].first_line, _$[$0-2].first_column, "orange" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "==", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 86:
+case 92:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION RELACIONAL", _$[$0-2].first_line, _$[$0-2].first_column, "orange" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "!=", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 87:
+case 93:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION RELACIONAL", _$[$0-2].first_line, _$[$0-2].first_column, "orange" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "<", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 88:
+case 94:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION RELACIONAL", _$[$0-2].first_line, _$[$0-2].first_column, "orange" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( ">", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 89:
+case 95:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION RELACIONAL", _$[$0-2].first_line, _$[$0-2].first_column, "orange" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "<=", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 90:
+case 96:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION RELACIONAL", _$[$0-2].first_line, _$[$0-2].first_column, "orange" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( ">=", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 91:
+case 97:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION LOGICA", _$[$0-2].first_line, _$[$0-2].first_column, "red" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "||", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 92:
+case 98:
 val = new OPERACIONES($$[$0-2][0], $$[$0-1], $$[$0][0], _$[$0-1].first_line, _$[$0-1].first_column);      nodo_graf = new NODO_GRAFICAS( "OPERACION LOGICA", _$[$0-2].first_line, _$[$0-2].first_column, "red" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo($$[$0-2][1]);
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "&&", _$[$0-2].first_line, _$[$0-2].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 93:
+case 99:
 val = new OPERACION_UNARIA($$[$0-1], $$[$0][0], _$[$0].first_line, _$[$0].first_column);        nodo_graf = new NODO_GRAFICAS( "OPERACION LOGICA", _$[$0-1].first_line, _$[$0-1].first_column, "red" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "!", _$[$0-1].first_line, _$[$0-1].first_column, "black" ));
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 94:
+case 100:
 lista_temporal = []; val = new OPERACION_UNARIA($$[$0], $$[$0-1][0], _$[$0].first_line, _$[$0].first_column); lista_temporal.push(val);        
                                                     //console.log("si hago la operacion");
                                                     nodo_graf = new NODO_GRAFICAS( "INCREMENTO", _$[$0-1].first_line, _$[$0-1].first_column, "blue" );
@@ -800,7 +838,7 @@ lista_temporal = []; val = new OPERACION_UNARIA($$[$0], $$[$0-1][0], _$[$0].firs
                                                     lista_temporal.push(nodo_graf); this.$= lista_temporal;
                                                     
 break;
-case 95:
+case 101:
 lista_temporal = []; val = new OPERACION_UNARIA($$[$0], $$[$0-1][0], _$[$0].first_line, _$[$0].first_column);lista_temporal.push(val);        
                                                     nodo_graf = new NODO_GRAFICAS( "DECREMENTO", _$[$0-1].first_line, _$[$0-1].first_column, "blue" );
                                                     nodo_graf.agregar_hijo($$[$0-1][1]);
@@ -808,7 +846,7 @@ lista_temporal = []; val = new OPERACION_UNARIA($$[$0], $$[$0-1][0], _$[$0].firs
                                                     lista_temporal.push(nodo_graf); this.$= lista_temporal;
                                                     
 break;
-case 96:
+case 102:
 lista_temporal = []; val = new TO_LOWER($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "TOLOWER", _$[$0-3].first_line, _$[$0-3].first_column, "blue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: TOLOWER", _$[$0-3].first_line, _$[$0-3].first_column, "blue" ))
@@ -819,7 +857,7 @@ lista_temporal = []; val = new TO_LOWER($$[$0-1][0],_$[$0-3].first_line, _$[$0-3
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 97:
+case 103:
 lista_temporal = []; val = new TO_UPPER($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "TOUPPER", _$[$0-3].first_line, _$[$0-3].first_column, "blue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: TOUPPER", _$[$0-3].first_line, _$[$0-3].first_column, "blue" ))
@@ -830,7 +868,7 @@ lista_temporal = []; val = new TO_UPPER($$[$0-1][0],_$[$0-3].first_line, _$[$0-3
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 98:
+case 104:
 lista_temporal = []; val = new LENGHT($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "LENGTH", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: LENGTH", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" ))
@@ -841,7 +879,7 @@ lista_temporal = []; val = new LENGHT($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 99:
+case 105:
 lista_temporal = []; val = new TRUNCATE($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "TRUNCATE", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: TRUNCATE", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" ))
@@ -852,7 +890,7 @@ lista_temporal = []; val = new TRUNCATE($$[$0-1][0],_$[$0-3].first_line, _$[$0-3
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 100:
+case 106:
 lista_temporal = []; val = new ROUND($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "ROUND", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: ROUND", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" ))
@@ -863,7 +901,7 @@ lista_temporal = []; val = new ROUND($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].f
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 101:
+case 107:
 lista_temporal = []; val = new TYPEOF($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "TYPEOF", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: TYPEOF", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" ))
@@ -874,7 +912,7 @@ lista_temporal = []; val = new TYPEOF($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 102:
+case 108:
 lista_temporal = []; val = new TOSTRING($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "TOSTRING", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "PALABRA RESERVADA: TOSTRING", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" ))
@@ -885,7 +923,7 @@ lista_temporal = []; val = new TOSTRING($$[$0-1][0],_$[$0-3].first_line, _$[$0-3
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 103:
+case 109:
 val = new CASTEOS("INT", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column);              nodo_graf = new NODO_GRAFICAS( "CASTEO", _$[$0-3].first_line, _$[$0-3].first_column, "green" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "INT", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
@@ -893,7 +931,7 @@ val = new CASTEOS("INT", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column);
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 104:
+case 110:
 val = new CASTEOS("DOUBLE", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column);           nodo_graf = new NODO_GRAFICAS( "CASTEO", _$[$0-3].first_line, _$[$0-3].first_column, "green" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "DOUBLE", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
@@ -901,7 +939,7 @@ val = new CASTEOS("DOUBLE", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_colum
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 105:
+case 111:
 val = new CASTEOS("CHAR", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column);             nodo_graf = new NODO_GRAFICAS( "CASTEO", _$[$0-3].first_line, _$[$0-3].first_column, "green" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "CHAR", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
@@ -909,7 +947,7 @@ val = new CASTEOS("CHAR", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column)
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 106:
+case 112:
 val = new CASTEOS("STRING", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_column);           nodo_graf = new NODO_GRAFICAS( "CASTEO", _$[$0-3].first_line, _$[$0-3].first_column, "green" );lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "(", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
                                                     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "STRING", _$[$0-3].first_line, _$[$0-3].first_column, "black" ));
@@ -917,7 +955,7 @@ val = new CASTEOS("STRING", $$[$0][0], _$[$0-2].first_line, _$[$0-2].first_colum
                                                     nodo_graf.agregar_hijo($$[$0][1]);
                                                     
 break;
-case 107:
+case 113:
 lista_temporal = []; val = new OPERACION_TERNARIA($$[$0-4][0], $$[$0-2][0], $$[$0][0], _$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
                                                     nodo_graf = new NODO_GRAFICAS( "OPERACION TERNARIA", _$[$0-4].first_line, _$[$0-4].first_column, "skyblue" );
                                                     nodo_graf.agregar_hijo($$[$0-4][1]);
@@ -928,7 +966,7 @@ lista_temporal = []; val = new OPERACION_TERNARIA($$[$0-4][0], $$[$0-2][0], $$[$
                                                     lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                     
 break;
-case 108:
+case 114:
 lista_temporal = []; val = new LLAMADA_METODO_EXP($$[$0-3],$$[$0-1][0], _$[$0-3].first_line, _$[$0-3].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", _$[$0-3].first_line, _$[$0-3].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-3].first_line, _$[$0-3].first_column, "black" );
@@ -942,7 +980,7 @@ lista_temporal = []; val = new LLAMADA_METODO_EXP($$[$0-3],$$[$0-1][0], _$[$0-3]
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 109:
+case 115:
 lista_temporal = []; val = new LLAMADA_METODO_EXP($$[$0-2],[], _$[$0-2].first_line, _$[$0-2].first_column);lista_temporal.push(val);
                                                                         nodo_graf = new NODO_GRAFICAS( "LLAMADA METODO O FUNCION", _$[$0-2].first_line, _$[$0-2].first_column, "gray" );
                                                                         nodo_prueba=new NODO_GRAFICAS( "ID", _$[$0-2].first_line, _$[$0-2].first_column, "black" );
@@ -953,34 +991,47 @@ lista_temporal = []; val = new LLAMADA_METODO_EXP($$[$0-2],[], _$[$0-2].first_li
                                                                         lista_temporal.push(nodo_graf); this.$ = lista_temporal;
                                                                         
 break;
-case 110:
-val = new VALIDAR_EXISTE_VARIABLE($$[$0],_$[$0].first_line,_$[$0].first_column);          nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_prueba = new NODO_GRAFICAS( "VARIABLE", _$[$0].first_line, _$[$0].first_column, "skyblue" );nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" )); nodo_graf.agregar_hijo(nodo_prueba);lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
-break;
-case 111:
-val = new VALIDAR_EXISTE_VECTOR($$[$0-3],$$[$0-1][0],_$[$0-3].first_line,_$[$0-3].first_column);      nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0-3], _$[$0-3].first_line, _$[$0-3].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
-break;
-case 112:
-val = new Valor($$[$0],"INT",_$[$0].first_line,_$[$0].first_column);                      nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
-break;
-case 113:
-val = new Valor($$[$0],"DOUBLE",_$[$0].first_line,_$[$0].first_column);                   nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
-break;
-case 114:
-val = new Valor($$[$0],"CHAR",_$[$0].first_line,_$[$0].first_column);                     nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
-break;
-case 115:
-val = new Valor($$[$0],"STRING",_$[$0].first_line,_$[$0].first_column);                   nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
-break;
 case 116:
-val = new Valor($$[$0],"true",_$[$0].first_line,_$[$0].first_column);                     nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "TRUE", _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal   
+lista_temporal = []; val = new VALIDAR_EXISTE_LISTA($$[$0-5],$$[$0-2][0],_$[$0-5].first_line, _$[$0-5].first_column);lista_temporal.push(val);
+                                                                        nodo_graf = new NODO_GRAFICAS( "ACCESO A LISTAS", _$[$0-5].first_line, _$[$0-5].first_column, "gray" );
+                                                                        lista_temporal.push(nodo_graf); this.$ = lista_temporal;
+                                                                        
 break;
 case 117:
+lista_temporal = []; val = new TOCHARARRAY($$[$0-1][0],_$[$0-3].first_line, _$[$0-3].first_column); lista_temporal.push(val);
+                                                                        nodo_graf = new NODO_GRAFICAS( "TOCHARARRAY", _$[$0-3].first_line, _$[$0-3].first_column, "gray" );
+                                                                        lista_temporal.push(nodo_graf); this.$ = lista_temporal;
+
+                                                                        
+break;
+case 118:
+val = new VALIDAR_EXISTE_VARIABLE($$[$0],_$[$0].first_line,_$[$0].first_column);          nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_prueba = new NODO_GRAFICAS( "VARIABLE", _$[$0].first_line, _$[$0].first_column, "skyblue" );nodo_prueba.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" )); nodo_graf.agregar_hijo(nodo_prueba);lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
+break;
+case 119:
+val = new VALIDAR_EXISTE_VECTOR($$[$0-3],$$[$0-1][0],_$[$0-3].first_line,_$[$0-3].first_column);      nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0-3].first_line, _$[$0-3].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0-3], _$[$0-3].first_line, _$[$0-3].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
+break;
+case 120:
+val = new Valor($$[$0],"INT",_$[$0].first_line,_$[$0].first_column);                      nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
+break;
+case 121:
+val = new Valor($$[$0],"DOUBLE",_$[$0].first_line,_$[$0].first_column);                   nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
+break;
+case 122:
+val = new Valor($$[$0],"CHAR",_$[$0].first_line,_$[$0].first_column);                     nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
+break;
+case 123:
+val = new Valor($$[$0],"STRING",_$[$0].first_line,_$[$0].first_column);                   nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( $$[$0], _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
+break;
+case 124:
+val = new Valor($$[$0],"true",_$[$0].first_line,_$[$0].first_column);                     nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "TRUE", _$[$0].first_line, _$[$0].first_column, "black" ));lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal   
+break;
+case 125:
 val = new Valor($$[$0],"false",_$[$0].first_line,_$[$0].first_column);                    nodo_graf = new NODO_GRAFICAS( "EXPRESION", _$[$0].first_line, _$[$0].first_column, "skyblue" );     nodo_graf.agregar_hijo(new NODO_GRAFICAS( "FALSE", _$[$0].first_line, _$[$0].first_column, "black" )); lista_temporal = [];lista_temporal.push(val); lista_temporal.push(nodo_graf); this.$= lista_temporal
 break;
 }
 },
-table: [{2:$V0,3:1,4:2,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:$V1,23:19,24:20,25:21,26:22,28:$V2,29:$V3,33:24,42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{1:[3]},{2:$V0,5:[1,43],6:44,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:$V1,23:19,24:20,25:21,26:22,28:$V2,29:$V3,33:24,42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},o($Vk,[2,3]),{8:[1,45]},{8:[1,46]},{8:[1,47]},o($Vk,[2,7]),o($Vk,[2,8]),o($Vk,[2,9]),{8:[1,48]},o($Vk,[2,11]),o($Vk,[2,12]),{8:[1,49]},o($Vk,[2,14]),o($Vk,[2,15]),{8:[1,50]},o($Vk,[2,17]),{8:[1,51]},{8:[1,52]},o($Vk,[2,20]),o($Vk,[2,21]),o($Vk,[2,22]),o($Vk,[2,24],{27:[1,53]}),{29:[1,54],36:[1,55]},{43:[1,56]},{29:[1,57]},{30:[1,58],34:$Vl,36:[1,62],50:$Vm,51:$Vn},{30:[1,63]},{30:[1,64]},{30:[1,65]},{30:[1,66]},{39:$Vo,48:67},{30:[1,69]},{29:[1,70]},{8:[1,71]},{8:[1,72]},{29:$Vp,30:$Vq,35:73,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($VG,[2,72]),o($VG,[2,73]),o($VG,[2,74]),o($VG,[2,75]),o($VG,[2,76]),{1:[2,1]},o($Vk,[2,2]),o($Vk,[2,4]),o($Vk,[2,5]),o($Vk,[2,6]),o($Vk,[2,10]),o($Vk,[2,13]),o($Vk,[2,16]),o($Vk,[2,18]),o($Vk,[2,19]),o($Vk,[2,23]),{8:$VH,30:[1,92],34:$VI},{37:[1,93]},{33:94,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{30:[1,95]},{29:$Vp,30:$Vq,31:96,32:[1,97],35:98,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:99,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($VJ,[2,46]),o($VJ,[2,47]),{29:$Vp,30:$Vq,35:100,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:101,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:102,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:103,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{7:106,14:105,29:$VK,33:108,57:104,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{55:[1,109]},{2:$V0,4:110,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:$V1,23:19,24:20,25:21,26:22,28:$V2,29:$V3,33:24,41:[1,111],42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{29:$Vp,30:$Vq,35:112,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{30:[1,113]},o($Vk,[2,69]),o($Vk,[2,70]),{8:[1,114],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{29:$Vp,30:$Vq,35:132,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:133,70:[1,134],72:[1,137],73:[1,135],74:[1,136],76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:138,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{30:[1,139]},{30:[1,140]},{30:[1,141]},{30:[1,142]},{30:[1,143]},{30:[1,144]},{30:[1,145]},o($V01,[2,110],{30:[1,146],36:[1,147]}),o($V01,[2,112]),o($V01,[2,113]),o($V01,[2,114]),o($V01,[2,115]),o($V01,[2,116]),o($V01,[2,117]),{29:$Vp,30:$Vq,35:148,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{32:[1,150],33:152,47:149,49:151,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{29:[1,153]},{44:[1,154]},{32:[1,156],33:152,47:155,49:151,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{32:[1,157],45:$V11},o($Vk,[2,42]),o($V21,[2,44],{43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$}),o($VJ,[2,45],{43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$}),{37:[1,159],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,160],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,161],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,162],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{8:[1,163]},{8:[2,58]},{8:[2,59]},{34:$Vl,50:$Vm,51:$Vn},{29:[1,164]},{30:[1,165]},{2:$V0,6:44,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:$V1,23:19,24:20,25:21,26:22,28:$V2,29:$V3,33:24,41:[1,166],42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},o($V31,[2,50]),{32:[1,167],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{29:$Vp,30:$Vq,31:168,32:[1,169],35:98,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($Vk,[2,71]),{29:$Vp,30:$Vq,35:170,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:171,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:172,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:173,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:174,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:175,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:176,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:177,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:178,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:179,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:180,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:181,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:182,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:183,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($V01,[2,94]),o($V01,[2,95]),{29:$Vp,30:$Vq,35:184,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($V01,[2,83]),{32:[1,185],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,186]},{32:[1,187]},{32:[1,188]},{32:[1,189]},o($V01,[2,93]),{29:$Vp,30:$Vq,35:190,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:191,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:192,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:193,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:194,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:195,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:196,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,31:197,32:[1,198],35:98,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:199,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{8:[2,27],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,200],45:$V41},{39:$Vo,48:202},o($V21,[2,39]),{29:[1,203]},{34:[1,204]},{29:[1,205]},{32:[1,206],45:$V41},{39:$Vo,48:207},o($Vk,[2,41]),{29:$Vp,30:$Vq,35:208,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{34:[1,209]},{39:$Vo,48:210},{8:[2,54]},{39:$Vo,48:211},{29:$Vp,30:$Vq,35:212,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{8:$VH,34:$VI},{29:$Vp,30:$Vq,35:213,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($V31,[2,49]),{39:[1,214]},{32:[1,215],45:$V11},{8:[2,26]},o($V51,[2,77],{77:$VR,78:$VS,79:$VT,80:$VU}),o($V51,[2,78],{77:$VR,78:$VS,79:$VT,80:$VU}),o($V61,[2,79],{79:$VT}),o($V61,[2,80],{79:$VT}),o($V01,[2,81]),o($V61,[2,82],{79:$VT}),o($V71,[2,85],{75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU}),o($V71,[2,86],{75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU}),o($V71,[2,87],{75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU}),o($V71,[2,88],{75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU}),o($V71,[2,89],{75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU}),o($V71,[2,90],{75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU}),o([8,32,37,41,45,50,51,64,85,95],[2,91],{43:$VL,44:$VM,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,86:$V_}),o([8,32,37,41,45,50,51,64,85,86,95],[2,92],{43:$VL,44:$VM,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY}),{43:$VL,44:$VM,50:$VN,51:$VO,64:[1,216],75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},o($V01,[2,84]),{29:$Vp,30:$Vq,35:217,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:218,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:219,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{29:$Vp,30:$Vq,35:220,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{32:[1,221],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,222],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,223],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,224],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,225],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,226],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,227],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,228],45:$V11},o($V01,[2,109]),{37:[1,229],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{39:$Vo,48:230},{33:152,49:231,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},o($Vk,[2,37]),o($V21,[2,40]),{38:[1,232],39:[1,233]},{34:[1,234]},{39:$Vo,48:235},o($Vk,[2,35]),o($V21,[2,43],{43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$}),{29:$Vp,30:$Vq,35:236,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($Vk,[2,51],{53:[1,237]}),o($Vk,[2,55]),{8:[1,238],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{32:[1,239],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{60:240,61:241,62:242,63:$V81,66:$V91},{8:[2,25]},{29:$Vp,30:$Vq,35:245,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o($V01,[2,103]),o($V01,[2,104]),o($V01,[2,105]),o($V01,[2,106]),o($V01,[2,96]),o($V01,[2,97]),o($V01,[2,98]),o($V01,[2,99]),o($V01,[2,100]),o($V01,[2,101]),o($V01,[2,102]),o($V01,[2,108]),o($V01,[2,111]),o($Vk,[2,36]),o($V21,[2,38]),{33:246,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{29:$Vp,30:$Vq,35:248,40:247,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{38:[1,249]},o($Vk,[2,34]),{8:[1,250],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{16:252,39:$Vo,48:251,52:$V6},{14:253,29:$VK},{8:[2,57]},{41:[1,254],61:255,62:256,63:$V81,66:$V91},{41:[1,257]},o($Va1,[2,64]),{64:[1,258]},{29:$Vp,30:$Vq,35:259,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},o([8,32,37,41,45,64,95],[2,107],{43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_}),{36:[1,260]},{41:[1,261],45:[1,262]},o($Vb1,[2,33],{43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$}),{42:[1,263]},o($Vk,[2,48]),o($Vk,[2,52]),o($Vk,[2,53]),{32:[1,264]},o($Vk,[2,60]),{41:[1,265]},o($Va1,[2,63]),o($Vk,[2,62]),{2:$V0,4:267,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:$V1,23:19,24:20,25:21,26:22,28:$V2,29:$V3,33:24,41:$Vc1,42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,65:266,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},{43:$VL,44:$VM,50:$VN,51:$VO,64:[1,268],75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},{29:$Vp,30:$Vq,35:269,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{8:[2,30]},{29:$Vp,30:$Vq,35:270,76:$Vr,87:$Vs,88:$Vt,89:$Vu,90:$Vv,91:$Vw,92:$Vx,93:$Vy,94:$Vz,96:$VA,97:$VB,98:$VC,99:$VD,100:$VE,101:$VF},{43:[1,271]},{39:$Vo,48:272},o($Vk,[2,61]),{41:[2,66]},o($Va1,[2,67],{7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,23:19,24:20,25:21,26:22,33:24,6:44,2:$V0,22:$V1,28:$V2,29:$V3,42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj}),o($Va1,$Vc1,{6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,23:19,24:20,25:21,26:22,33:24,4:267,65:273,2:$V0,22:$V1,28:$V2,29:$V3,42:$V4,46:$V5,52:$V6,54:$V7,55:$V8,56:$V9,58:$Va,59:$Vb,67:$Vc,68:$Vd,69:$Ve,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj}),{37:[1,274],43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$},o($Vb1,[2,32],{43:$VL,44:$VM,50:$VN,51:$VO,75:$VP,76:$VQ,77:$VR,78:$VS,79:$VT,80:$VU,81:$VV,82:$VW,83:$VX,84:$VY,85:$VZ,86:$V_,95:$V$}),{33:275,70:$Vf,71:$Vg,72:$Vh,73:$Vi,74:$Vj},o($Vk,[2,56]),o($Va1,[2,65]),{8:[2,29]},{44:[1,276]},{8:[2,31]}],
-defaultActions: {43:[2,1],105:[2,58],106:[2,59],161:[2,54],169:[2,26],215:[2,25],239:[2,57],261:[2,30],266:[2,66],274:[2,29],276:[2,31]},
+table: [{2:$V0,3:1,4:2,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:$V1,25:21,26:22,27:23,28:24,30:$V2,31:$V3,35:26,44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{1:[3]},{2:$V0,5:[1,45],6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:$V1,25:21,26:22,27:23,28:24,30:$V2,31:$V3,35:26,44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},o($Vk,[2,3]),{8:[1,47]},{8:[1,48]},{8:[1,49]},o($Vk,[2,7]),o($Vk,[2,8]),o($Vk,[2,9]),{8:[1,50]},o($Vk,[2,11]),o($Vk,[2,12]),{8:[1,51]},o($Vk,[2,14]),{8:[1,52]},o($Vk,[2,16]),o($Vk,[2,17]),{8:[1,53]},o($Vk,[2,19]),{8:[1,54]},{8:[1,55]},o($Vk,[2,22]),o($Vk,[2,23]),o($Vk,[2,24]),o($Vk,[2,26],{29:[1,56]}),{31:[1,57],38:[1,58]},{45:[1,59]},{31:[1,60]},{32:[1,61],36:$Vl,38:[1,65],47:[1,66],54:$Vm,55:$Vn},{32:[1,67]},{32:[1,68]},{32:[1,69]},{32:[1,70]},{41:$Vo,52:71},{32:[1,73]},{31:[1,74]},{8:[1,75]},{8:[1,76]},{8:[1,78],31:$Vp,32:$Vq,37:77,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($VH,[2,78]),o($VH,[2,79]),o($VH,[2,80]),o($VH,[2,81]),o($VH,[2,82]),{1:[2,1]},o($Vk,[2,2]),o($Vk,[2,4]),o($Vk,[2,5]),o($Vk,[2,6]),o($Vk,[2,10]),o($Vk,[2,13]),o($Vk,[2,15]),o($Vk,[2,18]),o($Vk,[2,20]),o($Vk,[2,21]),o($Vk,[2,25]),{8:$VI,32:[1,98],36:$VJ},{39:[1,99]},{35:100,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{32:[1,101]},{31:$Vp,32:$Vq,33:102,34:[1,103],37:104,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:105,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($VK,[2,50]),o($VK,[2,51]),{31:$Vp,32:$Vq,37:106,38:[1,107],80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{48:[1,108]},{31:$Vp,32:$Vq,37:109,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:110,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:111,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{7:114,14:113,31:$VL,35:116,61:112,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{59:[1,117]},{2:$V0,4:118,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:$V1,25:21,26:22,27:23,28:24,30:$V2,31:$V3,35:26,43:[1,119],44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{31:$Vp,32:$Vq,37:120,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{32:[1,121]},o($Vk,[2,74]),o($Vk,[2,75]),{8:[1,122],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($Vk,[2,77]),{31:$Vp,32:$Vq,37:140,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:141,74:[1,142],76:[1,145],77:[1,143],78:[1,144],80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:146,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{32:[1,147]},{32:[1,148]},{32:[1,149]},{32:[1,150]},{32:[1,151]},{32:[1,152]},{32:[1,153]},o($V11,[2,118],{32:[1,154],38:[1,155]}),{32:[1,156]},o($V11,[2,120]),o($V11,[2,121]),o($V11,[2,122]),o($V11,[2,123]),o($V11,[2,124]),o($V11,[2,125]),{31:$Vp,32:$Vq,37:157,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{34:[1,159],35:161,51:158,53:160,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{31:[1,162]},{46:[1,163]},{34:[1,165],35:161,51:164,53:160,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{34:[1,166],49:$V21},o($Vk,[2,46]),o($V31,[2,48],{45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01}),o($VK,[2,49],{45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01}),{39:[1,168],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{31:$Vp,32:$Vq,37:169,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{32:[1,170]},{34:[1,171],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,172],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,173],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{8:[1,174]},{8:[2,63]},{8:[2,64]},{36:$Vl,54:$Vm,55:$Vn},{31:[1,175]},{32:[1,176]},{2:$V0,6:46,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:$V1,25:21,26:22,27:23,28:24,30:$V2,31:$V3,35:26,43:[1,177],44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},o($V41,[2,55]),{34:[1,178],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{31:$Vp,32:$Vq,33:179,34:[1,180],37:104,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($Vk,[2,76]),{31:$Vp,32:$Vq,37:181,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:182,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:183,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:184,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:185,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:186,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:187,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:188,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:189,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:190,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:191,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:192,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:193,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:194,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($V11,[2,100]),o($V11,[2,101]),{31:$Vp,32:$Vq,37:195,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($V11,[2,89]),{34:[1,196],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,197]},{34:[1,198]},{34:[1,199]},{34:[1,200]},o($V11,[2,99]),{31:$Vp,32:$Vq,37:201,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:202,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:203,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:204,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:205,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:206,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:207,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,33:208,34:[1,209],37:104,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:211,38:[1,210],80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:212,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{8:[2,29],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,213],49:$V51},{41:$Vo,52:215},o($V31,[2,43]),{31:[1,216]},{36:[1,217]},{31:[1,218]},{34:[1,219],49:$V51},{41:$Vo,52:220},o($Vk,[2,45]),{31:$Vp,32:$Vq,37:221,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{36:[1,222]},{39:[1,223],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{31:$Vp,32:$Vq,37:224,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{41:$Vo,52:225},{8:[2,59]},{41:$Vo,52:226},{31:$Vp,32:$Vq,37:227,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{8:$VI,36:$VJ},{31:$Vp,32:$Vq,37:228,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($V41,[2,54]),{41:[1,229]},{34:[1,230],49:$V21},{8:[2,28]},o($V61,[2,83],{81:$VS,82:$VT,83:$VU,84:$VV}),o($V61,[2,84],{81:$VS,82:$VT,83:$VU,84:$VV}),o($V71,[2,85],{83:$VU}),o($V71,[2,86],{83:$VU}),o($V11,[2,87]),o($V71,[2,88],{83:$VU}),o($V81,[2,91],{79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV}),o($V81,[2,92],{79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV}),o($V81,[2,93],{79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV}),o($V81,[2,94],{79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV}),o($V81,[2,95],{79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV}),o($V81,[2,96],{79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV}),o([8,34,39,43,49,54,55,68,89,99],[2,97],{45:$VM,46:$VN,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,90:$V$}),o([8,34,39,43,49,54,55,68,89,90,99],[2,98],{45:$VM,46:$VN,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ}),{45:$VM,46:$VN,54:$VO,55:$VP,68:[1,231],79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($V11,[2,90]),{31:$Vp,32:$Vq,37:232,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:233,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:234,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:235,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{34:[1,236],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,237],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,238],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,239],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,240],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,241],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,242],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,243],49:$V21},o($V11,[2,115]),{31:$Vp,32:$Vq,37:244,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{39:[1,245],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,246],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{41:$Vo,52:247},{35:161,53:248,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},o($Vk,[2,41]),o($V31,[2,44]),{40:[1,249],41:[1,250]},{36:[1,251]},{41:$Vo,52:252},o($Vk,[2,39]),o($V31,[2,47],{45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01}),{31:$Vp,32:$Vq,37:253,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{39:[1,254]},{34:[1,255],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($Vk,[2,56],{57:[1,256]}),o($Vk,[2,60]),{8:[1,257],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{34:[1,258],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{64:259,65:260,66:261,67:$V91,70:$Va1},{8:[2,27]},{31:$Vp,32:$Vq,37:264,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($V11,[2,109]),o($V11,[2,110]),o($V11,[2,111]),o($V11,[2,112]),o($V11,[2,102]),o($V11,[2,103]),o($V11,[2,104]),o($V11,[2,105]),o($V11,[2,106]),o($V11,[2,107]),o($V11,[2,108]),o($V11,[2,114]),{39:[1,265],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($V11,[2,119]),o($V11,[2,117]),o($Vk,[2,40]),o($V31,[2,42]),{35:266,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{31:$Vp,32:$Vq,37:268,42:267,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{31:$Vp,32:$Vq,37:270,40:[1,269],80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($Vk,[2,38]),{8:[1,271],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{36:[1,272]},{8:[2,35]},{18:274,41:$Vo,52:273,56:$V6},{14:275,31:$VL},{8:[2,62]},{43:[1,276],65:277,66:278,67:$V91,70:$Va1},{43:[1,279]},o($Vb1,[2,69]),{68:[1,280]},{31:$Vp,32:$Vq,37:281,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o([8,34,39,43,49,68,99],[2,113],{45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$}),{39:[1,282]},{38:[1,283]},{43:[1,284],49:[1,285]},o($Vc1,[2,37],{45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01}),{44:[1,286]},{8:[2,34],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($Vk,[2,52]),{31:$Vp,32:$Vq,37:287,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},o($Vk,[2,57]),o($Vk,[2,58]),{34:[1,288]},o($Vk,[2,65]),{43:[1,289]},o($Vb1,[2,68]),o($Vk,[2,67]),{2:$V0,4:291,6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,24:$V1,25:21,26:22,27:23,28:24,30:$V2,31:$V3,35:26,43:$Vd1,44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,69:290,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},{45:$VM,46:$VN,54:$VO,55:$VP,68:[1,292],79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($V11,[2,116]),{31:$Vp,32:$Vq,37:293,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{8:[2,32]},{31:$Vp,32:$Vq,37:294,80:$Vr,91:$Vs,92:$Vt,93:$Vu,94:$Vv,95:$Vw,96:$Vx,97:$Vy,98:$Vz,100:$VA,101:$VB,102:$VC,103:$VD,104:$VE,105:$VF,106:$VG},{45:[1,295]},{8:[1,296],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},{41:$Vo,52:297},o($Vk,[2,66]),{43:[2,71]},o($Vb1,[2,72],{7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,25:21,26:22,27:23,28:24,35:26,6:46,2:$V0,24:$V1,30:$V2,31:$V3,44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj}),o($Vb1,$Vd1,{6:3,7:4,9:5,10:6,11:7,12:8,13:9,14:10,15:11,16:12,17:13,18:14,19:15,20:16,21:17,22:18,23:19,25:21,26:22,27:23,28:24,35:26,4:291,69:298,2:$V0,24:$V1,30:$V2,31:$V3,44:$V4,50:$V5,56:$V6,58:$V7,59:$V8,60:$V9,62:$Va,63:$Vb,71:$Vc,72:$Vd,73:$Ve,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj}),{39:[1,299],45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01},o($Vc1,[2,36],{45:$VM,46:$VN,54:$VO,55:$VP,79:$VQ,80:$VR,81:$VS,82:$VT,83:$VU,84:$VV,85:$VW,86:$VX,87:$VY,88:$VZ,89:$V_,90:$V$,99:$V01}),{35:300,74:$Vf,75:$Vg,76:$Vh,77:$Vi,78:$Vj},o($Vk,[2,53]),o($Vk,[2,61]),o($Vb1,[2,70]),{8:[2,31]},{46:[1,301]},{8:[2,33]}],
+defaultActions: {45:[2,1],113:[2,63],114:[2,64],172:[2,59],180:[2,28],230:[2,27],255:[2,35],258:[2,62],284:[2,32],290:[2,71],299:[2,31],301:[2,33]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -1245,11 +1296,14 @@ _handle_error:
     let DECLARACION_VARIABLE        =   require("./src/instrucciones/VARIABLES").DECLARACION_VARIABLE;
     let DECLARACION_PARAMETRO       =   require("./src/instrucciones/VARIABLES").DECLARACION_PARAMETRO;
     let DECLARACION_VECTOR_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_VECTOR_TIPO1; 
-    let DECLARACION_LISTA_TIPO1    =   require("./src/instrucciones/VARIABLES").DECLARACION_LISTA_TIPO1; 
+    let DECLARACION_LISTA_TIPO1     =   require("./src/instrucciones/VARIABLES").DECLARACION_LISTA_TIPO1; 
     let ASIGNACION_VARIABLE         =   require("./src/instrucciones/VARIABLES").ASIGNACION_VARIABLE;
     let ASIGNACION_VECTOR           =   require("./src/instrucciones/VARIABLES").ASIGNACION_VECTOR;
+    let ASIGNACION_LISTA           =   require("./src/instrucciones/VARIABLES").ASIGNACION_LISTA;
+    let AGREGAR_A_LISTA             =   require("./src/instrucciones/VARIABLES").AGREGAR_A_LISTA;
     let VALIDAR_EXISTE_VARIABLE     =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VARIABLE;
     let VALIDAR_EXISTE_VECTOR       =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_VECTOR;
+    let VALIDAR_EXISTE_LISTA        =   require("./src/instrucciones/VARIABLES").VALIDAR_EXISTE_LISTA;
     let Valor                       =   require("./src/instrucciones/Valor").Valor;
     let OPERACIONES                 =   require("./src/instrucciones/OPERACIONES").OPERACIONES;
     let OPERACION_UNARIA            =   require("./src/instrucciones/OPERACION_UNARIA").OPERACION_UNARIA;
@@ -1276,6 +1330,7 @@ _handle_error:
     let SENT_BREAK                  =   require("./src/instrucciones/FUNCIONES").BREAK;
     let SENT_CONTINUE               =   require("./src/instrucciones/FUNCIONES").CONTINUE;
     let SENT_RETURN                 =   require("./src/instrucciones/FUNCIONES").RETURN;
+    let TOCHARARRAY                 =   require("./src/instrucciones/FUNCIONES").TOCHARARRAY;
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -1612,154 +1667,158 @@ case 2:lexico.push("COMENTARIO SIMPLE: "+yy_.yytext)
 break;
 case 3:lexico.push("COMENTARIO MULTILINEA: "+yy_.yytext)
 break;
-case 4:lexico.push("INT");         return 70; 
+case 4:lexico.push("INT");         return 74; 
 break;
-case 5:lexico.push("DOUBLE");      return 73;
+case 5:lexico.push("DOUBLE");      return 77;
 break;
-case 6:lexico.push("BOOLEAN");     return 71;
+case 6:lexico.push("BOOLEAN");     return 75;
 break;
-case 7:lexico.push("CHAR");        return 74;
+case 7:lexico.push("CHAR");        return 78;
 break;
-case 8:lexico.push("STRING");      return 72;
+case 8:lexico.push("STRING");      return 76;
 break;
-case 9:lexico.push("TRUE");        return 100;
+case 9:lexico.push("TRUE");        return 105;
 break;
-case 10:lexico.push("FALSE");       return 101;
+case 10:lexico.push("FALSE");       return 106;
 break;
-case 11:lexico.push("IF");          return 52;
+case 11:lexico.push("IF");          return 56;
 break;
-case 12:lexico.push("PRINT");       return 54;
+case 12:lexico.push("PRINT");       return 58;
 break;
-case 13:lexico.push("ELSE");        return 53;
+case 13:lexico.push("ELSE");        return 57;
 break;
-case 14:lexico.push("VOID");        return 46;
+case 14:lexico.push("VOID");        return 50;
 break;
-case 15:lexico.push("RETURN");      return 69;
+case 15:lexico.push("RETURN");      return 73;
 break;
-case 16:lexico.push("SWITCH");      return 59;
+case 16:lexico.push("SWITCH");      return 63;
 break;
-case 17:lexico.push("DCASE");       return 63;
+case 17:lexico.push("DCASE");       return 67;
 break;
-case 18:lexico.push("DEFAULT");     return 66;
+case 18:lexico.push("DEFAULT");     return 70;
 break;
-case 19:lexico.push("WHILE");       return 55;
+case 19:lexico.push("WHILE");       return 59;
 break;
-case 20:lexico.push("FOR");         return 56;
+case 20:lexico.push("FOR");         return 60;
 break;
-case 21:lexico.push("DO");          return 58;
+case 21:lexico.push("DO");          return 62;
 break;
-case 22:lexico.push("BREAK");       return 67;
+case 22:lexico.push("BREAK");       return 71;
 break;
-case 23:lexico.push("CONTINUE");    return 68;
+case 23:lexico.push("CONTINUE");    return 72;
 break;
-case 24:lexico.push("RETURN");      return 69;
+case 24:lexico.push("RETURN");      return 73;
 break;
-case 25:lexico.push("RNEW");        return 38;
+case 25:lexico.push("RNEW");        return 40;
 break;
-case 26:lexico.push("RNEW");        return 42;
+case 26:lexico.push("LIST");        return 44;
 break;
-case 27:lexico.push("TOLOWER");     return 88;
+case 27:lexico.push("ADD");         return 48;
 break;
-case 28:lexico.push("TOUPPER");     return 89;
+case 28:lexico.push("TOLOWER");     return 92;
 break;
-case 29:lexico.push("LENGHT");      return 90;
+case 29:lexico.push("TOUPPER");     return 93;
 break;
-case 30:lexico.push("TRUNCATE");    return 91;
+case 30:lexico.push("LENGHT");      return 94;
 break;
-case 31:lexico.push("ROUND");       return 92;
+case 31:lexico.push("TRUNCATE");    return 95;
 break;
-case 32:lexico.push("TYPEOF");      return 93;
+case 32:lexico.push("ROUND");       return 96;
 break;
-case 33:lexico.push("TOSTRING");    return 94;
+case 33:lexico.push("TYPEOF");      return 97;
 break;
-case 34:lexico.push("TOCHARARRAY"); return 'RTOCHARARRAY';
+case 34:lexico.push("TOSTRING");    return 98;
 break;
-case 35:lexico.push("MAIN");        return 28;
+case 35:lexico.push("TOCHARARRAY"); return 100;
 break;
-case 36: yy_.yytext = yy_.yytext.toLowerCase();            return 29;
+case 36:lexico.push("MAIN");        return 30;
 break;
-case 37: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2);       return 99;
+case 37: yy_.yytext = yy_.yytext.toLowerCase();            return 31;
 break;
-case 38: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2);       return 98; 
+case 38: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2);       return 104;
 break;
-case 39: return 97
+case 39: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2);       return 103; 
 break;
-case 40: return 96 
+case 40: return 102
 break;
-case 41:return '$'
+case 41: return 101 
 break;
-case 42:return 50;
+case 42:return '$'
 break;
-case 43:return 51;
+case 43:return 54;
 break;
-case 44:return 75;
+case 44:return 55;
 break;
-case 45:return 76;
+case 45:return 79;
 break;
-case 46:return 77;
+case 46:return 80;
 break;
-case 47:return 78;
+case 47:return 81;
 break;
-case 48:return 79;
+case 48:return 82;
 break;
-case 49:return 80;
+case 49:return 83;
 break;
-case 50:return 30;
+case 50:return 84;
 break;
 case 51:return 32;
 break;
-case 52:return 81;
+case 52:return 34;
 break;
-case 53:return 34;
+case 53:return 85;
 break;
-case 54:return 45;
+case 54:return 36;
 break;
-case 55:return 64;
+case 55:return 49;
 break;
-case 56:return 8;
+case 56:return 68;
 break;
-case 57:return 85;
+case 57:return 8;
 break;
-case 58:return 86;
+case 58:return 89;
 break;
-case 59:return 82;
+case 59:return 90;
 break;
-case 60:return 87;
+case 60:return 86;
 break;
-case 61:return 83;
+case 61:return 91;
 break;
-case 62:return 84;
+case 62:return 87;
 break;
-case 63:return 44;
+case 63:return 88;
 break;
-case 64:return 43;
+case 64:return 46;
 break;
-case 65:return 39;
+case 65:return 45;
 break;
 case 66:return 41;
 break;
-case 67:return 36;
+case 67:return 43;
 break;
-case 68:return 37;
+case 68:return 38;
 break;
-case 69:return 95;
+case 69:return 39;
 break;
-case 70:return 'SALTO_LINEA';
+case 70:return 99;
 break;
-case 71:return 'COMILLA_SIMPLE';
+case 71:return 47;
 break;
-case 72:return 'BARRA_INVERTIDA';
+case 72:return 'SALTO_LINEA';
 break;
-case 73:return 'COMILLA_DOBLE';
+case 73:return 'COMILLA_SIMPLE';
 break;
-case 74:return 'TABULACION';
+case 74:return 'BARRA_INVERTIDA';
 break;
-case 75:
+case 75:return 'COMILLA_DOBLE';
+break;
+case 76:return 'TABULACION';
+break;
+case 77:
 break;
 }
 },
-rules: [/^(?:\s+)/i,/^(?:$)/i,/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:int\b)/i,/^(?:double\b)/i,/^(?:boolean\b)/i,/^(?:char\b)/i,/^(?:string\b)/i,/^(?:true\b)/i,/^(?:false\b)/i,/^(?:if\b)/i,/^(?:print\b)/i,/^(?:else\b)/i,/^(?:void\b)/i,/^(?:return\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:default\b)/i,/^(?:while\b)/i,/^(?:for\b)/i,/^(?:do\b)/i,/^(?:break\b)/i,/^(?:continue\b)/i,/^(?:return\b)/i,/^(?:new\b)/i,/^(?:list\b)/i,/^(?:toLower\b)/i,/^(?:toUpper\b)/i,/^(?:length\b)/i,/^(?:truncate\b)/i,/^(?:round\b)/i,/^(?:typeof\b)/i,/^(?:toString\b)/i,/^(?:toCharArray\b)/i,/^(?:main\b)/i,/^(?:([a-zA-ZÑñ]|(_[a-zA-ZÑñ]))([a-zA-ZÑñ]|[0-9]|_)*)/i,/^(?:"(?:[(\[)|(\])]|["\\"]["bnrt/["\\"]|[^"["\\"])*")/i,/^(?:'((\\')|(\\")|(\\\\)|(\\n)|(\\t)|[^\\\n\'])?')/i,/^(?:((?:[0-9]|[1-9][0-9]+))((?:\.[0-9]+))\b)/i,/^(?:((?:[0-9]|[1-9][0-9]+))\b)/i,/^(?:\$)/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:\^)/i,/^(?:%)/i,/^(?:\()/i,/^(?:\))/i,/^(?:==)/i,/^(?:=)/i,/^(?:,)/i,/^(?::)/i,/^(?:;)/i,/^(?:\|\|)/i,/^(?:&&)/i,/^(?:!=)/i,/^(?:!)/i,/^(?:<=)/i,/^(?:>=)/i,/^(?:>)/i,/^(?:<)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\?)/i,/^(?:\\n)/i,/^(?:\\')/i,/^(?:\\\\)/i,/^(?:")/i,/^(?:\\t)/i,/^(?:.)/i],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75],"inclusive":true}}
+rules: [/^(?:\s+)/i,/^(?:$)/i,/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:int\b)/i,/^(?:double\b)/i,/^(?:boolean\b)/i,/^(?:char\b)/i,/^(?:string\b)/i,/^(?:true\b)/i,/^(?:false\b)/i,/^(?:if\b)/i,/^(?:print\b)/i,/^(?:else\b)/i,/^(?:void\b)/i,/^(?:return\b)/i,/^(?:switch\b)/i,/^(?:case\b)/i,/^(?:default\b)/i,/^(?:while\b)/i,/^(?:for\b)/i,/^(?:do\b)/i,/^(?:break\b)/i,/^(?:continue\b)/i,/^(?:return\b)/i,/^(?:new\b)/i,/^(?:list\b)/i,/^(?:add\b)/i,/^(?:toLower\b)/i,/^(?:toUpper\b)/i,/^(?:length\b)/i,/^(?:truncate\b)/i,/^(?:round\b)/i,/^(?:typeof\b)/i,/^(?:toString\b)/i,/^(?:toCharArray\b)/i,/^(?:main\b)/i,/^(?:([a-zA-ZÑñ]|(_[a-zA-ZÑñ]))([a-zA-ZÑñ]|[0-9]|_)*)/i,/^(?:"(?:[(\[)|(\])]|["\\"]["bnrt/["\\"]|[^"["\\"])*")/i,/^(?:'((\\')|(\\")|(\\\\)|(\\n)|(\\t)|[^\\\n\'])?')/i,/^(?:((?:[0-9]|[1-9][0-9]+))((?:\.[0-9]+))\b)/i,/^(?:((?:[0-9]|[1-9][0-9]+))\b)/i,/^(?:\$)/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:\^)/i,/^(?:%)/i,/^(?:\()/i,/^(?:\))/i,/^(?:==)/i,/^(?:=)/i,/^(?:,)/i,/^(?::)/i,/^(?:;)/i,/^(?:\|\|)/i,/^(?:&&)/i,/^(?:!=)/i,/^(?:!)/i,/^(?:<=)/i,/^(?:>=)/i,/^(?:>)/i,/^(?:<)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\?)/i,/^(?:\.)/i,/^(?:\\n)/i,/^(?:\\')/i,/^(?:\\\\)/i,/^(?:")/i,/^(?:\\t)/i,/^(?:.)/i],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77],"inclusive":true}}
 });
 return lexer;
 })();

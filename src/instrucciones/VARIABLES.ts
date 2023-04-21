@@ -838,6 +838,227 @@ export class DECLARACION_LISTA_TIPO1 extends Instruccion
     expresion:    Expresion[];
     tipo_confirmacion:  Tipo;
 
+    constructor(tipo: Tipo, id: string, expresion: Expresion[],tipo_confirmacion:Tipo, linea: number, columna: number) 
+    {
+        super(linea, columna,"DECLARACIONLISTA");
+        this.tipo = tipo;
+        this.id = id;  
+        this.expresion = expresion;
+        this.tipo_confirmacion = tipo_confirmacion;      
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        //SI LA VARIABLE EXISTE NO SE CREA NADA
+        if(this.tipo.obtener_tipo_de_dato() == this.tipo_confirmacion.obtener_tipo_de_dato())
+        {
+            if( tabla.variable_existe(this.id) ) 
+            {
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VARIABLE YA EXISTE.");
+            }
+            //SI LA VARIABLE NO EXISTE
+            else
+            {
+                //VALIDAR LA EXPRESION
+                if(this.expresion.length==0){
+                    if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.INT)
+                    {
+                        let res: number[] = [];
+                        let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                    else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.DOUBLE)
+                    {
+                        let res: number[] = [];
+                        let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    } 
+                    else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.BOOLEAN)
+                    {
+                        let res: boolean[] = [];
+                        let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    } 
+                    else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.CHAR) 
+                    {
+                        let res: String[] = [];
+                        let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    } 
+                    else if(this.tipo.obtener_tipo_de_dato() === TIPO_DATO.STRING) 
+                    {
+                        let res: String[] = [];
+                        let nuevo_vec = new LISTA(this.tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                        tabla.agregar_variable_tabla(this.id,nuevo_vec);
+                    }
+                }
+                else{
+                    ast.escribir_en_consola("ES CON TOCHARARRAY");
+
+                    let lista_tochararray = this.expresion[0].obtener_valor(tabla, global,ast);
+                    let tipo_lista = this.expresion[0].tipo.obtener_tipo_de_dato();
+                    if(tipo_lista == TIPO_DATO.STRING){
+                        let res: String[] = lista_tochararray;
+                        let nuevo_vec = new LISTA(this.expresion[0].tipo, this.id, res);
+                        ast.escribir_en_consola("EXITO: lista "+this.id +" creada con valor: "+res);
+                    }
+                    
+                }
+                 
+            }
+        }
+        else{
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): TIPOS DE LISTA NO COINCIDEN.");
+        }
+    }  
+}
+export class AGREGAR_A_LISTA extends Instruccion 
+{
+    id:     string;
+    expresion:    Expresion;
+
+    constructor(id: string, expresion: Expresion, linea: number, columna: number) 
+    {
+        super(linea, columna,"AGREGAR A LISTA");
+        this.id = id;
+        this.expresion = expresion;
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let variable = tabla.obtener_lista(this.id);
+        if(variable === undefined) 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): LISTA "+this.id+" NO DEFINIDA.");    
+        }else{
+            let valor_asig = this.expresion.obtener_valor(tabla, global, ast);
+            if(variable.obtener_tipo().obtener_tipo_de_dato() != this.expresion.tipo.obtener_tipo_de_dato()) 
+            {
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): EL VALOR NO COINCIDE CON EL TIPO DE LA LISTA.");
+            }else{
+                let lista = variable.obtener_valor();    //obtiene el vector
+                lista.push(valor_asig);
+                ast.escribir_en_consola("EXITO variable modificada. Nuevo valor: "+lista);
+            }  
+        }
+    } 
+}
+export class VALIDAR_EXISTE_LISTA extends Expresion
+{
+    nombrelista  : string;
+    posicion   : Expresion;
+    constructor(nombreVar : string, posicion:Expresion, linea : number, columna : number) 
+    {
+        super(linea,columna,"VALIDAREXISTELISTA");
+        this.nombrelista = nombreVar;
+        this.posicion = posicion;
+    }
+    
+    public obtener_valor(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        //VALIDA SI EXISTE LA VARIABLE
+        let variable = tabla.obtener_lista(this.nombrelista);
+        if(variable === undefined) 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): VECTOR "+this.nombrelista+" NO DEFINIDO.");
+            let valor_var = "ERROR";
+            this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+            return valor_var;
+        }   
+        
+        let valor_var = variable.obtener_valor();
+        //this.tipo = variable.obtener_tipo();
+        let pos = this.posicion.obtener_valor(tabla,global,ast)
+        let tipo_pos = this.posicion.tipo.obtener_tipo_de_dato();
+        //ast.escribir_en_consola("."+tipo_pos)
+
+        if (tipo_pos != TIPO_DATO.INT){
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION DE VECTOR NO VALIDA");
+            let valor_var = "ERROR";
+            this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+            return valor_var;
+        }
+        else
+        {
+            if((valor_var.length -1) < pos){
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION EXCEDE A LONGITUD DE VECTOR");
+                let valor_var = "ERROR";
+                this.tipo = new Tipo(TIPO_DATO.ERROR) ;
+                return valor_var;
+            }
+            else{
+                let tipo_vector = variable.obtener_tipo();
+                this.tipo = tipo_vector
+                ;return(valor_var[pos])
+            }
+
+        }
+    }
+    
+}
+export class ASIGNACION_LISTA extends Instruccion 
+{
+    id:     string;
+    posicion:  Expresion;
+    expresion:    Expresion;
+
+    constructor(id: string, posicion: Expresion, expresion: Expresion, linea: number, columna: number) 
+    {
+        super(linea, columna,"ASIGNACIONLISTA");
+        this.id = id;
+        this.posicion = posicion
+        this.expresion = expresion;
+    }
+
+    public ejecutar(tabla: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) 
+    {
+        let variable = tabla.obtener_lista(this.id);
+        if(variable === undefined) 
+        {
+            ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): LISTA "+this.id+" NO DEFINIDA.");
+            
+        }else{
+            let pos = this.posicion.obtener_valor(tabla,global,ast);
+            let pos_tipo = this.posicion.tipo.obtener_tipo_de_dato();
+            if (pos_tipo != TIPO_DATO.INT){
+                ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION LISTA NO VALIDA.");
+            }
+            else{
+                let valor_asig = this.expresion.obtener_valor(tabla, global, ast);
+                if(variable.obtener_tipo().obtener_tipo_de_dato() != this.expresion.tipo.obtener_tipo_de_dato()) 
+                {
+                    ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): EL VALOR NO COINCIDE CON EL TIPO DE LA LISTA.");
+                }else{
+                    let vect = variable.obtener_valor();    //obtiene el vector
+                    if((vect.length-1) < pos){
+                        ast.escribir_en_consola("ERROR EN ("+ this.linea + " , " + this.columna+ "): POSICION EXCEDE A LONGITUD DE LISTA");
+                    }
+                    else{
+                        vect[pos] = valor_asig;                 //modifica el valor
+                        variable.modificar_valor(vect)          //modifica el vector
+                        ast.escribir_en_consola("EXITO variable modificada. Nuevo valor: "+vect);
+                    }
+                    
+                }
+
+            }
+            
+        }
+    }
+    
+}
+export class DECLARACION_LISTA_TIPO2 extends Instruccion 
+{
+    tipo:   Tipo;
+    id:     string;
+    expresion:    Expresion[];
+    tipo_confirmacion:  Tipo;
+
     constructor(tipo: Tipo, id: string,tipo_confirmacion:Tipo, linea: number, columna: number) 
     {
         super(linea, columna,"DECLARACIONLISTA");

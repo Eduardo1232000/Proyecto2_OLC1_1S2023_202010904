@@ -44,6 +44,27 @@ export class TABLA_FUNCIONES_Y_VARIABLES
         }
         return undefined;
     }
+    public obtener_lista(id :string): LISTA 
+    {
+        let e: TABLA_FUNCIONES_Y_VARIABLES = this;
+        while (e != null) 
+        {
+            try 
+            {
+                const variable = e.tabla_variables.get(id);
+                if (variable != null) 
+                {
+                    return variable as LISTA;
+                }
+            } 
+            catch (error) 
+            {
+                console.log(error);
+            }
+            e = e.anterior;
+        }
+        return undefined;
+    }
     //VERIFICA SI EXISTE LA VARIABLE
     public variable_existe(id :string) : boolean 
     {

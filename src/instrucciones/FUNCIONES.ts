@@ -8,6 +8,7 @@ import { TIPO_DATO } from "../arbol/Tipo";
 import { LISTA_EJECUCIONES } from "../arbol/LISTA_EJECUCIONES";
 import { ASIGNACION_VARIABLE } from "./VARIABLES";
 import { VARIABLE } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
+import { LISTA } from "../arbol/TABLA_FUNCIONES_Y_VARIABLES";
 import exp from "constants";
 
 export class IF extends Instruccion
@@ -794,4 +795,34 @@ export class RETURN extends Instruccion
         this.ejecuto_return = this.expresion;   
     }
     
+}
+export class TOCHARARRAY extends Expresion
+{
+    expresion : Expresion;
+    constructor(expresion: Expresion, linea :number, columna :number) 
+    {
+        super(linea, columna,"TOCHARARRAY");
+        this.expresion = expresion;
+        
+    }
+    public obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) {
+        ast.escribir_en_consola("TOCHARARRAY;")
+        let valor = this.expresion.obtener_valor(actual,global,ast);
+        this.tipo = new Tipo(TIPO_DATO.STRING);
+        let lista = []
+        if(this.expresion.tipo.obtener_tipo_de_dato()== TIPO_DATO.STRING){
+            for(let i=0;i<valor.length;i++){
+                //ast.escribir_en_consola(""+valor[i]);
+                lista.push(valor[i]);
+            }
+            return lista;
+
+        }
+        else{
+            let respuesta;
+            this.tipo = new Tipo(TIPO_DATO.ERROR);
+            respuesta = 0;
+            return respuesta;
+        } 
+    }
 }

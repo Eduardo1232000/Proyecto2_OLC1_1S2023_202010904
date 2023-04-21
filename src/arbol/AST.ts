@@ -27,7 +27,7 @@ export class AST {
             let TABLA_FUNCIONES_Y_VARIABLES_global:TABLA_FUNCIONES_Y_VARIABLES = new TABLA_FUNCIONES_Y_VARIABLES(undefined,"global");
             let TABLA_FUNCIONES_Y_VARIABLES_actual:TABLA_FUNCIONES_Y_VARIABLES = TABLA_FUNCIONES_Y_VARIABLES_global;
             //RECORRER PARA DECLARAR FUNCIONES
-            console.log("DECLARACION DE METODOS ------------");
+            console.log("------------ DECLARACION DE METODOS ------------");
             for(let x = 0; x < this.EJECUCIONES.length ; x++)
             {
                 let sent = this.EJECUCIONES[x];
@@ -36,7 +36,7 @@ export class AST {
                 {
                     if(sent.nombre_in_ex=="DECLARACIONMETODO")
                     {
-                        console.log(sent.nombre_in_ex);
+                        console.log("instruccion: "+sent.nombre_in_ex);
                         sent.ejecutar(TABLA_FUNCIONES_Y_VARIABLES_actual, TABLA_FUNCIONES_Y_VARIABLES_global, this);
                     }
                     else if(sent.nombre_in_ex=="MAIN")
@@ -47,9 +47,9 @@ export class AST {
                     
                 }
             } 
-            console.log("FIN DECLARACION DE METODOS ------------");
             //SI NO ES NINGUNO DE LOS ANTERIORES
             if(cantidad_main <2){
+                console.log("------------ EJECUCION DE INSTRUCCIONES  ------------");
                 for(let x = 0; x < this.EJECUCIONES.length ; x++)
                 {
                     let sent = this.EJECUCIONES[x];
