@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= title %></title>
+    <title><%= title %></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
     <script src="/codemirror/lib/codemirror.js"></script>
-
-     <script src="/codemirror/lib/codemirror.js"></script>
-     <script src="/codemirror/mode/clike/clike.js"></script>
-     <link rel="stylesheet" href="/codemirror/lib/codemirror.css"/>
-     <script src="/codemirror/mode/javascript/javascript.js"></script>       
-     <link href="/codemirror/theme/midnight.css" rel="stylesheet" />      
-     <script src="/codemirror/addon/edit/closebrackets.js"></script>      
-     <script src="/codemirror/addon/selection/active-line.js"></script>
-     <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <script src="/codemirror/mode/clike/clike.js"></script>
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css"/>
+    <script src="/codemirror/mode/javascript/javascript.js"></script>       
+    <link href="/codemirror/theme/midnight.css" rel="stylesheet" />      
+    <script src="/codemirror/addon/edit/closebrackets.js"></script>      
+    <script src="/codemirror/addon/selection/active-line.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body style="background-color:#2A302F;">
+    <script src="//d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+    <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
             TypeWise
@@ -38,46 +38,69 @@
             <button id="boton_guardar_exito" type="submit" class="btn btn-success btn-sm">Guardar con este nombre</button>
             
         </a>
-      </nav>
-    <font color="white">
-
-    <ul class="nav nav-tabs" id="pestanas" role="tablist"></ul>
-    
-    
-    
-    <center><h2>Compilador</h2></center>
-    <div class="row">
-        <div class="col-6"><h4>Entrada</h4></div>
-        <div class="col-6"><h4>Salida</h4></div>
-    </div>
-    <div class="col-6" >
-        &nbsp&nbsp
-        <textarea readonly id="nombre_archivo" name="nombre_arch" rows="1" cols="50" style="background-color:#2A302F;color:white;">Nuevo.tw</textarea> 
-    </div>
-    </font>
-    <div class="row">
-    </div>
-    <div class="row">
-        <div class="col-6">
-                <textarea  id="editor" name="codigo" ><%= codigo %></textarea>
-                <p style="text-align: center;">
-                    <button id = boton_ejecutar type="submit" class="btn btn-outline-success w-50 btn-lg" > Analizar Entrada</button> 
-                </p>
+    </nav>
+    <font color="white">   
+    <div id= "dividiv"style="display:grid">
+        <ul class="nav nav-tabs" id="pestanas" role="tablist"></ul>
+        <center><h2>Compilador</h2></center>
+        <div class="row" >
+            <div class="col-6"><h4>Entrada</h4></div>
+            <div class="col-6"><h4>Salida</h4></div>
         </div>
-        <div class="col-6"> 
+        <div class="col-6" >
+            &nbsp&nbsp
+            <textarea readonly id="nombre_archivo" name="nombre_arch" rows="1" cols="50" style="background-color:#2A302F;color:white;">Nuevo.tw</textarea> 
+        </div>
+            </font>
             <div class="row">
-                <div class="col-2">
-                    <textarea id="consola" name="textarea" ><%= salida %></textarea>
-                </div>
             </div>
-        </div>   
+            <div class="row">
+                <div class="col-6">
+                    <textarea  id="editor" name="codigo" ><%= codigo %></textarea>
+                    <p style="text-align: center;">
+                        <button id = boton_ejecutar type="submit" class="btn btn-outline-success w-50 btn-lg" > Analizar Entrada</button> 
+                    </p>
+                </div>
+            <div class="col-6"> 
+                <div class="row">
+                    <div class="col-2">
+                        <textarea id="consola" name="textarea" ><%= salida %></textarea>
+                    </div>
+                </div>
+            </div>   
+        </div>
     </div>
-    
+
+
+
+
+
+    <div id= "divrepo"style="display:none">
+        <font color="white"><center><h1>Reportes</h1></center></font>
+        <br>
+        <div id="centrado">
+            <button id="boton_SIMBOLOS" type="submit" class="btn btn-primary w-20" > Tabla de Simbolos </button>
+            <button id="boton_ERRORES" type="submit" class="btn btn-primary w-20" >  Tabla de errores  </button>
+            <button id="boton_AST"type="submit"class="btn btn-primary w-20 "  >      Grafica de AST    </button>
+        </div><br><br>
+        <label id="cod"></label>
+        <div id="graph" ></div>
+    </div>
+
+
+
+
     <script>
         let panel_pestana = document.getElementById("pestanas");
+        let div_compilador = document.getElementById("dividiv");
+        let div_reportes = document.getElementById("divrepo");
         let numero = 0
         let numero_pestana = 0
+        let codigo ;
         var lista_textos=new Array();
+        let codigo_ast ='digraph {a -> b}'
+        let codigo_error = 'digraph {a -> b}'
+        let codigo_simbolos = 'digraph {a -> b}'
         lista_textos.push("");//PRIMERA PESTAÑA
 
         nueva_pesta()//PESTAÑA 0
@@ -101,7 +124,11 @@
         //Respuesta del servidor
         .then(res => res.json())
         .then(data => {
-          editor2.setValue(data.respuesta)
+          editor2.setValue(data.respuesta),
+          codigo_simbolos = ("simbolos",data.simbolos),
+          codigo_ast=("ast",data.ast),
+          codigo_error=("errores",data.errores)
+
         })
     })
 
@@ -111,11 +138,12 @@
     })
 
     boton_compilador.addEventListener("click",(e) =>{
-        window.location.href = "http://localhost:3000/compilador";
+        div_compilador.style.display = "grid"
+        div_reportes.style.display = "none"
     })
-
     boton_reportes.addEventListener("click", (e) =>{
-        window.location.href = "http://localhost:3000/reportes"; 
+        div_compilador.style.display = "none"
+        div_reportes.style.display = "grid"
     })
     boton_nuevo.addEventListener("click", (e) =>{
         editor.setValue("")
@@ -124,10 +152,18 @@
     boton_guardar.addEventListener("click", (e) =>{
         download(nombre_archivo.value, editor.getValue());
     })
-
     boton_guardar_exito.addEventListener("click", (e) =>{
         nombre_archivo.value = nombre_guardar_como.value
         download(nombre_guardar_como.value, editor.getValue());
+    })
+    boton_AST.addEventListener("click",(e) =>{
+          graficar(codigo_ast)
+        })
+    boton_ERRORES.addEventListener("click",(e) =>{
+        graficar(codigo_error)
+    })
+    boton_SIMBOLOS.addEventListener("click",(e) =>{
+        graficar(codigo_simbolos)
     })
     //--------------------------------- CREAR ARCHIVO Y DESCARGARLO ---------------------------------
     function download(filename, textInput) {    
@@ -171,9 +207,6 @@
         nombre_archivo.value = file.name;
         }
       //--------------------------------------------------------
-
-
-
         function nueva_pesta(){
             lista_textos.push("");
             let pestana_li = document.createElement("li")
@@ -186,7 +219,6 @@
             //editor.setValue("");
             //editor2.setValue("");
             numero = numero +1
-            
             pest.href="#"+pest.id;
             pest.role ="tab";
             pest.innerText = "Pestaña "+ pest.id+ "  ";
@@ -195,10 +227,7 @@
                 lista_textos[numero_pestana] = editor.getValue()
                 numero_pestana = parseInt(pest.id)
                 editor.setValue(lista_textos[parseInt(pest.id)])
-                
-                
-            });
-            
+            });           
             let boton_cerrar_pest = document.createElement("button")
             boton_cerrar_pest.innerText = "x"
             boton_cerrar_pest.className = "btn btn-danger btn-sm";
@@ -209,12 +238,18 @@
                 editor2.setValue("")
 
             });
-            
             pest.appendChild(boton_cerrar_pest)
             pestana_li.appendChild(pest)
             panel_pestana.appendChild(pestana_li)
             
         }
+        function graficar(codigo) {    
+          d3.select("#graph").graphviz()
+          .width("45vw")
+          .height("82vh")
+          .renderDot(codigo)
+        }
     </script>
+
 </body>
 </html>

@@ -22,10 +22,12 @@ export abstract class Instruccion extends LISTA_EJECUCIONES
 export abstract class Expresion extends LISTA_EJECUCIONES
 {
     public tipo : Tipo;
+    ejecuto_return:Expresion
     constructor(linea:number,columna:number, nombre_in_ex: string)
     {
         super(linea,columna,nombre_in_ex);
         this.tipo = undefined;
+        this.ejecuto_return = undefined;
     }
     public abstract obtener_valor(actual: TABLA_FUNCIONES_Y_VARIABLES, global: TABLA_FUNCIONES_Y_VARIABLES, ast: AST) : any;
 }

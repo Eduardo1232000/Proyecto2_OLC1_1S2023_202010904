@@ -15,10 +15,16 @@ export class NODO_GRAFICA{
         this.hijos = [] 
     }//An5885837[label="raizL1C: 0" color="green"];
     obtener_grafica_nodos(){
+        //console.log(this.nombre)
         let salida = 'n'+this.ID+'[label="'+this.nombre+'" color="'+this.color+'"];\n '
         for (let i = 0; i < this.hijos.length; i++){
-            salida += this.hijos[i].obtener_grafica_nodos();
-            salida +='n' +this.ID+' -> n'+this.hijos[i].ID+'; \n'
+            try {
+                salida += this.hijos[i].obtener_grafica_nodos();
+                salida +='n' +this.ID+' -> n'+this.hijos[i].ID+'; \n'
+            } catch (error) {
+                console.log("NO PUDE OBTENER EL HIJO DE ESTE NODO (CREO QUE ES DE ALGUN ERROR)");
+            }
+            
             
         }
         return salida
