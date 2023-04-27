@@ -116,8 +116,29 @@ export class AST {
     }
     public guardar_en_tabla_simbolos (identificador:string,tipo_variable:string,tipo:string,entorno:string,linea:number,columna:number )
     {
-        let nodo = new NODO_TABLA_SIMBOLOS(identificador,tipo_variable,tipo,entorno,linea,columna);
-        this.tabla_simbolos.push(nodo)
+        let repetido = false;
+        for(let i=0;i<this.tabla_simbolos.length;i++){
+            let nodo_actual = this.tabla_simbolos[i];
+            //vamos a verificar si este nodo ya se declaro.
+            if(nodo_actual.identificador == identificador){
+                if(nodo_actual.tipo1 == tipo_variable){
+                    if(nodo_actual.tipo2 == tipo){
+                        if(nodo_actual.entorno == entorno){
+                            if (nodo_actual.linea== linea){
+                                if(nodo_actual.columna== columna){
+                                    repetido = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(repetido == false){
+            let nodo = new NODO_TABLA_SIMBOLOS(identificador,tipo_variable,tipo,entorno,linea,columna);
+            this.tabla_simbolos.push(nodo)
+        }
+        
     }
     public graficar_tabla_de_simbolos(){
         //this.escribir_en_consola("<<<<<< TABLA DE SIMBOLOS >>>>>>");

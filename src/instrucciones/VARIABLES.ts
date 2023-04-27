@@ -563,6 +563,7 @@ export class DECLARACION_METODO extends Instruccion
             let nueva_var = new FUNCION(this.tipo,this.id,this.parametros,this.instrucciones);
             console.log("EXITO: metodo "+this.id +": creada");
             tabla.agregar_funcion_tabla(this.id,nueva_var);
+            
             let tipo_func = this.tipo.obtener_tipo_de_dato();
                 let tipo_funcion_tabla;
                 if(tipo_func == TIPO_DATO.INT){
@@ -589,7 +590,28 @@ export class DECLARACION_METODO extends Instruccion
                     tipo_funcion_tabla = "Void"
                     ast.guardar_en_tabla_simbolos(this.id,"Metodo",tipo_funcion_tabla,tabla.nombre_ambito,this.linea, this.columna);
                 }
-                
+            //GUARDAR PARAMETROS EN LA TABLA DE SIMBOLOS
+            for(let i =0;i<this.parametros.length;i++){
+                let param_actual = this.parametros[i];
+                let param_tipo = param_actual.obtener_tipo();
+                let param_id = param_actual.obtener_nombre();
+                let param_linea = param_actual.obtener_linea();
+                let param_columna = param_actual.obtener_columna();
+                let param_tipo_actual = param_tipo.obtener_tipo_de_dato();
+                let tipo_tabla ="";
+                if(param_tipo_actual == TIPO_DATO.INT){
+                    tipo_tabla = "Int"
+                }else if(param_tipo_actual == TIPO_DATO.DOUBLE){
+                    tipo_tabla = "Double"
+                }else if(param_tipo_actual == TIPO_DATO.BOOLEAN){
+                    tipo_tabla = "Boolean"
+                }else if(param_tipo_actual == TIPO_DATO.CHAR){
+                    tipo_tabla = "Char"
+                }else if(param_tipo_actual == TIPO_DATO.STRING){
+                    tipo_tabla = "String"
+                }
+                ast.guardar_en_tabla_simbolos(param_id,"variable",tipo_tabla,"funcion "+this.id,this.linea,param_columna)
+            }   
                 
             
             
@@ -628,7 +650,7 @@ export class LLAMADA_METODO extends Instruccion
                 //ASIGNACION DE PARAMETROS
                 if(param.length == this.parametros.length){
                     //CREAMOS NUESTRO NUEVO AMBITO
-                    let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,"funcion");  //CREAMOS AMBITO PARA FUNCION
+                    let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,("funcion "+this.id));  //CREAMOS AMBITO PARA FUNCION
                     //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
                     for(let i=0;i<param.length;i++){
                         let parametro = param[i];
@@ -714,7 +736,7 @@ export class LLAMADA_METODO_EXPRESION extends Expresion
                 //ASIGNACION DE PARAMETROS
                 if(param.length == this.parametros.length){
                     //CREAMOS NUESTRO NUEVO AMBITO
-                    let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,"funcion");  //CREAMOS AMBITO PARA FUNCION
+                    let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,("funcion "+this.id));  //CREAMOS AMBITO PARA FUNCION
                     //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
                     for(let i=0;i<param.length;i++){
                         let parametro = param[i];
@@ -815,7 +837,7 @@ export class LLAMADA_MAIN extends Instruccion
                 if(param.length == this.parametros.length){
                     
                     //CREAMOS NUESTRO NUEVO AMBITO
-                    let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,"main");  //CREAMOS AMBITO PARA FUNCION
+                    let TABLA_FUNC_Y_VAR_FUNCION = new TABLA_FUNCIONES_Y_VARIABLES(tabla,("funcion "+this.id));  //CREAMOS AMBITO PARA FUNCION
                     //ast.escribir_en_consola("SI CUMPLE CON EL NUMERO DE PARAMETROS");
                     for(let i=0;i<param.length;i++){
                         let parametro = param[i];
